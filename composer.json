@@ -1,0 +1,60 @@
+{
+    "name": "goodcatch/laravel-modules",
+    "description": "Laravel Module management extensions",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "allen",
+            "email": "ali@goodcatch.cn",
+            "homepage": "https://www.goodcatch.cn/laravel-modules",
+            "role": "Developer"
+        }
+    ],
+
+    "require": {
+        "nwidart/laravel-modules": "^7.1"
+    },
+    "require-dev": {
+        "illuminate/support": "^6.0",
+        "elendev/nexus-composer-push": "^0.2.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Goodcatch\\Modules\\": "src"
+
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Goodcatch\\Modules\\LaravelModulesServiceProvider"
+            ],
+            "aliases": {
+                "GoodcatchModule": "Goodcatch\\Modules\\Facades\\Module"
+            },
+            "nexus-push": {
+                "url": "https://repos.goodcatch.cn/repository/composer",
+                "ignore-by-git-attributes": true,
+                "ignore": [
+                    "test.php",
+                    "vendor/"
+                ]
+            }
+        }
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://repos.goodcatch.cn/repository/goodcatch-composer-group/"
+        },
+        {
+            "packagist.org": false
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
