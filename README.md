@@ -1,5 +1,7 @@
-# Laravel Modules extension
+# Laravel Modules extension 
 ======
+
+based on project [nwidart/laravel-modules](https://github.com/nwidart/laravel-modules)
 
 ## Introduction
 

@@ -13,6 +13,6 @@ class Module extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'goodcatch-modules';
+        return 'modules';
     }
 }
