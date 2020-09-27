@@ -1,13 +1,17 @@
-# 模块化开发
+# Laravel Modules extension
 ======
+
+## Introduction
+
+The goodcatch laravel modules library overwrite "nwidart/laravel-modules" service providers.
+
+And, ignored package "nwidart/laravel-modules" in laravel package discovery.
 
 
 ## Installation
 
 ```
 composer require goodcatch/laravel-modules
-
-php artisan vendor:publish --tag config
 ```
 
 

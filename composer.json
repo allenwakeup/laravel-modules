@@ -17,6 +17,7 @@
     },
     "require-dev": {
         "illuminate/support": "^6.0",
+        "laravel/framework": "^6.0",
         "elendev/nexus-composer-push": "^0.2.2"
     },
     "autoload": {
@@ -36,14 +37,23 @@
             "aliases": {
                 "GoodcatchModule": "Goodcatch\\Modules\\Facades\\Module"
             },
-            "nexus-push": {
-                "url": "https://repos.goodcatch.cn/repository/composer",
-                "ignore-by-git-attributes": true,
-                "ignore": [
-                    "test.php",
-                    "vendor/"
-                ]
-            }
+            "dont-discover": [
+                "nwidart/laravel-modules"
+            ]
+
+        },
+        "nexus-push": {
+            "url": "https://repos.goodcatch.cn/repository/composer",
+            "ignore-by-git-attributes": true,
+            "ignore": [
+                "test.php",
+                "auth.json",
+                "composer.lock",
+                ".gitignore",
+                ".DS_Store",
+                ".idea/",
+                "vendor/"
+            ]
         }
     },
     "repositories": [
