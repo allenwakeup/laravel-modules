@@ -12,9 +12,34 @@ And, ignored package "nwidart/laravel-modules" in laravel package discovery.
 
 ## Installation
 
+### install library
+
 ```
 composer require goodcatch/laravel-modules
 ```
+
+### modify Application
+
+find file **/path_to_project/bootstrap/app.php**
+
+change Kernal from app kernel to goodcatch kernel
+
+for example
+
+```php
+
+...
+
+$app->singleton(
+    Illuminate\Contracts\Console\Kernel::class,
+    Goodcatch\Modules\Laravel\Console\Kernel::class
+);
+
+
+...
+
+```
+
 
 
 Licensed under [The MIT License (MIT)](LICENSE).

@@ -1,11 +1,12 @@
 <?php
 
-namespace Nwidart\Modules\Activators;
+namespace Goodcatch\Modules\Activators;
 
 use Illuminate\Cache\CacheManager;
 use Illuminate\Config\Repository as Config;
 use Illuminate\Container\Container;
 use Illuminate\Log\LogManager;
+use Illuminate\Support\Facades\Schema;
 use Nwidart\Modules\Contracts\ActivatorInterface;
 use Nwidart\Modules\Module;
 
@@ -82,7 +83,11 @@ class DatabaseActivator implements ActivatorInterface
      */
     public function getTableName (): string
     {
-        return $this->table;
+        if (Schema::hasTable ($this->table))
+        {
+            return $this->table;
+        }
+        return '';
     }
 
     /**
@@ -90,7 +95,10 @@ class DatabaseActivator implements ActivatorInterface
      */
     public function reset (): void
     {
-        // TODO: delete
+        if (! empty ($this->getTableName ()))
+        {
+            $this->connection->table ($this->getTableName ())->where ('type', 1)->update (['status' => 0]);
+        }
         $this->modulesStatuses = [];
         $this->flushCache ();
     }
@@ -137,7 +145,7 @@ class DatabaseActivator implements ActivatorInterface
     public function setActiveByName (string $name, bool $status): void
     {
         $this->modulesStatuses [$name] = $status;
-        $this->writeJson ();
+        $this->writeDb ();
         $this->flushCache ();
     }
 
@@ -146,27 +154,34 @@ class DatabaseActivator implements ActivatorInterface
      */
     public function delete (Module $module): void
     {
-        if (!isset($this->modulesStatuses [$module->getName ()])) {
+        if (!isset ($this->modulesStatuses [$module->getName ()])) {
             return;
         }
         unset ($this->modulesStatuses [$module->getName ()]);
-        $this->writeJson ();
+        $this->writeDb ();
         $this->flushCache ();
     }
 
     /**
      * Writes the activation statuses in a file, as json
      */
-    private function writeJson(): void
+    private function writeDb (): void
     {
-        try {
-            $this->connection->transaction (function () {
-                foreach ($this->modulesStatuses as $name => $status) {
-                    $this->connection->table ($this->table)->where ('name', $name)->update (['status' => $status ? 1 : 0]);
-                }
-            }, 3);
-        } catch (\Throwable $e) {
-            $this->logger->error ($e->getMessage ());
+        if (! empty ($this->getTableName ()))
+        {
+            try {
+                $this->connection->transaction (function () {
+                    foreach ($this->modulesStatuses as $name => $status) {
+                        $this->connection
+                            ->table ($this->getTableName ())
+                            ->where ('name', $name)
+                            ->where ('type', 1)
+                            ->update (['status' => $status ? 1 : 0]);
+                    }
+                }, 3);
+            } catch (\Throwable $e) {
+                $this->logger->error ($e->getMessage ());
+            }
         }
     }
 
@@ -174,12 +189,19 @@ class DatabaseActivator implements ActivatorInterface
      * Reads the json file that contains the activation statuses.
      * @return array
      */
-    private function readJson (): array
+    private function readDb (): array
     {
-        return $this->connection->query ()->get ()->reduce (function ($reduce, $item) {
-            $reduce [$item->name] = ($item->status === 1);
-            return $reduce;
-        }, []);
+        if (! empty ($this->getTableName ()))
+        {
+            return $this->connection
+                ->table ($this->getTableName ())
+                ->get ()
+                ->reduce (function ($reduce, $item) {
+                    $reduce [$item->name] = ($item->status === 1);
+                    return $reduce;
+                }, []);
+        }
+        return [];
     }
 
     /**
@@ -190,11 +212,11 @@ class DatabaseActivator implements ActivatorInterface
     private function getModulesStatuses (): array
     {
         if (!$this->config->get ('modules.cache.enabled')) {
-            return $this->readJson ();
+            return $this->readDb ();
         }
 
         return $this->cache->remember ($this->cacheKey, $this->cacheLifetime, function () {
-            return $this->readJson ();
+            return $this->readDb ();
         });
     }
 

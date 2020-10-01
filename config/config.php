@@ -1,6 +1,6 @@
 <?php
 
-use Nwidart\Modules\Activators\DatabaseActivator;
+use Goodcatch\Modules\Activators\DatabaseActivator;
 use Nwidart\Modules\Activators\FileActivator;
 
 return [
@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'namespace' => 'App\Modules',
+    'namespace' => 'Goodcatch\Modules',
 
     /*
     |--------------------------------------------------------------------------
@@ -154,10 +154,10 @@ return [
     */
 
     'composer' => [
-        'vendor' => 'nwidart',
+        'vendor' => 'goodcatch',
         'author' => [
-            'name' => 'Nicolas Widart',
-            'email' => 'n.widart@gmail.com',
+            'name' => 'Allen Li',
+            'email' => 'ali@goodcatch.cn',
         ],
     ],
     /*
@@ -220,13 +220,20 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Route name prefix for modules
+    | Route for modules
     |--------------------------------------------------------------------------
     |
     | You can define prefix of route name here, default to m.
     | The request url to modules follow this prefix
     */
     'route' => [
+        'path' => base_path () . '/vendor/goodcatch/laravel-modules/src/routes/modules.php',
         'prefix' => env ('MODULE_ROUTE_PREFIX', 'm'),
+        'frontend' => [
+            'namespace' => 'Http\\Controllers\\Admin'
+        ],
+        'backend' => [
+
+        ]
     ]
 ];

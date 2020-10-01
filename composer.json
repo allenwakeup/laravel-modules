@@ -13,7 +13,8 @@
     ],
 
     "require": {
-        "nwidart/laravel-modules": "^7.1"
+        "nwidart/laravel-modules": "^7.1",
+        "mcamara/laravel-localization": "^1.6"
     },
     "require-dev": {
         "illuminate/support": "^6.0",
