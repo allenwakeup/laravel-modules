@@ -6,12 +6,22 @@ use Illuminate\Cache\CacheManager;
 use Illuminate\Config\Repository as Config;
 use Illuminate\Container\Container;
 use Illuminate\Log\LogManager;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Schema;
 use Nwidart\Modules\Contracts\ActivatorInterface;
+use Nwidart\Modules\Contracts\RepositoryInterface;
 use Nwidart\Modules\Module;
 
 class DatabaseActivator implements ActivatorInterface
 {
+
+    /**
+     * Application instance.
+     *
+     * @var \Illuminate\Contracts\Foundation\Application|\Laravel\Lumen\Application
+     */
+    protected $app;
+
     /**
      * Laravel cache instance
      *
@@ -66,6 +76,7 @@ class DatabaseActivator implements ActivatorInterface
 
     public function __construct (Container $app)
     {
+        $this->app = $app;
         $this->cache = $app ['cache'];
         $this->connection = $app ['db.connection'];
         $this->config = $app ['config'];
@@ -108,7 +119,7 @@ class DatabaseActivator implements ActivatorInterface
      */
     public function enable (Module $module): void
     {
-        $this->setActiveByName ($module->getName (), true);
+        $this->setActive ($module, true);
     }
 
     /**
@@ -116,7 +127,7 @@ class DatabaseActivator implements ActivatorInterface
      */
     public function disable (Module $module): void
     {
-        $this->setActiveByName ($module->getName (), false);
+        $this->setActive ($module, false);
     }
 
     /**
@@ -137,6 +148,7 @@ class DatabaseActivator implements ActivatorInterface
     public function setActive (Module $module, bool $active): void
     {
         $this->setActiveByName ($module->getName (), $active);
+        $this->syncModule ([$module]);
     }
 
     /**
@@ -145,7 +157,7 @@ class DatabaseActivator implements ActivatorInterface
     public function setActiveByName (string $name, bool $status): void
     {
         $this->modulesStatuses [$name] = $status;
-        $this->writeDb ();
+        $this->writeStatus ();
         $this->flushCache ();
     }
 
@@ -158,25 +170,66 @@ class DatabaseActivator implements ActivatorInterface
             return;
         }
         unset ($this->modulesStatuses [$module->getName ()]);
-        $this->writeDb ();
+        $this->syncModule ([$module]);
+        $this->writeStatus ();
         $this->flushCache ();
+    }
+
+    /**
+     * insert module info into database
+     * @param array $modules
+     */
+    private function syncModule (array $modules) {
+        try {
+            $this->connection->transaction (function () use ($modules) {
+
+                foreach ($modules as $key => $module)
+                {
+                    if ($module instanceof Module)
+                    {
+                        $module = $module->json ()->getAttributes ();
+                        $module ['path'] = $module->getPath ();
+                    }
+                    $this->connection
+                        ->table ($this->getTableName ())
+                        ->updateOrInsert (
+                            ['name' => Arr::get ($module, 'name')],
+                            [
+                                'alias' => Arr::get ($module, 'alias', ''),
+                                'description' => Arr::get ($module, 'description', ''),
+                                'path' => Arr::get ($module, 'path', ''),
+                                'status' => 1
+                            ]
+                        );
+                }
+            }, 3);
+        } catch (\Throwable $e) {
+            $this->logger->error ($e->getMessage ());
+        }
     }
 
     /**
      * Writes the activation statuses in a file, as json
      */
-    private function writeDb (): void
+    private function writeStatus (): void
     {
         if (! empty ($this->getTableName ()))
         {
             try {
                 $this->connection->transaction (function () {
+                    $this->connection
+                        ->table ($this->getTableName ())
+                        ->where ('type', 1)
+                        ->update (['status' => 0]);
                     foreach ($this->modulesStatuses as $name => $status) {
-                        $this->connection
-                            ->table ($this->getTableName ())
-                            ->where ('name', $name)
-                            ->where ('type', 1)
-                            ->update (['status' => $status ? 1 : 0]);
+                        if ($status === 1)
+                        {
+                            $this->connection
+                                ->table ($this->getTableName ())
+                                ->where ('name', $name)
+                                ->where ('type', 1)
+                                ->update (['status' => $status]);
+                        }
                     }
                 }, 3);
             } catch (\Throwable $e) {
@@ -189,19 +242,32 @@ class DatabaseActivator implements ActivatorInterface
      * Reads the json file that contains the activation statuses.
      * @return array
      */
-    private function readDb (): array
+    private function readStatus (): array
     {
+        $statues = [];
         if (! empty ($this->getTableName ()))
         {
-            return $this->connection
+            $statues = $this->connection
                 ->table ($this->getTableName ())
                 ->get ()
                 ->reduce (function ($reduce, $item) {
                     $reduce [$item->name] = ($item->status === 1);
                     return $reduce;
                 }, []);
+
+            if (empty ($statues))
+            {
+                $all_enabled_modules = $this->app ['modules']->scanJson ();
+
+                $this->syncModule ($all_enabled_modules);
+
+                if (count ($all_enabled_modules) > 0)
+                {
+                    return $this->readStatus ();
+                }
+            }
         }
-        return [];
+        return $statues;
     }
 
     /**
@@ -212,11 +278,11 @@ class DatabaseActivator implements ActivatorInterface
     private function getModulesStatuses (): array
     {
         if (!$this->config->get ('modules.cache.enabled')) {
-            return $this->readDb ();
+            return $this->readStatus ();
         }
 
         return $this->cache->remember ($this->cacheKey, $this->cacheLifetime, function () {
-            return $this->readDb ();
+            return $this->readStatus ();
         });
     }
 

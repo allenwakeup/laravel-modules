@@ -20,7 +20,7 @@ class RouteServiceProvider extends ServiceProvider
 
 
     /**
-     * Define the "admin" routes for the application.
+     * Define the "modules" routes for the application.
      *
      * These routes all receive session state, CSRF protection, etc.
      *
@@ -28,7 +28,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapModulesRoutes ()
     {
-        $path = $this->app ['config']->get ('modules.route.path') ?? __DIR__ . '/routes/modules.php';
+        $path = $this->app ['config']->get ('modules.route.path') ?? __DIR__ . '/../routes/modules.php';
 
         Route::prefix (LaravelLocalization::setLocale ())
             ->middleware ('localeSessionRedirect', 'localizationRedirect', 'localeViewPath')

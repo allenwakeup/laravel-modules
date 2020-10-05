@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace Goodcatch\Modules\Laravel\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
@@ -9,7 +9,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputArgument;
 
-class CreateModuleFiles extends Command
+class CreateModuleRelatedFiles extends Command
 {
     /**
      * The console command name.

@@ -8,16 +8,19 @@
 
 use Illuminate\Support\Str;
 
+
+$modules = app ('modules') ? app ('modules')->all () : [];
+
 Route::group(
     [
         'as' => 'admin::',
     ],
-    function () {
+    function () use ($modules) {
 
-        Route::middleware ('log:admin', 'auth:admin', 'authorization:admin')->group (function () {
+        Route::middleware ('log:admin', 'auth:admin', 'authorization:admin')->group (function () use ($modules) {
             // 自动加载模块所生成的路由
 
-            $modules = app ('modules') ? app ('modules')->all () : [];
+
             foreach ($modules as $module_name => $module) {
 
                 if ($module->isEnabled ()) {
@@ -48,11 +51,34 @@ Route::group(
                                     }
                                 });
 
+
                         });
                 }
             }
 
         });
 
+    }
+);
+
+// 前端
+Route::group(
+    [
+        'as' => 'member::',
+    ],
+    function () use ($modules) {
+        Route::middleware ('auth:member')->group (function () use ($modules) {
+            // 自动加载模块所生成的路由
+            foreach ($modules as $module_name => $module) {
+                $routes_path = module_generated_path ($module_name, 'routes') . '/member.php';
+                if ($module->isEnabled () && file_exists ($routes_path)) {
+                    Route::namespace ($module_name . '\\' . app ('config')->get ('modules.route.frontend.namespace') ?? 'Http\\Controllers\\Front')
+                        ->name (module_route_prefix ('.' . $module->getLowerName () . '.member.'))
+                        ->group (function () use ($module_name, $module, $routes_path) {
+                            require $routes_path;
+                        });
+                }
+            }
+        });
     }
 );

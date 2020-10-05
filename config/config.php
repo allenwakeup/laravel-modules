@@ -169,7 +169,7 @@ return [
     |
     */
     'cache' => [
-        'enabled' => false,
+        'enabled' => true,
         'key' => 'laravel-modules',
         'lifetime' => 60,
     ],
@@ -211,7 +211,7 @@ return [
         'database' => [
             'class' => DatabaseActivator::class,
             'table' => 'modules',
-            'cache-key' => 'activator.installed',
+            'cache-key' => 'db-activator.installed',
             'cache-lifetime' => 604800,
         ],
     ],
@@ -230,10 +230,10 @@ return [
         'path' => base_path () . '/vendor/goodcatch/laravel-modules/src/routes/modules.php',
         'prefix' => env ('MODULE_ROUTE_PREFIX', 'm'),
         'frontend' => [
-            'namespace' => 'Http\\Controllers\\Admin'
+            'namespace' => 'Http\\Controllers\\Front'
         ],
         'backend' => [
-
+            'namespace' => 'Http\\Controllers\\Admin'
         ]
     ]
 ];
