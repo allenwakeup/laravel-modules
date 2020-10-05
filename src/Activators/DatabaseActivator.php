@@ -9,7 +9,6 @@ use Illuminate\Log\LogManager;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Schema;
 use Nwidart\Modules\Contracts\ActivatorInterface;
-use Nwidart\Modules\Contracts\RepositoryInterface;
 use Nwidart\Modules\Module;
 
 class DatabaseActivator implements ActivatorInterface
@@ -198,6 +197,7 @@ class DatabaseActivator implements ActivatorInterface
                                 'alias' => Arr::get ($module, 'alias', ''),
                                 'description' => Arr::get ($module, 'description', ''),
                                 'path' => Arr::get ($module, 'path', ''),
+                                'sort' => Arr::get ($module, 'order', ''),
                                 'status' => 1
                             ]
                         );

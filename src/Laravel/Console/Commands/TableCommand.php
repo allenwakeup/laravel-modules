@@ -31,13 +31,6 @@ class TableCommand extends Command
     protected $files;
 
     /**
-     * The application config
-     *
-     * @var \Illuminate\Config\Repository
-     */
-    protected $config;
-
-    /**
      * Create a new queue job table command instance.
      *
      * @param  \Illuminate\Filesystem\Filesystem  $files
@@ -48,8 +41,6 @@ class TableCommand extends Command
         parent::__construct ();
 
         $this->files = $files;
-
-        $this->config = $this->laravel ['config'];
     }
 
     /**
@@ -60,9 +51,11 @@ class TableCommand extends Command
      */
     public function handle ()
     {
-        $activator = $this->config ['modules.activator'];
+        $config = $this->laravel ['config'];
 
-        $table = $this->config ["modules.activators.{$activator}.table"];
+        $activator = $config ['modules.activator'];
+
+        $table = $config ["modules.activators.{$activator}.table"];
 
         $this->replaceMigration (
             $this->createBaseMigration ($table), $table, Str::studly ($table)
@@ -70,7 +63,6 @@ class TableCommand extends Command
 
         $this->info ('Migration created successfully!');
     }
-
 
     /**
      * Create a base migration file for the table.

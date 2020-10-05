@@ -23,7 +23,7 @@ class Create{{tableClassName}}Table extends Migration
             $table->unsignedInteger ('type')->nullable (false)->default (1);
             $table->unsignedInteger ('sort')->nullable (false)->default (0);
             $table->unsignedTinyInteger ('status')->nullable (false)->default (0);
-            $table->timestamp ();
+            $table->timestamps ();
         });
     }
 
