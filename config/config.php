@@ -3,6 +3,16 @@
 use Goodcatch\Modules\Activators\DatabaseActivator;
 use Nwidart\Modules\Activators\FileActivator;
 
+/*
+ * -------------------
+ * Environment Variables
+ *
+ *  # defined prefix for module route url, default to 'm'
+ *  MODULE_ROUTE_PREFIX=m
+ *  # defined modules repository url
+ *  MODULE_INSTALL_REPO_URL=https://laravel-modules.goodcatch.cn/dl?p=%s&n=%s&v=%s&s=%s
+ *
+ */
 return [
 
     /*
@@ -139,9 +149,10 @@ return [
     */
 
     'scan' => [
-        'enabled' => false,
+        'enabled' => true,
         'paths' => [
-            base_path('vendor/*/*'),
+            base_path ('vendor/*/*'),
+            storage_path ('app/modules'),
         ],
     ],
     /*
@@ -235,5 +246,18 @@ return [
         'backend' => [
             'namespace' => 'Http\\Controllers\\Admin'
         ]
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Install module from http url
+    |--------------------------------------------------------------------------
+    |
+    | You can define http url patten in environment file, default to goodcatch.cn.
+    | With the help of php sprintf function, you can provide placeholders if necessary.
+    |
+    */
+    'install' => [
+        'http' => env ('MODULE_INSTALL_REPO_URL', 'https://laravel-modules.goodcatch.cn/dl?p=%s&n=%s&v=%s&s=%s'),
     ]
 ];

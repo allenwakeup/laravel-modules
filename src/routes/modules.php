@@ -9,17 +9,17 @@
 use Illuminate\Support\Str;
 
 
-$modules = app ('modules') ? app ('modules')->all () : [];
+
 
 Route::group(
     [
         'as' => 'admin::',
     ],
-    function () use ($modules) {
+    function () {
 
-        Route::middleware ('log:admin', 'auth:admin', 'authorization:admin')->group (function () use ($modules) {
+        Route::middleware ('log:admin', 'auth:admin', 'authorization:admin')->group (function () {
             // 自动加载模块所生成的路由
-
+            $modules = app ('modules') ? app ('modules')->all () : [];
 
             foreach ($modules as $module_name => $module) {
 
@@ -66,9 +66,10 @@ Route::group(
     [
         'as' => 'member::',
     ],
-    function () use ($modules) {
-        Route::middleware ('auth:member')->group (function () use ($modules) {
+    function () {
+        Route::middleware ('auth:member')->group (function () {
             // 自动加载模块所生成的路由
+            $modules = app ('modules') ? app ('modules')->all () : [];
             foreach ($modules as $module_name => $module) {
                 $routes_path = module_generated_path ($module_name, 'routes') . '/member.php';
                 if ($module->isEnabled () && file_exists ($routes_path)) {
