@@ -8,9 +8,6 @@
 
 use Illuminate\Support\Str;
 
-
-
-
 Route::group(
     [
         'as' => 'admin::',
@@ -58,28 +55,5 @@ Route::group(
 
         });
 
-    }
-);
-
-// 前端
-Route::group(
-    [
-        'as' => 'member::',
-    ],
-    function () {
-        Route::middleware ('auth:member')->group (function () {
-            // 自动加载模块所生成的路由
-            $modules = app ('modules') ? app ('modules')->all () : [];
-            foreach ($modules as $module_name => $module) {
-                $routes_path = module_generated_path ($module_name, 'routes') . '/member.php';
-                if ($module->isEnabled () && file_exists ($routes_path)) {
-                    Route::namespace ($module_name . '\\' . app ('config')->get ('modules.route.frontend.namespace') ?? 'Http\\Controllers\\Front')
-                        ->name (module_route_prefix ('.' . $module->getLowerName () . '.member.'))
-                        ->group (function () use ($module_name, $module, $routes_path) {
-                            require $routes_path;
-                        });
-                }
-            }
-        });
     }
 );

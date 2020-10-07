@@ -238,8 +238,18 @@ return [
     | The request url to modules follow this prefix
     */
     'route' => [
-        'path' => base_path () . '/vendor/goodcatch/laravel-modules/src/routes/modules.php',
+        'path' => base_path () . '/vendor/goodcatch/laravel-modules/src/routes',
         'prefix' => env ('MODULE_ROUTE_PREFIX', 'm'),
+        'entry' => [
+            // backend for admin pages
+            'admin' => 'web',
+            // frontend for member pages
+            'member' => 'web',
+            // common for web pages
+            '' => 'web',
+            // api for restful API
+            'api' => 'api'
+        ],
         'frontend' => [
             'namespace' => 'Http\\Controllers\\Front'
         ],
