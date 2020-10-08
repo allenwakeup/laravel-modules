@@ -1,6 +1,6 @@
 <?php
 
-namespace Goodcatch\Modules;
+namespace Goodcatch\Modules\Laravel;
 
 
 use Nwidart\Modules\FileRepository;

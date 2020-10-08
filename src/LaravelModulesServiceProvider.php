@@ -2,6 +2,7 @@
 
 namespace Goodcatch\Modules;
 
+use Goodcatch\Modules\Laravel\LaravelFileRepository;
 use Goodcatch\Modules\Providers\ConsoleServiceProvider;
 use Goodcatch\Modules\Providers\RouteServiceProvider;
 use Nwidart\Modules\LaravelModulesServiceProvider as ModulesServiceProvider;

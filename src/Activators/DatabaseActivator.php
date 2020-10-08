@@ -17,7 +17,7 @@ class DatabaseActivator implements ActivatorInterface
     /**
      * Application instance.
      *
-     * @var \Illuminate\Contracts\Foundation\Application|\Laravel\Lumen\Application
+     * @var \Illuminate\Contracts\Foundation\Application
      */
     protected $app;
 
