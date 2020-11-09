@@ -1,5 +1,32 @@
 <?php
 
+
+if (! function_exists('goodcatch_vendor_path')) {
+
+    /**
+     * Get this library path in project's vendor
+     *
+     * @return string
+     */
+    function goodcatch_vendor_path ($append = '')
+    {
+        return base_path () . '/vendor/goodcatch/laravel-modules/src' . $append;
+    }
+}
+
+if (! function_exists('goodcatch_resource_path')) {
+
+    /**
+     * Get this library resource path based on 'goodcatch_vendor_path'
+     *
+     * @return string
+     */
+    function goodcatch_resource_path ($append = '')
+    {
+        return goodcatch_vendor_path ('/resources') . $append;
+    }
+}
+
 if (! function_exists('module_defined_path')) {
 
     /**

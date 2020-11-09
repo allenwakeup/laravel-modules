@@ -1,4 +1,7 @@
 <?php
+/**
+ * @author  Allen <ali@goodcatch.cn>
+ */
 
 namespace Goodcatch\Modules\Providers;
 
@@ -6,8 +9,6 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvi
 
 class RouteServiceProvider extends ServiceProvider
 {
-
-    private $namespace;
 
     private $path;
 
@@ -49,9 +50,11 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function map ()
     {
+        $this->mapRoutes ('goodcatch', 'Goodcatch\Modules', 'web');
+
         foreach ($this->routes as $name => $middleware)
         {
-            $this->mapRoutes ($name, $middleware);
+            $this->mapRoutes ($name, $this->namespace, $middleware);
         }
     }
 
@@ -67,9 +70,9 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function mapRoutes ($name, $middleware = 'web')
+    protected function mapRoutes ($name, $namespace, $middleware = 'web')
     {
-        $route = $this->namespace ($this->namespace);
+        $route = $this->namespace ($namespace);
         if (app ()->has ('laravellocalization'))
         {
             $laravel_localization = app ('laravellocalization')->setLocale () . '/';
