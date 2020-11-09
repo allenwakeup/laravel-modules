@@ -26,7 +26,7 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">@lang('goodcatch::laravel_modules.module.field.status')</label>
                         <div class="layui-input-block">
-                            <input type="checkbox" name="status" lay-skin="switch" lay-text="@lang('goodcatch::laravel_modules.module.field.status_enable')|@lang('goodcatch::laravel_modules.module.field.status_disable')" value="{{ Goodcatch\Modules\Laravel\Model\Admin\SysModule::STATUS_ENABLE }}" @if(isset($model) && $model->status == Goodcatch\Modules\Laravel\Model\Admin\SysModule::STATUS_ENABLE) checked @endif>
+                            <input type="checkbox" name="status" lay-skin="switch" lay-text="@lang('goodcatch::laravel_modules.module.field.status_enable')|@lang('goodcatch::laravel_modules.module.field.status_disable')" value="{{ Goodcatch\Modules\Laravel\Model\SysModule::STATUS_ENABLE }}" @if(isset($model) && $model->status == Goodcatch\Modules\Laravel\Model\SysModule::STATUS_ENABLE) checked @endif>
                         </div>
                     </div>
 

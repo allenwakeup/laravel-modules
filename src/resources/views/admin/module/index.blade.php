@@ -7,7 +7,7 @@
         <div class="layui-form layui-card-header light-search" style="height: auto">
             <form>
                 <input type="hidden" name="action" value="search">
-            @include ('admin.searchField', ['data' => Goodcatch\Modules\Laravel\Model\Admin\SysModule::$searchField])
+            @include ('admin.searchField', ['data' => Goodcatch\Modules\Laravel\Model\SysModule::$searchField])
             <div class="layui-inline">
                 <label class="layui-form-label">@lang('goodcatch::laravel_modules.module.search.created_at')</label>
                 <div class="layui-input-inline">
@@ -26,7 +26,7 @@
                 <thead>
                 <tr>
                     <th lay-data="{field:'id', width:80, sort: true, event: 'detail', style:'cursor: pointer;', templet:'#id'}">ID</th>
-                    @include ('admin.listHead', ['data' => Goodcatch\Modules\Laravel\Model\Admin\SysModule::$listField])
+                    @include ('admin.listHead', ['data' => Goodcatch\Modules\Laravel\Model\SysModule::$listField])
                     <th lay-data="{field:'created_at'}">@lang('goodcatch::laravel_modules.module.list.created_at')</th>
                     <th lay-data="{field:'updated_at'}">@lang('goodcatch::laravel_modules.module.list.updated_at')</th>
                     <th lay-data="{width:200, templet:'#action'}">@lang('goodcatch::laravel_modules.module.list.action')</th>
@@ -101,7 +101,7 @@
                 let data = Object.assign (obj.data, {id: obj.data.id, '_method': 'PUT'});
 
                 data [key] = {
-                    "status":tr.find("input[name='" + key + "']").prop('checked') ? {{ Goodcatch\Modules\Laravel\Model\Admin\SysModule::STATUS_ENABLE }} : {{ Goodcatch\Modules\Laravel\Model\Admin\SysModule::STATUS_DISABLE }}
+                    "status":tr.find("input[name='" + key + "']").prop('checked') ? {{ Goodcatch\Modules\Laravel\Model\SysModule::STATUS_ENABLE }} : {{ Goodcatch\Modules\Laravel\Model\SysModule::STATUS_DISABLE }}
                 } [key];
 
 

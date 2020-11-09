@@ -3,12 +3,12 @@
  * @author  Allen <ali@goodcatch.cn>
  */
 
-namespace Goodcatch\Modules\Laravel\Modules\Core\Repository\Admin;
+namespace Goodcatch\Modules\Laravel\Repository;
 
 
 use App\Repository\Searchable;
 
-use Goodcatch\Modules\Laravel\Model\Admin\SysModule;
+use Goodcatch\Modules\Laravel\Model\SysModule;
 
 class ModuleRepository
 {

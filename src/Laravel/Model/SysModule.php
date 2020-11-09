@@ -3,7 +3,7 @@
  * @author  Allen <ali@goodcatch.cn>
  */
 
-namespace Goodcatch\Modules\Laravel\Model\Admin;
+namespace Goodcatch\Modules\Laravel\Model;
 
 use App\Model\Admin\Model;
 

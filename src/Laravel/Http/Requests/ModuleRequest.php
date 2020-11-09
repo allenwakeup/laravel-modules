@@ -1,8 +1,8 @@
 <?php
 
-namespace Goodcatch\Modules\Laravel\Http\Requests\Admin;
+namespace Goodcatch\Modules\Laravel\Http\Requests;
 
-use Goodcatch\Modules\Laravel\Model\Admin\SysModule;
+use Goodcatch\Modules\Laravel\Model\SysModule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 

@@ -3,11 +3,11 @@
  * @author  Allen <ali@goodcatch.cn>
  */
 
-namespace Goodcatch\Modules\Laravel\Http\Controllers\Admin;
+namespace Goodcatch\Modules\Laravel\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Goodcatch\Modules\Laravel\Http\Requests\Admin\ModuleRequest;
-use Goodcatch\Modules\Laravel\Modules\Core\Repository\Admin\ModuleRepository;
+use Goodcatch\Modules\Laravel\Http\Requests\ModuleRequest;
+use Goodcatch\Modules\Laravel\Repository\ModuleRepository;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
