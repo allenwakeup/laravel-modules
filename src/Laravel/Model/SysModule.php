@@ -5,26 +5,19 @@
 
 namespace Goodcatch\Modules\Laravel\Model;
 
-use App\Model\Admin\Model;
+use Illuminate\Database\Eloquent\Model as BaseModel;
 
-class SysModule extends Model
+class SysModule extends BaseModel
 {
 
     const STATUS_ENABLE = 1;
     const STATUS_DISABLE = 0;
 
-    public static $searchField = [
-        'name' => '名称',
-        'description' => '描述',
+    const TYPE_SYSTEM = 1;
+    const TYPE_EXTEND = 2;
 
-    ];
-
-    public static $listField = [
-
-        'name' => '名称',
-        'description' => '描述',
-
-    ];
+    protected $table = 'modules';
 
     protected $guarded = [];
+
 }

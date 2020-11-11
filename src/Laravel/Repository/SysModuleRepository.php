@@ -10,7 +10,7 @@ use App\Repository\Searchable;
 
 use Goodcatch\Modules\Laravel\Model\SysModule;
 
-class ModuleRepository
+class SysModuleRepository
 {
     use Searchable;
 
@@ -25,7 +25,7 @@ class ModuleRepository
             ->paginate ($perPage);
         $data->transform (function ($item) {
             $item->editUrl = route ('admin::' . module_route_prefix ('.goodcatch.') . 'module.edit', ['id' => $item->id]);
-            $item->detailUrl = route ('admin::' . module_route_prefix ('.goodcatch.') . 'module.detail', ['id' => $item->id]);
+            $item->deleteUrl = route ('admin::' . module_route_prefix ('.goodcatch.') . 'module.delete', ['id' => $item->id]);
             return $item;
         });
 

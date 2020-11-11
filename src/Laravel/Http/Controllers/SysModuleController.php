@@ -6,16 +6,16 @@
 namespace Goodcatch\Modules\Laravel\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Goodcatch\Modules\Laravel\Http\Requests\ModuleRequest;
-use Goodcatch\Modules\Laravel\Repository\ModuleRepository;
+use Goodcatch\Modules\Laravel\Http\Requests\SysModuleRequest;
+use Goodcatch\Modules\Laravel\Repository\SysModuleRepository;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 
-class ModuleController extends Controller
+class SysModuleController extends Controller
 {
-    protected $formNames = ['name', 'alias', 'description', 'version', 'path', 'type', 'sort', 'status'];
+    protected $formNames = ['name', 'alias', 'description', 'priority', 'version', 'path', 'type', 'sort', 'status'];
 
     public function __construct ()
     {
@@ -49,7 +49,7 @@ class ModuleController extends Controller
             $condition ['group'] = ['=', $condition['group']];
         }
 
-        $data = [];
+        $data = SysModuleRepository::list ($perPage, $condition);
 
         return $data;
     }
@@ -67,13 +67,13 @@ class ModuleController extends Controller
     /**
      * 系统模块管理-保存系统模块
      *
-     * @param ModuleRequest $request
+     * @param SysModuleRequest $request
      * @return array
      */
-    public function save(ModuleRequest $request)
+    public function save(SysModuleRequest $request)
     {
         try {
-            ModuleRepository::add ($request->only ($this->formNames));
+            SysModuleRepository::add ($request->only ($this->formNames));
             return [
                 'code' => 0,
                 'msg' => '新增成功',
@@ -98,22 +98,22 @@ class ModuleController extends Controller
     {
         $this->breadcrumb [] = ['title' => '编辑系统模块', 'url' => ''];
 
-        $model = ModuleRepository::find ($id);
+        $model = SysModuleRepository::find ($id);
         return view ('goodcatch::admin.module.add', ['id' => $id, 'model' => $model, 'breadcrumb' => $this->breadcrumb]);
     }
 
     /**
      * 系统模块管理-更新系统模块
      *
-     * @param ModuleRequest $request
+     * @param SysModuleRequest $request
      * @param int $id
      * @return array
      */
-    public function update (ModuleRequest $request, $id)
+    public function update (SysModuleRequest $request, $id)
     {
         $data = $request->only ($this->formNames);
         try {
-            ModuleRepository::update ($id, $data);
+            SysModuleRepository::update ($id, $data);
             return [
                 'code' => 0,
                 'msg' => '编辑成功',

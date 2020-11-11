@@ -6,7 +6,7 @@ use Goodcatch\Modules\Laravel\Model\SysModule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class ModuleRequest extends FormRequest
+class SysModuleRequest extends FormRequest
 {
 
     /**
@@ -29,6 +29,16 @@ class ModuleRequest extends FormRequest
     {
         $rules = [
             'name' => 'required|max:50',
+            'alias' => 'required|max:50',
+            'description' => 'max:255',
+            'priority' => 'integer',
+            'version' => 'max:10',
+            'path' => 'max:500',
+            'sort' => 'integer',
+            'type' => [
+                'required',
+                Rule::in ([SysModule::TYPE_SYSTEM, SysModule::TYPE_EXTEND])
+            ],
             'status' => [
                 'required',
                 Rule::in ([SysModule::STATUS_DISABLE, SysModule::STATUS_ENABLE])

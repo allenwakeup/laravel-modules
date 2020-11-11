@@ -5,6 +5,7 @@
 
 namespace Goodcatch\Modules\Providers;
 
+use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
 class RouteServiceProvider extends ServiceProvider
@@ -33,7 +34,7 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->config = $this->app ['config'];
 
-        $this->namespace = $this->config->get ('modules.namespace', 'App\Modules');
+        $this->namespace = $this->config->get ('modules.namespace', 'App\\Modules');
 
         $this->path = rtrim ($this->config->get ('modules.route.path', __DIR__ . '/../routes'), '/');
 
@@ -50,7 +51,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function map ()
     {
-        $this->mapRoutes ('goodcatch', 'Goodcatch\Modules', 'web');
+        $this->mapRoutes ('goodcatch', 'Goodcatch\\Modules', 'web');
 
         foreach ($this->routes as $name => $middleware)
         {
@@ -72,27 +73,29 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapRoutes ($name, $namespace, $middleware = 'web')
     {
-        $route = $this->namespace ($namespace);
+
         if (app ()->has ('laravellocalization'))
         {
-            $laravel_localization = app ('laravellocalization')->setLocale () . '/';
+            $route = Route::middleware ('localeSessionRedirect', 'localizationRedirect', 'localeViewPath');
 
-            if (! empty ($laravel_localization . $name))
+            $laravel_localization = app ('laravellocalization')->setLocale ();
+
+            if (! empty ($laravel_localization))
             {
-                $route->prefix ($laravel_localization . $name);
+                $route->prefix ($laravel_localization);
             }
 
-            $route->middleware ('localeSessionRedirect', 'localizationRedirect', 'localeViewPath', $middleware);
+            $route->group (function () use ($name, $namespace, $middleware) {
+                Route::prefix ($name)
+                    ->middleware ($middleware)
+                    ->namespace ($namespace)
+                    ->group($this->getRoutePath ($name));
+            });
         } else {
-
-            if (! empty ($name))
-            {
-                $route->prefix ($name);
-            }
-
-            $route->middleware ($middleware);
+            Route::prefix ($name)
+                ->middleware ($middleware)
+                ->namespace ($namespace)
+                ->group ($this->getRoutePath ($name));
         }
-
-        $route->group ($this->getRoutePath ($name));
     }
 }

@@ -21,7 +21,8 @@
         "laravel/framework": "^6.0",
         "elendev/nexus-composer-push": "^0.2.2",
         "laravel/helpers": "^1.1",
-        "laravel/laravel": "^6.0"
+        "laravel/laravel": "^6.0",
+        "mcamara/laravel-localization": "^1.5"
     },
     "autoload": {
         "psr-4": {

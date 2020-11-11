@@ -71,6 +71,44 @@ return [
 ```
 
 
+    make sure laravel-localization is configured to laravel http kernel
+
+```php
+
+// ...
+class Kernel extends HttpKernel
+{
+
+// ...
+
+
+
+    /**
+     * The application's route middleware.
+     *
+     * These middleware may be assigned to groups or used individually.
+     *
+     * @var array
+     */
+    protected $routeMiddleware = [
+    
+        // ...
+        
+        // localization
+
+        'localize'                => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRoutes::class,
+        'localizationRedirect'    => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter::class,
+        'localeSessionRedirect'   => \Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect::class,
+        'localeCookieRedirect'    => \Mcamara\LaravelLocalization\Middleware\LocaleCookieRedirect::class,
+        'localeViewPath'          => \Goodcatch\Modules\Laravel\Http\Middleware\LocalizationViewPath::class
+        
+        // ...
+    ];
+
+// ...
+
+}
+```
 
 Licensed under [The MIT License (MIT)](LICENSE).
 
