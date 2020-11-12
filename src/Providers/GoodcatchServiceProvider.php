@@ -3,8 +3,8 @@
 namespace Goodcatch\Modules\Providers;
 
 
-use Goodcatch\Modules\Laravel\Model\SysModule;
-use Goodcatch\Modules\Laravel\Observers\SysModuleObserver;
+use Goodcatch\Modules\Laravel\Model\Module;
+use Goodcatch\Modules\Laravel\Observers\ModuleObserver;
 use Illuminate\Support\ServiceProvider;
 
 class GoodcatchServiceProvider extends ServiceProvider
@@ -16,9 +16,9 @@ class GoodcatchServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot ()
     {
-        SysModule::observe (SysModuleObserver::class);
+        Module::observe (ModuleObserver::class);
     }
 
     /**
@@ -26,7 +26,7 @@ class GoodcatchServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register ()
     {
 
     }

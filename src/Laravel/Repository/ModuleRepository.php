@@ -8,16 +8,16 @@ namespace Goodcatch\Modules\Laravel\Repository;
 
 use App\Repository\Searchable;
 
-use Goodcatch\Modules\Laravel\Model\SysModule;
+use Goodcatch\Modules\Laravel\Model\Module;
 
-class SysModuleRepository
+class ModuleRepository
 {
     use Searchable;
 
     public static function list ($perPage, $condition = [])
     {
 
-        $data = SysModule::query ()
+        $data = Module::query ()
             ->where (function ($query) use ($condition) {
                 Searchable::buildQuery ($query, $condition);
             })
@@ -37,9 +37,14 @@ class SysModuleRepository
         ];
     }
 
+    public static function all ()
+    {
+        return Module::ofEnabled ()->get ()->toArray ();
+    }
+
     public static function add ($data)
     {
-        return SysModule::query ()->create ($data);
+        return Module::query ()->create ($data);
     }
 
     public static function update ($id, $data)
@@ -49,11 +54,11 @@ class SysModuleRepository
 
     public static function find ($id)
     {
-        return SysModule::query ()->find ($id);
+        return Module::query ()->find ($id);
     }
 
     public static function delete ($id)
     {
-        return SysModule::destroy ($id);
+        return Module::destroy ($id);
     }
 }

@@ -70,7 +70,7 @@ class TableCommand extends Command
      * @param  string  $table
      * @return string
      */
-    protected function createBaseMigration ($table = 'modules')
+    protected function createBaseMigration ($table = 'gc_modules')
     {
         return $this->laravel ['migration.creator']->create (
             'create_' . $table . '_table', $this->laravel->databasePath ().'/migrations'

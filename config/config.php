@@ -221,7 +221,7 @@ return [
         ],
         'database' => [
             'class' => DatabaseActivator::class,
-            'table' => 'modules',
+            'table' => 'gc_modules',
             'cache-key' => 'db-activator.installed',
             'cache-lifetime' => 604800,
         ],

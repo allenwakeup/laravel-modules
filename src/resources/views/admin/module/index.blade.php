@@ -2,7 +2,8 @@
 @section('css')
     <style>
         .layui-layout-admin .layui-side {
-            display:none;
+
+            display: none;
         }
         .layui-layout-admin .layui-body {
             left: 0;
@@ -13,7 +14,9 @@
     </style>
 @endsection
 @section('content')
+
     @include('admin.breadcrumb')
+
 
     <div class="layui-card">
         <div class="layui-form layui-card-header light-search" style="height: auto">
@@ -43,8 +46,8 @@
                         <select name="type">
                             <option value="" @if(!request()->has('type')) selected @endif>@lang('goodcatch::pages.laravel_modules.module.search.select')</option>
                             @foreach([
-    Goodcatch\Modules\Laravel\Model\SysModule::TYPE_SYSTEM,
-    Goodcatch\Modules\Laravel\Model\SysModule::TYPE_EXTEND,
+    Goodcatch\Modules\Laravel\Model\Module::TYPE_SYSTEM,
+    Goodcatch\Modules\Laravel\Model\Module::TYPE_EXTEND,
 ] as $v)
                                 <option value="{{ $v }}" @isset($model) @if($v == $model->type) selected @endif @endisset>@lang('goodcatch::pages.laravel_modules.module.field.type_' . $v)</option>
                             @endforeach
@@ -56,8 +59,8 @@
                     <div class="layui-input-inline">
                         <select name="type">
                             <option value="" @if(!request()->has('status')) selected @endif>@lang('goodcatch::pages.laravel_modules.module.search.select')</option>
-                            <option value="{{ Goodcatch\Modules\Laravel\Model\SysModule::STATUS_DISABLE }}" @isset($model) @if(Goodcatch\Modules\Laravel\Model\SysModule::STATUS_DISABLE === $model->status) selected @endif @endisset>@lang('goodcatch::pages.laravel_modules.module.field.type_disable')</option>
-                            <option value="{{ Goodcatch\Modules\Laravel\Model\SysModule::STATUS_ENABLE }}" @isset($model) @if(Goodcatch\Modules\Laravel\Model\SysModule::STATUS_ENABLE === $model->status) selected @endif @endisset>@lang('goodcatch::pages.laravel_modules.module.field.type_enable')</option>
+                            <option value="{{ Goodcatch\Modules\Laravel\Model\Module::STATUS_DISABLE }}" @isset($model) @if(Goodcatch\Modules\Laravel\Model\Module::STATUS_DISABLE === $model->status) selected @endif @endisset>@lang('goodcatch::pages.laravel_modules.module.field.type_disable')</option>
+                            <option value="{{ Goodcatch\Modules\Laravel\Model\Module::STATUS_ENABLE }}" @isset($model) @if(Goodcatch\Modules\Laravel\Model\Module::STATUS_ENABLE === $model->status) selected @endif @endisset>@lang('goodcatch::pages.laravel_modules.module.field.type_enable')</option>
                         </select>
                     </div>
                 </div>
@@ -75,7 +78,9 @@
             </form>
         </div>
         <div class="layui-card-body">
-            <table class="layui-table" lay-data="{url:'{{ route ('admin::' . module_route_prefix ('.goodcatch.') . 'module.list') }}?{{ request ()->getQueryString () }}', page:true, limit:50, id:'table', toolbar:'<div><a href=\'{{ route ('admin::' . module_route_prefix ('.goodcatch.') . 'module.create') }}\'><i class=\'layui-icon layui-icon-add-1\'></i>@lang('goodcatch::pages.laravel_modules.module.form.btn.create')</a>'}" lay-filter="table">
+
+
+            <table class="layui-table" lay-data="{url:'{{ route ('admin::' . module_route_prefix ('.goodcatch.') . 'module.list') }}?{{ request ()->getQueryString () }}', page:true, limit:50, id:'table', toolbar:'<div><a href=\'{{ route ('admin::' . module_route_prefix ('.goodcatch.') . 'module.create') }}\'><i class=\'layui-icon layui-icon-add-1\'></i>@lang('goodcatch::pages.laravel_modules.module.form.btn.create')</a>&nbsp;&nbsp;&nbsp;&nbsp;@foreach($modules as $module)<span class=\'layui-text\' >{{ $module->getName () }}</span>@endforeach</div>'}" lay-filter="table">
                 <thead>
                 <tr>
                     <th lay-data="{field:'id', width:80, sort: true, style:'cursor: pointer;', templet:'#id'}">ID</th>
@@ -177,7 +182,7 @@
                 let data = Object.assign (obj.data, {id: obj.data.id, '_method': 'PUT'});
 
                 data [key] = {
-                    "status":tr.find("input[name='" + key + "']").prop('checked') ? {{ Goodcatch\Modules\Laravel\Model\SysModule::STATUS_ENABLE }} : {{ Goodcatch\Modules\Laravel\Model\SysModule::STATUS_DISABLE }}
+                    "status":tr.find("input[name='" + key + "']").prop('checked') ? {{ Goodcatch\Modules\Laravel\Model\Module::STATUS_ENABLE }} : {{ Goodcatch\Modules\Laravel\Model\Module::STATUS_DISABLE }}
                 } [key];
 
 

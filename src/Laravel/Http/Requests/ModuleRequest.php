@@ -2,11 +2,11 @@
 
 namespace Goodcatch\Modules\Laravel\Http\Requests;
 
-use Goodcatch\Modules\Laravel\Model\SysModule;
+use Goodcatch\Modules\Laravel\Model\Module;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class SysModuleRequest extends FormRequest
+class ModuleRequest extends FormRequest
 {
 
     /**
@@ -37,11 +37,11 @@ class SysModuleRequest extends FormRequest
             'sort' => 'integer',
             'type' => [
                 'required',
-                Rule::in ([SysModule::TYPE_SYSTEM, SysModule::TYPE_EXTEND])
+                Rule::in ([Module::TYPE_SYSTEM, Module::TYPE_EXTEND])
             ],
             'status' => [
                 'required',
-                Rule::in ([SysModule::STATUS_DISABLE, SysModule::STATUS_ENABLE])
+                Rule::in ([Module::STATUS_DISABLE, Module::STATUS_ENABLE])
             ]
         ];
 

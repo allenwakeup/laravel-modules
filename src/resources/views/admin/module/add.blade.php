@@ -63,8 +63,8 @@
                     <div class="layui-input-block">
                         <select name="type" lay-verify="required" lay-filter="select_type">
                             @foreach([
-    Goodcatch\Modules\Laravel\Model\SysModule::TYPE_SYSTEM,
-    Goodcatch\Modules\Laravel\Model\SysModule::TYPE_EXTEND,
+    Goodcatch\Modules\Laravel\Model\Module::TYPE_SYSTEM,
+    Goodcatch\Modules\Laravel\Model\Module::TYPE_EXTEND,
 ] as $v)
                                 <option value="{{ $v }}" @isset($model) @if($v == $model->type) selected @endif @endisset>@lang('goodcatch::pages.laravel_modules.module.field.type_' . $v)</option>
                             @endforeach
@@ -81,7 +81,7 @@
                     <div class="layui-inline">
                         <label class="layui-form-label">@lang('goodcatch::pages.laravel_modules.module.field.status')</label>
                         <div class="layui-input-block">
-                            <input type="checkbox" name="status" lay-skin="switch" lay-text="@lang('goodcatch::pages.laravel_modules.module.field.status_enable')|@lang('goodcatch::pages.laravel_modules.module.field.status_disable')" value="{{ Goodcatch\Modules\Laravel\Model\SysModule::STATUS_ENABLE }}" @if(isset($model) && $model->status == Goodcatch\Modules\Laravel\Model\SysModule::STATUS_ENABLE) checked @endif>
+                            <input type="checkbox" name="status" lay-skin="switch" lay-text="@lang('goodcatch::pages.laravel_modules.module.field.status_enable')|@lang('goodcatch::pages.laravel_modules.module.field.status_disable')" value="{{ Goodcatch\Modules\Laravel\Model\Module::STATUS_ENABLE }}" @if(isset($model) && $model->status == Goodcatch\Modules\Laravel\Model\Module::STATUS_ENABLE) checked @endif>
                         </div>
                     </div>
 
@@ -107,7 +107,7 @@
             window.form_submit = $ ('#submitBtn');
             form_submit.prop ('disabled', true);
 
-            data.field.status = data.field.status || {{Goodcatch\Modules\Laravel\Model\SysModule::STATUS_DISABLE}};
+            data.field.status = data.field.status || {{Goodcatch\Modules\Laravel\Model\Module::STATUS_DISABLE}};
 
             $.ajax ({
                 url: data.form.action,

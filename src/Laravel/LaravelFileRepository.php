@@ -5,7 +5,8 @@
 
 namespace Goodcatch\Modules\Laravel;
 
-
+use Goodcatch\Modules\Laravel\Repository\ModuleRepository;
+use Illuminate\Support\Facades\Schema;
 use Nwidart\Modules\FileRepository;
 use Nwidart\Modules\Json;
 use Nwidart\Modules\Laravel\Module;
@@ -14,6 +15,7 @@ use Goodcatch\Modules\Process\Installer;
 
 class LaravelFileRepository extends FileRepository
 {
+
     /**
      * {@inheritdoc}
      */
@@ -48,6 +50,31 @@ class LaravelFileRepository extends FileRepository
 
         return $installer->run ();
     }
+
+    /**
+     * Get & scan all modules.
+     *
+     * @return array
+     */
+    public function scan ()
+    {
+        $modules = parent::scan ();
+        if (empty ($modules) && $this->config ('activator', 'database') === 'database')
+        {
+            if (Schema::hasTable ($this->config ('activators.database.table', 'gc_modules')))
+            {
+                $repo_modules = \Goodcatch\Modules\Laravel\Model\Module::ofEnabled ()->get ();
+
+                foreach ($repo_modules as $manifest) {
+
+                    $modules [$manifest->name] = $this->createModule ($this->app, $manifest->name, dirname ($manifest->path));
+                }
+
+            }
+        }
+        return $modules;
+    }
+
 
     /**
      * Get & scan all modules.

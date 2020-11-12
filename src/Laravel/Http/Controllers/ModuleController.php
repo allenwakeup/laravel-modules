@@ -6,14 +6,14 @@
 namespace Goodcatch\Modules\Laravel\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Goodcatch\Modules\Laravel\Http\Requests\SysModuleRequest;
-use Goodcatch\Modules\Laravel\Repository\SysModuleRepository;
+use Goodcatch\Modules\Laravel\Http\Requests\ModuleRequest;
+use Goodcatch\Modules\Laravel\Repository\ModuleRepository;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 
-class SysModuleController extends Controller
+class ModuleController extends Controller
 {
     protected $formNames = ['name', 'alias', 'description', 'priority', 'version', 'path', 'type', 'sort', 'status'];
 
@@ -31,7 +31,10 @@ class SysModuleController extends Controller
     public function index ()
     {
         $this->breadcrumb [] = ['title' => '系统模块列表', 'url' => ''];
-        return view ('goodcatch::admin.module.index', ['breadcrumb' => $this->breadcrumb]);
+        return view ('goodcatch::admin.module.index', [
+            'breadcrumb' => $this->breadcrumb,
+            'modules' => app('modules') ? app('modules')->allEnabled() : []
+            ]);
     }
 
     /**
@@ -49,7 +52,7 @@ class SysModuleController extends Controller
             $condition ['group'] = ['=', $condition['group']];
         }
 
-        $data = SysModuleRepository::list ($perPage, $condition);
+        $data = ModuleRepository::list ($perPage, $condition);
 
         return $data;
     }
@@ -67,13 +70,13 @@ class SysModuleController extends Controller
     /**
      * 系统模块管理-保存系统模块
      *
-     * @param SysModuleRequest $request
+     * @param ModuleRequest $request
      * @return array
      */
-    public function save(SysModuleRequest $request)
+    public function save(ModuleRequest $request)
     {
         try {
-            SysModuleRepository::add ($request->only ($this->formNames));
+            ModuleRepository::add ($request->only ($this->formNames));
             return [
                 'code' => 0,
                 'msg' => '新增成功',
@@ -98,22 +101,22 @@ class SysModuleController extends Controller
     {
         $this->breadcrumb [] = ['title' => '编辑系统模块', 'url' => ''];
 
-        $model = SysModuleRepository::find ($id);
+        $model = ModuleRepository::find ($id);
         return view ('goodcatch::admin.module.add', ['id' => $id, 'model' => $model, 'breadcrumb' => $this->breadcrumb]);
     }
 
     /**
      * 系统模块管理-更新系统模块
      *
-     * @param SysModuleRequest $request
+     * @param ModuleRequest $request
      * @param int $id
      * @return array
      */
-    public function update (SysModuleRequest $request, $id)
+    public function update (ModuleRequest $request, $id)
     {
         $data = $request->only ($this->formNames);
         try {
-            SysModuleRepository::update ($id, $data);
+            ModuleRepository::update ($id, $data);
             return [
                 'code' => 0,
                 'msg' => '编辑成功',

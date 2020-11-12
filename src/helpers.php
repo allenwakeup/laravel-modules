@@ -1,7 +1,23 @@
 <?php
 
 
-if (! function_exists('goodcatch_vendor_path')) {
+if (! function_exists ('module_config')) {
+    /**
+     * Get / set the specified configuration value from modules.
+     *
+     * If an array is passed as the key, we will assume you want to set an array of values.
+     *
+     * @param  array|string|null  $key
+     * @param  mixed  $default
+     * @return mixed|\Illuminate\Config\Repository
+     */
+    function module_config ($key, $default = null)
+    {
+        return config ('modules.' . $key, $default);
+    }
+}
+
+if (! function_exists ('goodcatch_vendor_path')) {
 
     /**
      * Get this library path in project's vendor
@@ -14,7 +30,7 @@ if (! function_exists('goodcatch_vendor_path')) {
     }
 }
 
-if (! function_exists('goodcatch_resource_path')) {
+if (! function_exists ('goodcatch_resource_path')) {
 
     /**
      * Get this library resource path based on 'goodcatch_vendor_path'
@@ -27,7 +43,7 @@ if (! function_exists('goodcatch_resource_path')) {
     }
 }
 
-if (! function_exists('module_defined_path')) {
+if (! function_exists ('module_defined_path')) {
 
     /**
      * -----------------------------------------------------------
@@ -43,7 +59,7 @@ if (! function_exists('module_defined_path')) {
      */
     function module_defined_path ($name)
     {
-        $path_conf = config ('modules.paths.generator.' . $name, []);
+        $path_conf = module_config ('paths.generator.' . $name, []);
         if (array_get ($path_conf, 'generate', false)) {
             return array_get ($path_conf, 'path', false);
         }
@@ -51,7 +67,7 @@ if (! function_exists('module_defined_path')) {
     }
 }
 
-if (! function_exists('module_generated_path')) {
+if (! function_exists ('module_generated_path')) {
 
     /**
      * Get module folder by a generation name
@@ -71,7 +87,7 @@ if (! function_exists('module_generated_path')) {
     }
 }
 
-if (! function_exists('module_route_prefix')) {
+if (! function_exists ('module_route_prefix')) {
     /**
      * Get route prefix from config 'modules.route.prefix', default to 'm'
      *
@@ -80,6 +96,7 @@ if (! function_exists('module_route_prefix')) {
      */
     function module_route_prefix ($append = '')
     {
-        return config('modules.route.prefix') . $append;
+        return module_config ('route.prefix') . $append;
     }
 }
+
