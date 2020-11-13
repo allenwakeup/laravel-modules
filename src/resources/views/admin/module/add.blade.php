@@ -54,7 +54,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">@lang('goodcatch::pages.laravel_modules.module.field.path')</label>
                     <div class="layui-input-block">
-                        <input type="text" name="path" autocomplete="off" class="layui-input" value="{{ $model->path ?? ''  }}">
+                        <input type="text" name="path" autocomplete="off" placeholder="{{ storage_path ('app/modules') }}" class="layui-input" value="{{ $model->path ?? ''  }}">
                     </div>
                 </div>
 

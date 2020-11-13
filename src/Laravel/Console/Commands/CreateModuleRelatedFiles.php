@@ -54,7 +54,7 @@ class CreateModuleRelatedFiles extends Command
 
         $this->modules = app ('modules') ? app ('modules')->all () : [];
 
-        $this->namespace = config ('modules.namespace', 'App\Modules');
+        $this->namespace = module_config ('namespace', 'App\Modules');
     }
 
     /**
@@ -62,14 +62,14 @@ class CreateModuleRelatedFiles extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle ()
     {
         $module = trim ($this->argument ('module'));
         $module_conf = Arr::get ($this->modules, Str::ucfirst ($module), false);
         if ($module_conf)
         {
             $moduleUCFirst = Str::ucfirst ($module);
-            $model = trim($this->argument ('model'));
+            $model = trim ($this->argument ('model'));
             $model_name = \mb_convert_encoding (trim ($this->argument ('name')), 'utf-8', ['utf-8', 'gbk']);
             $modelPlural = Str::plural ($model);
             $modelUCFirst = Str::ucfirst ($model);
@@ -88,57 +88,57 @@ class CreateModuleRelatedFiles extends Command
                         foreach ($match[1] as $k => $v) {
                             if ($type === 'views') {
                                 $path = module_generated_path ($module, $type, 'admin');
-                                if (!is_dir($path)) {
-                                    mkdir($path);
+                                if (!is_dir ($path)) {
+                                    mkdir ($path);
                                 }
                                 $path = $path . '/' . $model;
-                                if (!is_dir($path)) {
-                                    mkdir($path);
+                                if (!is_dir ($path)) {
+                                    mkdir ($path);
                                 }
                                 $file = module_generated_path ($module, $type, 'admin/' . str_replace('{{-$model-}}', $model, $v));
                             } elseif ($type === 'routes') {
                                 $path = module_generated_path ($module, $type, 'auto');
-                                if (!is_dir($path)) {
-                                    mkdir($path);
+                                if (!is_dir ($path)) {
+                                    mkdir ($path);
                                 }
                                 $file = module_generated_path ($module, $type, 'auto/' . str_replace('{{-$model-}}', $model, $v));
                             } else {
                                 $path = module_generated_path ($module, $type, 'Admin');
-                                if (!is_dir($path)) {
-                                    mkdir($path);
+                                if (!is_dir ($path)) {
+                                    mkdir ($path);
                                 }
-                                $file = module_generated_path ($module, $type, str_replace('{{-$model_uc_first-}}', $modelUCFirst, $v));
+                                $file = module_generated_path ($module, $type, str_replace ('{{-$model_uc_first-}}', $modelUCFirst, $v));
                             }
                             if (empty ($file)) {
-                                $this->warn("{$module} {$type} disabled");
+                                $this->warn ("{$module} {$type} disabled");
                                 continue;
                             }
                             if (file_exists($file)) {
-                                $this->warn("{$file} has already existed, just ignore it");
+                                $this->warn ("{$file} has already existed, just ignore it");
                                 continue;
                             }
 
-                            $content = ltrim(str_replace('{{-$model_uc_first-}}', $modelUCFirst, $match[2][$k]));
-                            $content = str_replace('{{-$module-namespace-}}', $this->namespace, $content);
-                            $content = str_replace('{{-$module_uc_first-}}', $moduleUCFirst, $content);
-                            $content = str_replace('{{-$module-}}', $module_conf->getLowerName (), $content);
-                            $content = str_replace('{{-$model_name-}}', $model_name, $content);
-                            $content = str_replace('{{-$model-}}', $model, $content);
-                            $content = str_replace('{{-$model_plural-}}', $modelPlural, $content);
-                            file_put_contents($file, $content);
+                            $content = ltrim (str_replace ('{{-$model_uc_first-}}', $modelUCFirst, $match[2][$k]));
+                            $content = str_replace ('{{-$module-namespace-}}', $this->namespace, $content);
+                            $content = str_replace ('{{-$module_uc_first-}}', $moduleUCFirst, $content);
+                            $content = str_replace ('{{-$module-}}', $module_conf->getLowerName (), $content);
+                            $content = str_replace ('{{-$model_name-}}', $model_name, $content);
+                            $content = str_replace ('{{-$model-}}', $model, $content);
+                            $content = str_replace ('{{-$model_plural-}}', $modelPlural, $content);
+                            file_put_contents ($file, $content);
 
-                            $this->info("Created {$file}");
+                            $this->info ("Created {$file}");
                         }
                     }
                 }
 
-                $this->info('All files created successfully');
+                $this->info ('All files created successfully');
             } else {
-                $this->error("template file not found");
+                $this->error ("template file not found");
             }
 
         } else {
-            $this->error("{$module} does not exist");
+            $this->error ("{$module} does not exist");
         }
         return;
     }

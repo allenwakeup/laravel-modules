@@ -14,8 +14,10 @@ And, ignored package "nwidart/laravel-modules" in laravel package discovery.
 
 ### install library
 
-```
+```shell script
+
 composer require goodcatch/laravel-modules
+
 ```
 
 ### modify Application
@@ -109,6 +111,57 @@ class Kernel extends HttpKernel
 
 }
 ```
+
+
+### Autoloading
+
+By default the module classes are not loaded automatically. You can autoload your modules using `psr-4`. For example:
+
+``` json
+{
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/",
+      "Goodcatch\\Modules\\": "storage/app/modules"
+    }
+  }
+}
+```
+
+
+**Tip: don't forget to run `composer dump-autoload` afterwards.**
+
+## Getting stated with development
+
+### have not created any module yet, create it at first
+
+
+Create first new module, the name is 'core'
+    
+
+```shell script
+
+php artisan module:make core
+
+
+```
+
+### has already created module
+
+For example, module name is core
+    
+Now, create module model against [LightCMS](https://github.com/eddy8/LightCMS) model
+
+**php artisan goodcatch:module model name module**
+
+```shell script
+
+php artisan goodcatch:module article Article core
+
+
+```
+
+
 
 Licensed under [The MIT License (MIT)](LICENSE).
 

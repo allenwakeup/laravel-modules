@@ -59,15 +59,17 @@ class LaravelFileRepository extends FileRepository
     public function scan ()
     {
         $modules = parent::scan ();
-        if (empty ($modules) && $this->config ('activator', 'database') === 'database')
+        if (empty ($modules) && $this->config ('activator') === 'database')
         {
             if (Schema::hasTable ($this->config ('activators.database.table', 'gc_modules')))
             {
                 $repo_modules = \Goodcatch\Modules\Laravel\Model\Module::ofEnabled ()->get ();
 
                 foreach ($repo_modules as $manifest) {
-
-                    $modules [$manifest->name] = $this->createModule ($this->app, $manifest->name, dirname ($manifest->path));
+                    if (file_exists ($manifest->path))
+                    {
+                        $modules [$manifest->name] = $this->createModule ($this->app, $manifest->name, dirname ($manifest->path));
+                    }
                 }
 
             }

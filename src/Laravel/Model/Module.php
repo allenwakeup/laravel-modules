@@ -5,6 +5,8 @@
 
 namespace Goodcatch\Modules\Laravel\Model;
 
+use Illuminate\Support\Facades\Config;
+
 class Module extends Model
 {
 
@@ -30,6 +32,19 @@ class Module extends Model
     public function getIsEnabledAttribute ()
     {
         return $this->status === self::STATUS_ENABLE;
+    }
+
+    public function getPathAttribute ($value)
+    {
+
+        if (empty (trim ($value)) || empty (ltrim ($value, '/')))
+        {
+            return storage_path ('app/modules')
+                . '/' . $this->name . '/' . ltrim ($value, '/');
+
+        }
+
+        return $value;
     }
 
 }
