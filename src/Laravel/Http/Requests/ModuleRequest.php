@@ -3,21 +3,12 @@
 namespace Goodcatch\Modules\Laravel\Http\Requests;
 
 use Goodcatch\Modules\Laravel\Model\Module;
-use Illuminate\Foundation\Http\FormRequest;
+use Goodcatch\Modules\Laravel\Http\Requests\CommonFormRequest as FormRequest;
 use Illuminate\Validation\Rule;
 
 class ModuleRequest extends FormRequest
 {
 
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize ()
-    {
-        return true;
-    }
 
 
     /**
@@ -27,8 +18,11 @@ class ModuleRequest extends FormRequest
      */
     public function rules ()
     {
+        $module_table_name = module_config ('activators.database.table', 'gc_modules');
 
-        $rules = [
+        return [
+            'name' => ['required', 'max:50', $this->uniqueOrExists (Module::class, 'name') . ':' . $module_table_name],
+            'alias' => ['required', 'max:50', $this->uniqueOrExists (Module::class, 'alias') . ':' . $module_table_name],
             'description' => 'max:255',
             'priority' => 'integer',
             'version' => 'max:10',
@@ -44,18 +38,6 @@ class ModuleRequest extends FormRequest
             ]
         ];
 
-        switch ($this->method ()) {
-            case 'POST':
-                $rules ['name'] = ['required', 'max:50', 'unique:' . module_config ('activators.database.table', 'gc_modules')];
-                $rules ['alias'] = ['required', 'max:50', 'unique:' . module_config ('activators.database.table', 'gc_modules')];
-                break;
-            default:
-                $rules ['name'] = 'required|max:50';
-                $rules ['alias'] = 'required|max:50';
-                break;
-        }
-
-        return $rules;
     }
 
 }
