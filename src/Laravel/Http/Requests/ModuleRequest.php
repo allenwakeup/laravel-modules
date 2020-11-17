@@ -27,9 +27,8 @@ class ModuleRequest extends FormRequest
      */
     public function rules ()
     {
+
         $rules = [
-            'name' => 'required|max:50',
-            'alias' => 'required|max:50',
             'description' => 'max:255',
             'priority' => 'integer',
             'version' => 'max:10',
@@ -45,6 +44,16 @@ class ModuleRequest extends FormRequest
             ]
         ];
 
+        switch ($this->method ()) {
+            case 'POST':
+                $rules ['name'] = ['required', 'max:50', 'unique:' . module_config ('activators.database.table', 'gc_modules')];
+                $rules ['alias'] = ['required', 'max:50', 'unique:' . module_config ('activators.database.table', 'gc_modules')];
+                break;
+            default:
+                $rules ['name'] = 'required|max:50';
+                $rules ['alias'] = 'required|max:50';
+                break;
+        }
 
         return $rules;
     }
