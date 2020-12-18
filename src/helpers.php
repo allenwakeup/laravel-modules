@@ -100,3 +100,22 @@ if (! function_exists ('module_route_prefix')) {
     }
 }
 
+if (! function_exists ('module_tap')) {
+    /**
+     * Get route prefix from config 'modules.route.prefix', default to 'm'
+     *
+     * @param string $abstract application abstract id
+     * @param closure $callback to tap
+     * @param array $params with application abstract parameters
+     * @return string
+     */
+    function module_tap ($abstract, $callback = null, $params = [])
+    {
+        if (! is_null ($callback) && app ()->has ($abstract))
+        {
+            return tap (app ($abstract, $params), $callback);
+        }
+        return $abstract;
+    }
+}
+

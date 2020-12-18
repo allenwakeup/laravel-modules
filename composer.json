@@ -30,7 +30,8 @@
 
         },
         "files": [
-            "src/helpers.php"
+            "src/helpers.php",
+            "src/lightcms.php"
         ]
     },
     "extra": {

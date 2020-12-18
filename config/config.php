@@ -37,7 +37,7 @@ return [
 
     'stubs' => [
         'enabled' => false,
-        'path' => base_path() . '/vendor/nwidart/laravel-modules/src/Commands/stubs',
+        'path' => base_path () . '/vendor/nwidart/laravel-modules/src/Commands/stubs',
         'files' => [
             'routes/web' => 'Routes/web.php',
             'routes/api' => 'Routes/api.php',
@@ -81,7 +81,7 @@ return [
         |
         */
 
-        'modules' => base_path('app/Modules'),
+        'modules' => base_path (env ('MODULE_INSTALL_PATH', 'app/Modules')),
         /*
         |--------------------------------------------------------------------------
         | Modules assets path
@@ -91,7 +91,7 @@ return [
         |
         */
 
-        'assets' => public_path('modules'),
+        'assets' => public_path ('modules'),
         /*
         |--------------------------------------------------------------------------
         | The migrations path
@@ -102,7 +102,7 @@ return [
         |
         */
 
-        'migration' => base_path('database/migrations'),
+        'migration' => base_path ('database/migrations'),
         /*
         |--------------------------------------------------------------------------
         | Generator path
@@ -215,7 +215,7 @@ return [
     'activators' => [
         'file' => [
             'class' => FileActivator::class,
-            'statuses-file' => base_path('modules_statuses.json'),
+            'statuses-file' => base_path ('modules_statuses.json'),
             'cache-key' => 'activator.installed',
             'cache-lifetime' => 604800,
         ],
@@ -227,7 +227,7 @@ return [
         ],
     ],
 
-    'activator' => 'database',
+    'activator' => env ('MODULE_ACTIVATOR', 'database'),
 
     /*
     |--------------------------------------------------------------------------

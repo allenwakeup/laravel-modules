@@ -117,7 +117,7 @@ class Kernel extends HttpKernel
 
 ### Autoloading
 
-By default the module classes are not loaded automatically. You can autoload your modules using `psr-4`. For example:
+By default the module classes are not loaded automatically. You can autoload your modules using `psr-4` if modules are placed in different folder. For example:
 
 ``` json
 {
@@ -130,6 +130,7 @@ By default the module classes are not loaded automatically. You can autoload you
 }
 ```
 
+**Note: don't forget to make sure the folder **storage/app/modules** exists or checkout environment configuration name **MODULE_INSTALL_PATH**.
 
 **Tip: don't forget to run `composer dump-autoload` afterwards.**
 
@@ -163,7 +164,24 @@ php artisan goodcatch:module article Article core
 
 ```
 
+### Environments
 
+```ini
+# optional that pre-append module route path in url
+# default to: m
+MODULE_ROUTE_PREFIX=m
+
+# optional that change the default modules path from app/Modules to new path
+# default to: storage/app/modules
+MODULE_INSTALL_PATH=storage/app/modules
+
+# optional that update module
+# default to: https://laravel-modules.goodcatch.cn/dl?p=%s&n=%s&v=%s&s=%s
+MODULE_INSTALL_REPO_URL=https://laravel-modules.goodcatch.cn/dl?p=%s&n=%s&v=%s&s=%s
+
+
+
+```
 
 Licensed under [The MIT License (MIT)](LICENSE).
 

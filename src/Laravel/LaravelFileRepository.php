@@ -5,7 +5,6 @@
 
 namespace Goodcatch\Modules\Laravel;
 
-use Goodcatch\Modules\Laravel\Repository\ModuleRepository;
 use Illuminate\Support\Facades\Schema;
 use Nwidart\Modules\FileRepository;
 use Nwidart\Modules\Json;

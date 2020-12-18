@@ -6,7 +6,7 @@
 namespace Goodcatch\Modules\Laravel\Repository;
 
 
-use App\Repository\Searchable;
+use Goodcatch\Modules\Lightcms\Repositories\Concerns\Searchable;
 
 use Goodcatch\Modules\Laravel\Model\Module;
 

@@ -7,6 +7,7 @@ namespace Goodcatch\Modules;
 
 use Goodcatch\Modules\Laravel\LaravelFileRepository;
 use Goodcatch\Modules\Providers\ConsoleServiceProvider;
+use Goodcatch\Modules\Providers\LightcmsServiceProvider;
 use Goodcatch\Modules\Providers\GoodcatchServiceProvider;
 use Goodcatch\Modules\Providers\RouteServiceProvider;
 use Nwidart\Modules\LaravelModulesServiceProvider as ModulesServiceProvider;
@@ -57,6 +58,7 @@ class LaravelModulesServiceProvider extends ModulesServiceProvider
         $this->app->register (RouteServiceProvider::class);
         $this->app->register (ConsoleServiceProvider::class);
         $this->app->register (GoodcatchServiceProvider::class);
+        $this->app->register (LightcmsServiceProvider::class);
     }
 
     /**

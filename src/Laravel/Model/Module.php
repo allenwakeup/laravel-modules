@@ -5,8 +5,6 @@
 
 namespace Goodcatch\Modules\Laravel\Model;
 
-use Illuminate\Support\Facades\Config;
-
 class Module extends Model
 {
 

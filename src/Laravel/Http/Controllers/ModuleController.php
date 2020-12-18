@@ -5,9 +5,9 @@
 
 namespace Goodcatch\Modules\Laravel\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Goodcatch\Modules\Laravel\Http\Requests\ModuleRequest;
 use Goodcatch\Modules\Laravel\Repository\ModuleRepository;
+use Goodcatch\Modules\Lightcms\Http\Controllers\Controller;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
