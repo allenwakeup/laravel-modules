@@ -5,6 +5,7 @@
  * $model_plural        模型名称复数              users
  * $model_uc_first      模型名称首字母大写       User
  * $model_name  模型中文名               用户
+ * $module
  */
 
 
@@ -191,6 +192,25 @@ Route::delete ('/{{-$model_plural-}}/{id}', '{{-$model_uc_first-}}Controller@del
 @endsection
 !endviews
 
+!startrepository=Admin/BaseRepository.php
+<?php
+/**
+ * @author  Allen <ali@goodcatch.cn>
+ */
+
+namespace {{-$module-namespace-}}\{{-$module_uc_first-}}\Repositories\Admin;
+
+use Goodcatch\Modules\Lightcms\Repositories\BaseRepository as Repository;
+
+class BaseRepository extends Repository
+{
+
+
+}
+
+!endrepository
+
+
 !startrepository=Admin/{{-$model_uc_first-}}Repository.php
 <?php
 /**
@@ -200,21 +220,18 @@ Route::delete ('/{{-$model_plural-}}/{id}', '{{-$model_uc_first-}}Controller@del
 namespace {{-$module-namespace-}}\{{-$module_uc_first-}}\Repositories\Admin;
 
 use {{-$module-namespace-}}\{{-$module_uc_first-}}\Model\Admin\{{-$model_uc_first-}};
-use App\Repository\Searchable;
-use App\Repository\Selectable;
 
-class {{-$model_uc_first-}}Repository
+class {{-$model_uc_first-}}Repository extends BaseRepository
 {
-    use Searchable, Selectable;
 
     public static function list ($perPage, $condition = [], $keyword = null)
     {
         $data = {{-$model_uc_first-}}::query ()
             ->where (function ($query) use ($condition, $keyword) {
-                Searchable::buildQuery ($query, $condition);
+                self::buildQuery ($query, $condition);
                 if (! empty ($keyword))
                 {
-                    Selectable::buildSelect ($query, $condition, $keyword);
+                    self::buildSelect ($query, $condition, $keyword);
                 }
             })
             ->orderBy ('id', 'desc')
@@ -257,16 +274,51 @@ class {{-$model_uc_first-}}Repository
 !endrepository
 
 
-!startrequest=Admin/{{-$model_uc_first-}}Request.php
+!startrequest=Admin/BaseRequest.php
 <?php
+/**
+ * @author  Allen <ali@goodcatch.cn>
+ */
 
 namespace {{-$module-namespace-}}\{{-$module_uc_first-}}\Http\Requests\Admin;
 
-use App\Http\Requests\Admin\BaseRequest as FormRequest;
+use Goodcatch\Modules\Laravel\Http\Requests\CommonFormRequest as FormRequest;
+
+class BaseRequest extends FormRequest
+{
+
+    /**
+     * Get the validator instance for the request.
+     *
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function getValidatorInstance ()
+    {
+        $validator = parent::getValidatorInstance ();
+        $validator->addCustomAttributes (__ ('{{-$module-}}::validation.attributes'));
+        $validator->setCustomMessages (__ ('{{-$module-}}::validation.custom'));
+        $validator->addCustomValues (__ ('{{-$module-}}::validation.values'));
+        return $validator;
+    }
+
+
+}
+
+!endrequest
+
+
+!startrequest=Admin/{{-$model_uc_first-}}Request.php
+<?php
+/**
+ * @author  Allen <ali@goodcatch.cn>
+ */
+
+namespace {{-$module-namespace-}}\{{-$module_uc_first-}}\Http\Requests\Admin;
+
 use {{-$module-namespace-}}\{{-$module_uc_first-}}\Model\Admin\{{-$model_uc_first-}};
 use Illuminate\Validation\Rule;
 
-class {{-$model_uc_first-}}Request extends FormRequest
+class {{-$model_uc_first-}}Request extends BaseRequest
 {
 
     /**
@@ -283,9 +335,9 @@ class {{-$model_uc_first-}}Request extends FormRequest
         return [
             'name' => 'required|max:50',
             'description' => 'max:255',
-            //'status' => [
-            //    Rule::in ($status_in),
-            //],
+            'status' => [
+                Rule::in ($status_in),
+            ],
         ];
     }
 }
@@ -300,7 +352,7 @@ class {{-$model_uc_first-}}Request extends FormRequest
 
 namespace {{-$module-namespace-}}\{{-$module_uc_first-}}\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use Goodcatch\Modules\Lightcms\Http\Controllers\Controller;
 use {{-$module-namespace-}}\{{-$module_uc_first-}}\Http\Requests\Admin\{{-$model_uc_first-}}Request;
 use {{-$module-namespace-}}\{{-$module_uc_first-}}\Repositories\Admin\{{-$model_uc_first-}}Repository;
 use Illuminate\Database\QueryException;
@@ -455,6 +507,27 @@ class {{-$model_uc_first-}}Controller extends Controller
 }
 !endcontroller
 
+!startmodel=Admin/Model.php
+<?php
+/**
+ * @author  Allen <ali@goodcatch.cn>
+ */
+
+namespace {{-$module-namespace-}}\{{-$module_uc_first-}}\Model\Admin;
+
+use Goodcatch\Modules\Lightcms\Model\Admin\Model as BaseModel;
+
+abstract class Model extends BaseModel
+{
+
+    /**
+     * @var string module table with prefix
+     */
+    protected $module_table_prefix = '{{-$module-}}_';
+
+}
+!endmodel
+
 !startmodel=Admin/{{-$model_uc_first-}}.php
 <?php
 /**
@@ -462,9 +535,8 @@ class {{-$model_uc_first-}}Controller extends Controller
  */
 
 namespace {{-$module-namespace-}}\{{-$module_uc_first-}}\Model\Admin;
-use App\Model\Admin\Model as BaseModel;
 
-class {{-$model_uc_first-}} extends BaseModel
+class {{-$model_uc_first-}} extends Model
 {
     const STATUS_ENABLE = 1;
     const STATUS_DISABLE = 0;

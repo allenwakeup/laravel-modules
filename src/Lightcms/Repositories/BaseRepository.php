@@ -5,14 +5,12 @@
 
 namespace Goodcatch\Modules\Lightcms\Repositories;
 
-use App\Repository\Searchable;
-use Goodcatch\Modules\Lightcms\Repositories\Concerns\Selectable;
 use Illuminate\Support\Arr;
 
 class BaseRepository
 {
 
-    use Selectable, Searchable;
+    use Concerns\Selectable, Concerns\Searchable;
 
 
     const TRANSFORM_TYPE_JSON                       = 'json';
