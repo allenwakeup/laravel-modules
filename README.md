@@ -1,5 +1,4 @@
 # Laravel Modules extension 
-======
 
 based on project [nwidart/laravel-modules](https://github.com/nwidart/laravel-modules)
 
@@ -180,6 +179,48 @@ MODULE_INSTALL_PATH=storage/app/modules
 MODULE_INSTALL_REPO_URL=https://laravel-modules.goodcatch.cn/dl?p=%s&n=%s&v=%s&s=%s
 
 
+
+```
+
+### Lightcms part
+
+[LightCMS](https://github.com/eddy8/lightcms) is CMS system based on Laravel.
+
+Goodcatch Modules improved Lightcms Menu discovering.
+
+change file **app/Providers/RouteServiceProvider.php**
+
+```php
+
+// ...
+
+    /**
+     * Define the "admin" routes for the application.
+     *
+     * These routes all receive session state, CSRF protection, etc.
+     *
+     * @return void
+     */
+    protected function mapAdminRoutes()
+    {
+       
+        Route::prefix('admin')
+            ->middleware('web')
+            ->namespace($this->namespace . '\Admin')
+            ->group(base_path('routes/admin.php'));
+
+        // override menu
+        Route::group ([[ 'as' => 'admin::']], function () {
+            Route::prefix('admin')
+                ->middleware('web')
+                ->namespace('Goodcatch\Modules\Lightcms\Http\Controllers\Admin')
+                ->group(function(){
+                    Route::post('/menus/discovery', 'MenuController@discovery')->name('menu.discovery');
+                });
+
+        });
+
+// ...
 
 ```
 
