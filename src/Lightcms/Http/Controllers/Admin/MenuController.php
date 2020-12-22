@@ -8,6 +8,7 @@
 
 namespace Goodcatch\Modules\Lightcms\Http\Controllers\Admin;
 
+use App\Events\MenuUpdated;
 use App\Http\Controllers\Admin\MenuController as Controller;
 use App\Http\Requests\Admin\MenuRequest;
 use App\Model\Admin\Menu;

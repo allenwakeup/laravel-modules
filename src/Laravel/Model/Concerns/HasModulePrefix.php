@@ -24,11 +24,6 @@ trait HasModulePrefix
     }
 
     /**
-     * @var string module table with prefix
-     */
-    protected $module_table_prefix = '';
-
-    /**
      * Set the table associated with the model.
      *
      * @param  string  $table

@@ -182,6 +182,22 @@ MODULE_INSTALL_REPO_URL=https://laravel-modules.goodcatch.cn/dl?p=%s&n=%s&v=%s&s
 
 ```
 
+### module admin pages
+
+Goodcatch Modules providers admin page to show modules list and disable/enable module if you want it.
+
+first of all, generate tables and then install them.
+
+```shell script
+
+php artisan goodcatch:table
+
+php artisan migrate
+
+php artisan goodcatch:cache
+
+```
+
 ### Lightcms part
 
 [LightCMS](https://github.com/eddy8/lightcms) is CMS system based on Laravel.
@@ -210,15 +226,18 @@ change file **app/Providers/RouteServiceProvider.php**
             ->group(base_path('routes/admin.php'));
 
         // override menu
-        Route::group ([[ 'as' => 'admin::']], function () {
-            Route::prefix('admin')
-                ->middleware('web')
-                ->namespace('Goodcatch\Modules\Lightcms\Http\Controllers\Admin')
-                ->group(function(){
-                    Route::post('/menus/discovery', 'MenuController@discovery')->name('menu.discovery');
-                });
+        Route::prefix('admin')
+            ->middleware('web')
+            ->namespace('Goodcatch\Modules\Lightcms\Http\Controllers\Admin')
+            ->group (function() {
+                Route::group(['as' => 'admin::'], function() {
+                    Route::middleware('log:admin', 'auth:admin', 'authorization:admin')
+                        ->group(function() {
+                            Route::post('/menus/discovery', 'MenuController@discovery')->name('menu.discovery');
+                        });
 
-        });
+                });
+            });
 
 // ...
 

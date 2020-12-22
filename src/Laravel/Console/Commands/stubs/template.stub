@@ -523,7 +523,9 @@ abstract class Model extends BaseModel
     /**
      * @var string module table with prefix
      */
-    protected $module_table_prefix = '{{-$module-}}_';
+    protected function getModuleTablePrefix () {
+        return '{{-$module-}}_';
+    }
 
 }
 !endmodel
