@@ -48,3 +48,17 @@ if (! function_exists ('load_dictionary')) {
         return $dict;
     }
 }
+
+if (! function_exists ('light_dictionary')) {
+    /**
+     * 利用light config string 类型的配置，转换成字典
+     *
+     * @param $light_key
+     * @param string $default
+     * @return array
+     */
+    function light_dictionary($light_key, $default = '')
+    {
+        return load_dictionary(light_config($light_key, $default));
+    }
+}

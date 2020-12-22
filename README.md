@@ -197,6 +197,7 @@ php artisan migrate
 php artisan goodcatch:cache
 
 ```
+open modules admin page: http://domain/goodcatch/laravel-modules/modules
 
 ### Lightcms part
 
