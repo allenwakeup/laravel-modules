@@ -15,8 +15,6 @@ And, ignored package "nwidart/laravel-modules" in laravel package discovery.
 
 ```shell script
 
-composer require nwidart/laravel-modules
-
 composer require goodcatch/laravel-modules
 
 ```
