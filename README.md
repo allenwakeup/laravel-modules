@@ -199,6 +199,8 @@ open modules admin page: http://domain/goodcatch/laravel-modules/modules
 
 ### Lightcms part
 
+#### route
+
 [LightCMS](https://github.com/eddy8/lightcms) is CMS system based on Laravel.
 
 Goodcatch Modules improved Lightcms Menu discovering.
@@ -241,6 +243,14 @@ change file **app/Providers/RouteServiceProvider.php**
 // ...
 
 ```
+
+#### front end
+
+[Layui update](https://res.layui.com/static/download/layui/layui-v2.5.7.zip?v=1)
+
+[xm-select](https://gitee.com/maplemei/xm-select)
+
+
 
 Licensed under [The MIT License (MIT)](LICENSE).
 
