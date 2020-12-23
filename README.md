@@ -152,7 +152,7 @@ For example, module name is core
     
 Now, create module model against [LightCMS](https://github.com/eddy8/LightCMS) model
 
-**php artisan goodcatch:module model name module**
+**php artisan goodcatch:module <model name> <name> <module name>**
 
 ```shell script
 
