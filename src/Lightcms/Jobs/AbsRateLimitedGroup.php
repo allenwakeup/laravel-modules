@@ -3,8 +3,7 @@
 namespace Goodcatch\Modules\Lightcms\Jobs;
 
 use App\Jobs\WriteSystemLog;
-use Carbon\Carbon;
-use Goodcatch\Modules\Lightcms\Jobs\Middleware\RateLimited;
+use Goodcatch\Modules\Laravel\Jobs\Middleware\RateLimited;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 abstract class AbsRateLimitedGroup implements ShouldQueue
@@ -21,19 +20,8 @@ abstract class AbsRateLimitedGroup implements ShouldQueue
      *
      * @param array|null $message
      */
-    protected function writeLogs (array $message = null)
+    protected function writeSysLogs (array $data)
     {
-        $now = Carbon::now ();
-        dispatch (new WriteSystemLog([
-            'user_id' => $this->scheduleLogId,
-            'user_name' => $this->scheduleLogName,
-            'url' => get_class ($this),
-            'ua' => $this->schedule_failed ? 'true' : 'false',
-            'ip' => '',
-            'type' => $this->scheduleLogType,
-            'data' => implode ('; ', is_null ($message) ? $this->schedule_output : $message),
-            'updated_at' => $now,
-            'created_at' => $now
-        ]));
+        dispatch (new WriteSystemLog ($data));
     }
 }

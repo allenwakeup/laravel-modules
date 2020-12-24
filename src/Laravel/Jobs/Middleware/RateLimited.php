@@ -1,6 +1,6 @@
 <?php
 
-namespace Goodcatch\Modules\Lightcms\Jobs\Middleware;
+namespace Goodcatch\Modules\Laravel\Jobs\Middleware;
 
 
 use Illuminate\Support\Facades\Redis;
