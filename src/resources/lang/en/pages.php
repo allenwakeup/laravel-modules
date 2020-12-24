@@ -6,6 +6,8 @@ return [
 
     'laravel_modules' => [
 
+        'lang' => '简体中文',
+
         'module' => [
 
             'search' => [
@@ -54,6 +56,60 @@ return [
         ],
         'msg' => [
             'removable' => 'Are you sure about remove it?'
+        ]
+    ],
+
+    'welcome' => [
+        'name' => 'Welcome',
+        'title' => 'Welcome',
+        'links' => [
+            'welcome' => [
+                'name' => 'Welcome, :user'
+            ],
+            'front' => [
+                'name' => 'User Login'
+            ],
+            'admin' => [
+                'name' => 'Admin Login'
+            ],
+            'member' => [
+                'sign' => [
+                    'in' => [
+                        'name' => 'Sign In'
+                    ],
+                    'out' => [
+                        'name' => 'Sign Out'
+                    ],
+                    'up' => [
+                        'name' => 'Sign Up'
+                    ]
+                ]
+            ]
+        ]
+    ],
+
+    'admin' => [
+        'login' => [
+            'name' => 'Sign In',
+            'form' => [
+                'account' => 'User Name',
+                'password' => 'Password',
+                'captcha' => 'Verify Code',
+                'fresh_captcha' => 'Click to refresh',
+                'submit' => 'Login'
+            ]
+        ],
+        'sign' => [
+            'in' => [
+                'name' => 'Sign In',
+                'tip' => 'Existing customer?'
+            ],
+            'out' => [
+                'name' => 'Sign Out'
+            ],
+            'up' => [
+                'name' => 'Sign Up'
+            ]
         ]
     ]
 

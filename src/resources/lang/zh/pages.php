@@ -4,6 +4,8 @@ return [
 
     'laravel_modules' => [
 
+        'lang' => 'English',
+
         'module' => [
 
             'search' => [
@@ -51,6 +53,65 @@ return [
         ],
         'msg' => [
             'removable' => '确定删除？'
+        ]
+    ],
+
+    'welcome' => [
+        'name' => '首页',
+        'title' => '欢迎',
+        'links' => [
+            'welcome' => [
+                'name' => ':user，欢迎您'
+            ],
+            'front' => [
+                'name' => '用户登录'
+            ],
+            'admin' => [
+                'name' => '管理员登录'
+            ],
+            'member' => [
+                'sign' => [
+                    'in' => [
+                        'name' => '登录'
+                    ],
+                    'out' => [
+                        'name' => '退出登录'
+                    ],
+                    'up' => [
+                        'name' => '注册'
+                    ]
+                ]
+            ]
+        ]
+    ],
+
+    'admin' => [
+        'login' => [
+            'name' => '登录',
+            'form' => [
+                'account' => '账号',
+                'password' => '密码',
+                'captcha' => '图形验证码',
+                'fresh_captcha' => '点击刷新验证码',
+                'submit' => '登录'
+            ]
+        ],
+        'sign' => [
+            'in' => [
+                'name' => '登录',
+                'tip' => '已有账号？'
+            ],
+            'out' => [
+                'name' => '登出'
+            ],
+            'up' => [
+                'name' => '注册'
+            ]
+        ],
+        'list' => [
+            'create' => [
+                'name' => '新增'
+            ]
         ]
     ]
 

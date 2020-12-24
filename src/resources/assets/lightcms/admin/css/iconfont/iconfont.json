@@ -1,0 +1,170 @@
+{
+  "id": "1809960",
+  "name": "layui",
+  "font_family": "iconfont",
+  "css_prefix_text": "layui-icon-goodcatch",
+  "description": "layui 扩展",
+  "glyphs": [
+    {
+      "icon_id": "11903005",
+      "name": "language",
+      "font_class": "-language",
+      "unicode": "e60c",
+      "unicode_decimal": 58892
+    },
+    {
+      "icon_id": "1208075",
+      "name": "leftmenu-icon-administrater",
+      "font_class": "-admin",
+      "unicode": "e60e",
+      "unicode_decimal": 58894
+    },
+    {
+      "icon_id": "10793067",
+      "name": "log",
+      "font_class": "-log",
+      "unicode": "e624",
+      "unicode_decimal": 58916
+    },
+    {
+      "icon_id": "11215261",
+      "name": "menu",
+      "font_class": "-menu",
+      "unicode": "e700",
+      "unicode_decimal": 59136
+    },
+    {
+      "icon_id": "11466716",
+      "name": "mg-role",
+      "font_class": "-role",
+      "unicode": "e60b",
+      "unicode_decimal": 58891
+    },
+    {
+      "icon_id": "11891796",
+      "name": "model",
+      "font_class": "-model",
+      "unicode": "e66e",
+      "unicode_decimal": 58990
+    },
+    {
+      "icon_id": "14206082",
+      "name": "category-24px",
+      "font_class": "-category",
+      "unicode": "e604",
+      "unicode_decimal": 58884
+    },
+    {
+      "icon_id": "767140",
+      "name": "et-workshop-inventory",
+      "font_class": "-workshop",
+      "unicode": "e63b",
+      "unicode_decimal": 58939
+    },
+    {
+      "icon_id": "927703",
+      "name": "ico-process",
+      "font_class": "-process",
+      "unicode": "e639",
+      "unicode_decimal": 58937
+    },
+    {
+      "icon_id": "1061336",
+      "name": "version",
+      "font_class": "-version",
+      "unicode": "e68d",
+      "unicode_decimal": 59021
+    },
+    {
+      "icon_id": "1210905",
+      "name": "Factory",
+      "font_class": "-factory",
+      "unicode": "e662",
+      "unicode_decimal": 58978
+    },
+    {
+      "icon_id": "1393504",
+      "name": "environment_hub",
+      "font_class": "-mode",
+      "unicode": "e6b5",
+      "unicode_decimal": 59061
+    },
+    {
+      "icon_id": "2041782",
+      "name": "OS_Linux  Gnome",
+      "font_class": "_terminal",
+      "unicode": "e673",
+      "unicode_decimal": 58995
+    },
+    {
+      "icon_id": "6151216",
+      "name": "map",
+      "font_class": "-province",
+      "unicode": "e7f3",
+      "unicode_decimal": 59379
+    },
+    {
+      "icon_id": "8776944",
+      "name": "region",
+      "font_class": "-region",
+      "unicode": "e641",
+      "unicode_decimal": 58945
+    },
+    {
+      "icon_id": "8777224",
+      "name": "copy",
+      "font_class": "-copy",
+      "unicode": "e64c",
+      "unicode_decimal": 58956
+    },
+    {
+      "icon_id": "11538072",
+      "name": "region",
+      "font_class": "region",
+      "unicode": "e67b",
+      "unicode_decimal": 59003
+    },
+    {
+      "icon_id": "11971367",
+      "name": "un-Process-fill",
+      "font_class": "-processl",
+      "unicode": "e6fc",
+      "unicode_decimal": 59132
+    },
+    {
+      "icon_id": "11981428",
+      "name": "city",
+      "font_class": "-city",
+      "unicode": "e93f",
+      "unicode_decimal": 59711
+    },
+    {
+      "icon_id": "14464836",
+      "name": "devices",
+      "font_class": "-devices",
+      "unicode": "e60a",
+      "unicode_decimal": 58890
+    },
+    {
+      "icon_id": "14465134",
+      "name": "items",
+      "font_class": "-items",
+      "unicode": "e688",
+      "unicode_decimal": 59016
+    },
+    {
+      "icon_id": "11650569",
+      "name": "clipboard",
+      "font_class": "-clipboard-check",
+      "unicode": "e7bc",
+      "unicode_decimal": 59324
+    },
+    {
+      "icon_id": "12692964",
+      "name": "clipboard",
+      "font_class": "-clipboard",
+      "unicode": "e815",
+      "unicode_decimal": 59413
+    }
+  ]
+}

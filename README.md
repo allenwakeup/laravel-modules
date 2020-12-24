@@ -199,6 +199,13 @@ open modules admin page: http://domain/goodcatch/laravel-modules/modules
 
 ### Lightcms part
 
+#### publish resources and override
+
+```shell script
+php artisan vendor:publish --tag=goodcatch-modules-lightcms --force
+
+```
+
 #### route
 
 [LightCMS](https://github.com/eddy8/lightcms) is CMS system based on Laravel.
