@@ -3,6 +3,28 @@
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 
+if (! function_exists ('_trans')) {
+    /**
+     * Translate the given message.
+     * Otherwise show default string
+     *
+     * @param  string|null  $key
+     * @param  string|null  $default
+     * @param  array  $replace
+     * @param  string|null  $locale
+     * @return \Illuminate\Contracts\Translation\Translator|string|array|null
+     */
+    function _trans ($key, $default = null, $replace = [], $locale = null)
+    {
+        $trans = trans ($key, $replace, $locale);
+        if(strcmp ($trans, $key) === 0)
+        {
+            return value ($default);
+        }
+        return $trans;
+    }
+}
+
 if (! function_exists ('module_config')) {
     /**
      * Get / set the specified configuration value from modules.
@@ -22,13 +44,26 @@ if (! function_exists ('module_config')) {
 if (! function_exists ('goodcatch_vendor_path')) {
 
     /**
-     * Get this library path in project's vendor
+     * Get project vendor path
      *
      * @return string
      */
     function goodcatch_vendor_path ($append = '')
     {
-        return base_path () . '/vendor/goodcatch/laravel-modules/src' . $append;
+        return base_path () . '/vendor/goodcatch' . $append;
+    }
+}
+
+if (! function_exists ('goodcatch_laravel_modules_path')) {
+
+    /**
+     * Get this library path in project's vendor
+     *
+     * @return string
+     */
+    function goodcatch_laravel_modules_path ($append = '')
+    {
+        return goodcatch_vendor_path () . '/laravel-modules/src' . $append;
     }
 }
 
@@ -41,7 +76,7 @@ if (! function_exists ('goodcatch_resource_path')) {
      */
     function goodcatch_resource_path ($append = '')
     {
-        return goodcatch_vendor_path ('/resources') . $append;
+        return goodcatch_laravel_modules_path ('/resources') . $append;
     }
 }
 

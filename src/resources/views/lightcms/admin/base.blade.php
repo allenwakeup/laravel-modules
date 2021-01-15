@@ -23,7 +23,7 @@
         <ul class="layui-nav layui-layout-left">
             @foreach(App\Repository\Admin\MenuRepository::allRoot() as $v)
                 @if($isSuperAdmin || $user->can($v->name))
-                    <li class="layui-nav-item @if(!empty($light_menu) && $v->id == $light_menu['id']) layui-this @endif"><a href="{{  \LaravelLocalization::localizeURL( $v->url ) }}">@lang('pages.app.menu.' . \Illuminate\Support\Str::replaceFirst('::', '.', $v->route))</a></li>
+                    <li class="layui-nav-item @if(!empty($light_menu) && $v->id == $light_menu['id']) layui-this @endif"><a href="{{  \LaravelLocalization::localizeURL( $v->url ) }}">{{ _trans ('pages.app.menu.' . \Illuminate\Support\Str::replaceFirst('::', '.', $v->route), $v->name) }}</a></li>
                 @endif
             @endforeach
         </ul>
@@ -86,7 +86,7 @@
                                 <dl class="layui-nav-child">
                                     @foreach($menu as $sub)
                                         @if(intval($sub['status']) === App\Model\Admin\Menu::STATUS_ENABLE && ($isSuperAdmin || $user->can($sub['name'])))
-                                            <dd @if($sub['route'] == $light_cur_route) class="layui-this" @endif style="margin-left: 7px" ><a href="{{  \LaravelLocalization::localizeURL(  $sub['url'] )}}">@if(array_has($sub, 'icon')) <i class="layui-icon {{array_get($sub, 'icon')}}"></i> @endif {{ __(config ('pages.app.menu.' . \Illuminate\Support\Str::replaceFirst('::', '.', $sub['route']), $sub ['name'])) }}</a></dd>
+                                            <dd @if($sub['route'] == $light_cur_route) class="layui-this" @endif style="margin-left: 7px" ><a href="{{  \LaravelLocalization::localizeURL(  $sub['url'] )}}">@if(array_has($sub, 'icon')) <i class="layui-icon {{array_get($sub, 'icon')}}"></i> @endif {{ _trans ('pages.app.menu.' . \Illuminate\Support\Str::replaceFirst('::', '.', $sub ['route']), $sub ['name']) }}</a></dd>
                                         @endif
                                     @endforeach
                                 </dl>

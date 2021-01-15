@@ -238,7 +238,7 @@ return [
     | The request url to modules follow this prefix
     */
     'route' => [
-        'path' => goodcatch_vendor_path ('/routes'),
+        'path' => goodcatch_laravel_modules_path ('/routes'),
         'prefix' => env ('MODULE_ROUTE_PREFIX', 'm'),
         'entry' => [
             // backend for admin pages
