@@ -55,6 +55,7 @@
                 "auth.json",
                 "composer.lock",
                 ".gitignore",
+                ".git",
                 ".DS_Store",
                 ".idea/",
                 "vendor/"
