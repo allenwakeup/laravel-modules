@@ -49,7 +49,7 @@
             <div class="lightcms-user-login-box lightcms-user-login-body layui-form">
                 <div class="layui-form-item">
                     <label class="lightcms-user-login-icon layui-icon layui-icon-username" for="login-username"></label>
-                    <input type="text" name="account" id="login-username" lay-verify="required" placeholder="@lang('goodcatch::pages.admin.login.form.account')" class="layui-input">
+                    <input type="text" name="name" id="login-username" lay-verify="required" placeholder="@lang('goodcatch::pages.admin.login.form.account')" class="layui-input">
                 </div>
                 <div class="layui-form-item">
                     <label class="lightcms-user-login-icon layui-icon layui-icon-password" for="login-password"></label>

@@ -18,7 +18,7 @@
 @endphp
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
-        <div class="layui-logo">@lang('pages.app.name')</div>
+        <div class="layui-logo">{{ config('app.name') }}</div>
         <!-- 头部区域（可配合layui已有的水平导航） -->
         <ul class="layui-nav layui-layout-left">
             @foreach(App\Repository\Admin\MenuRepository::allRoot() as $v)
@@ -40,7 +40,7 @@
             <li class="layui-nav-item">
                 <a href="javascript:;">
                     <i class="layui-icon layui-icon-goodcatch-language" style="font-size: 20px; color: #009688;"></i>
-                    @lang('pages.app.lang')
+                    @lang('goodcatch::pages.laravel_modules.lang')
                 </a>
                 <dl class="layui-nav-child">
 
@@ -55,7 +55,7 @@
                     @endforeach
                 </dl>
             </li>
-            <li class="layui-nav-item"><a href="{{  \LaravelLocalization::localizeURL(  route('admin::logout') )}}">@lang('pages.admin.sign.out.name')</a></li>
+            <li class="layui-nav-item"><a href="{{  \LaravelLocalization::localizeURL(  route('admin::logout') )}}">@lang('goodcatch::pages.admin.sign.out.name')</a></li>
         </ul>
     </div>
 
