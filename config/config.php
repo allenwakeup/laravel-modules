@@ -151,7 +151,7 @@ return [
     'scan' => [
         'enabled' => true,
         'paths' => [
-            base_path ('vendor/*/*'),
+            base_path ('vendor/goodcatch/*/*'),
             storage_path ('app/modules'),
         ],
     ],
