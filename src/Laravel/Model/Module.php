@@ -31,7 +31,7 @@ class Module extends Model
     {
         return $this->status === self::STATUS_ENABLE;
     }
-
+/*
     public function getPathAttribute ($value)
     {
 
@@ -43,6 +43,6 @@ class Module extends Model
         }
 
         return $value;
-    }
+    }*/
 
 }

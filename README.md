@@ -11,6 +11,16 @@ And, ignored package "nwidart/laravel-modules" in laravel package discovery.
 
 ## Installation
 
+there might be a little bit more complicated things to do.
+
+    * add required php composer library
+    * do minor changes to laravel application
+    * initialize application
+    * add first goodcatch laravel-module 'Core'
+    * getting started development
+    * LightCMS: how to
+
+
 ### install library
 
 ```shell script
@@ -127,9 +137,42 @@ By default the module classes are not loaded automatically. You can autoload you
 }
 ```
 
-**Note: don't forget to make sure the folder **storage/app/modules** exists or checkout environment configuration name **MODULE_INSTALL_PATH**.
+**Note: don't forget to make sure the folder 'storage/app/modules' exists or checkout environment configuration name 'MODULE_INSTALL_PATH'**.
 
 **Tip: don't forget to run `composer dump-autoload` afterwards.**
+
+
+### module admin pages
+
+Goodcatch Modules providers admin page to show modules list and disable/enable module if you want it.
+
+first of all, generate tables and then install them.
+
+```shell script
+
+php artisan goodcatch:table
+
+php artisan migrate
+
+php artisan goodcatch:cache
+
+```
+
+open modules admin page: http://domain/goodcatch/laravel-modules/modules
+
+
+### install the first module Core
+
+```shell script
+
+composer require goodcatch/laravel-module-core
+
+php artisan module:migrate core --seed
+
+```
+
+checkout modules admin page, there will be a module named 'Core'.
+
 
 ## Getting stated with development
 
@@ -180,23 +223,6 @@ MODULE_INSTALL_REPO_URL=https://laravel-modules.goodcatch.cn/dl?p=%s&n=%s&v=%s&s
 
 ```
 
-### module admin pages
-
-Goodcatch Modules providers admin page to show modules list and disable/enable module if you want it.
-
-first of all, generate tables and then install them.
-
-```shell script
-
-php artisan goodcatch:table
-
-php artisan migrate
-
-php artisan goodcatch:cache
-
-```
-open modules admin page: http://domain/goodcatch/laravel-modules/modules
-
 ### Lightcms part
 
 #### publish resources and override
@@ -218,6 +244,10 @@ change file **app/Providers/RouteServiceProvider.php**
 
 // ...
 
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+
+// ...
+
     /**
      * Define the "admin" routes for the application.
      *
@@ -227,25 +257,32 @@ change file **app/Providers/RouteServiceProvider.php**
      */
     protected function mapAdminRoutes()
     {
-       
-        Route::prefix('admin')
-            ->middleware('web')
-            ->namespace($this->namespace . '\Admin')
-            ->group(base_path('routes/admin.php'));
 
-        // override menu
-        Route::prefix('admin')
-            ->middleware('web')
-            ->namespace('Goodcatch\Modules\Lightcms\Http\Controllers\Admin')
-            ->group (function() {
-                Route::group(['as' => 'admin::'], function() {
-                    Route::middleware('log:admin', 'auth:admin', 'authorization:admin')
-                        ->group(function() {
-                            Route::post('/menus/discovery', 'MenuController@discovery')->name('menu.discovery');
+        Route::prefix (LaravelLocalization::setLocale ())
+            ->middleware ('localeSessionRedirect', 'localizationRedirect', 'localeViewPath')
+            ->group (function () {
+                Route::prefix('admin')
+                    ->middleware('web')
+                    ->namespace($this->namespace . '\Admin')
+                    ->group(base_path('routes/admin.php'));
+        
+                // override menu
+                Route::prefix('admin')
+                    ->middleware('web')
+                    ->namespace('Goodcatch\Modules\Lightcms\Http\Controllers\Admin')
+                    ->group (function() {
+                        Route::group(['as' => 'admin::'], function() {
+                            Route::middleware('log:admin', 'auth:admin', 'authorization:admin')
+                                ->group(function() {
+                                    Route::post('/menus/discovery', 'MenuController@discovery')->name('menu.discovery');
+                                });
+        
                         });
-
-                });
+                    });
             });
+       
+
+        
 
 // ...
 
@@ -253,11 +290,16 @@ change file **app/Providers/RouteServiceProvider.php**
 
 #### front end
 
-[Layui update](https://res.layui.com/static/download/layui/layui-v2.5.7.zip?v=1)
+[Layui update](https://layui.com)
+
+copy all of layui files to folder **public/public/vendor/layui**
+
 
 [xm-select](https://gitee.com/maplemei/xm-select)
 
-
+```shell script
+cd public/public/vendor/xm-select && wget https://gitee.com/maplemei/xm-select/raw/master/dist/xm-select.js
+```
 
 Licensed under [The MIT License (MIT)](LICENSE).
 
