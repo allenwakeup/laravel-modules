@@ -4,14 +4,16 @@ based on project [nwidart/laravel-modules](https://github.com/nwidart/laravel-mo
 
 ## Introduction
 
-The goodcatch laravel modules library overwrite "nwidart/laravel-modules" service providers.
+The Goodcatch Laravel Modules library overwrite "nwidart/laravel-modules" service provider.
 
-And, ignored package "nwidart/laravel-modules" in laravel package discovery.
+It extends "nwidart/laravel-modules" library, provide database activator.
+
+Because of Laravel Package Discovery, "nwidart/laravel-modules" has been listed in composer.json.
 
 
 ## Installation
 
-there might be a little bit more complicated things to do.
+There might be a little bit more complicated things to do.
 
     * add required php composer library
     * do minor changes to laravel application
@@ -33,7 +35,7 @@ composer require goodcatch/laravel-modules
 
 find file **/path_to_project/bootstrap/app.php**
 
-change Kernal from app kernel to goodcatch kernel
+change Kernel from app kernel to goodcatch kernel
 
 for example
 
@@ -81,7 +83,6 @@ return [
 
 ```
 
-
     make sure laravel-localization is configured to laravel http kernel
 
 ```php
@@ -93,7 +94,6 @@ class Kernel extends HttpKernel
 // ...
 
 
-
     /**
      * The application's route middleware.
      *
@@ -102,9 +102,9 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-    
+
         // ...
-        
+
         // localization
 
         'localize'                => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRoutes::class,
@@ -112,13 +112,15 @@ class Kernel extends HttpKernel
         'localeSessionRedirect'   => \Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect::class,
         'localeCookieRedirect'    => \Mcamara\LaravelLocalization\Middleware\LocaleCookieRedirect::class,
         'localeViewPath'          => \Goodcatch\Modules\Laravel\Http\Middleware\LocalizationViewPath::class
-        
+
         // ...
+
     ];
 
 // ...
 
 }
+
 ```
 
 
@@ -292,7 +294,7 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 [Layui update](https://layui.com)
 
-copy all of layui files to folder **public/public/vendor/layui**
+copy all of Layui files to folder **public/public/vendor/layui**
 
 
 [xm-select](https://gitee.com/maplemei/xm-select)
