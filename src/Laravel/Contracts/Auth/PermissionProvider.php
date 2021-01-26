@@ -23,7 +23,7 @@ interface PermissionProvider
     /**
      * Retrieve a permission with criteria range
      *
-     * @param  array  $condition
+     * @param  mixed  $condition
      * @return mixed|null
      */
     public function find ($condition);

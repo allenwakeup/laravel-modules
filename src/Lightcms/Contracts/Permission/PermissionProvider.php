@@ -3,7 +3,10 @@
 
 namespace Goodcatch\Modules\Lightcms\Contracts\Permission;
 
+use App\Model\Admin\Menu;
+use App\Repository\Admin\MenuRepository;
 use Goodcatch\Modules\Laravel\Contracts\Auth\PermissionProvider as Permission;
+use Illuminate\Support\Arr;
 
 class PermissionProvider implements Permission
 {
@@ -13,7 +16,7 @@ class PermissionProvider implements Permission
      */
     public function query ()
     {
-        // TODO: Implement query() method.
+        return Menu::query ();
     }
 
     /**
@@ -21,7 +24,7 @@ class PermissionProvider implements Permission
      */
     public function save (array $values, array $unique)
     {
-        // TODO: Implement save() method.
+        return Menu::updateOrCreate ($unique, $values);
     }
 
     /**
@@ -29,7 +32,7 @@ class PermissionProvider implements Permission
      */
     public function find ($condition)
     {
-        // TODO: Implement find() method.
+        return Menu::where ($condition)->first ();
     }
 
     /**
@@ -37,6 +40,6 @@ class PermissionProvider implements Permission
      */
     public function retrieve ($condition)
     {
-        // TODO: Implement retrieve() method.
+        return MenuRepository::root (Arr::get ($condition, 'route'), Arr::get ($condition, 'tree'));
     }
 }
