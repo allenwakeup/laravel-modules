@@ -5,6 +5,8 @@
 
 namespace Goodcatch\Modules;
 
+use Goodcatch\Modules\Laravel\Auth\PermissionManager;
+use Goodcatch\Modules\Laravel\Contracts\Auth\ModulePermission;
 use Goodcatch\Modules\Laravel\LaravelFileRepository;
 use Goodcatch\Modules\Providers\ConsoleServiceProvider;
 use Goodcatch\Modules\Providers\LightcmsServiceProvider;
@@ -93,5 +95,17 @@ class LaravelModulesServiceProvider extends ModulesServiceProvider
 
         $this->loadTranslationsFrom ($langPath, 'goodcatch');
 
+    }
+
+    /**
+     * Register managements for service that reference among different modules
+     */
+    protected function registerModulesService ()
+    {
+        $this->app->singleton (ModulePermission::class, function ($app) {
+            return new PermissionManager ($app);
+        });
+
+        $this->app->alias(ModulePermission::class, 'service.permission');
     }
 }

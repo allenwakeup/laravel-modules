@@ -29,7 +29,6 @@ class LightcmsServiceProvider extends ServiceProvider
     {
 
         $this->app->register (JobsServiceProvider::class);
-        $this->app->register (MenuServiceProvider::class);
         $this->app->register (ResourcesServiceProvider::class);
     }
 

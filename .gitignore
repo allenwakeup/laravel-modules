@@ -1,10 +1,9 @@
 .DS_Store
-.idea
+/.idea
 /vendor
 composer.phar
 composer.lock
 phpunit.phar
 *.project
 tmp/
-/composer.lock
-auth.json
+/auth.json

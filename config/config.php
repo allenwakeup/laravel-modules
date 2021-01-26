@@ -260,6 +260,23 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Defined module services
+    |--------------------------------------------------------------------------
+    |
+    | You can define module service for different provider in environment file.
+    |
+    */
+    'service' => [
+        'permission' => [
+            'driver' => 'default',
+            'providers' => [
+                'default' => env ('MODULE_SERVICE_PERMISSION_DEFAULT_PROVIDER', 'lightcms')
+            ]
+        ],
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Install module from http url
     |--------------------------------------------------------------------------
     |
