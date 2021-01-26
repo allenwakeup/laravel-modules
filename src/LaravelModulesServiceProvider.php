@@ -57,6 +57,8 @@ class LaravelModulesServiceProvider extends ModulesServiceProvider
     {
         parent::registerProviders ();
 
+        $this->registerModulesService ();
+
         $this->app->register (RouteServiceProvider::class);
         $this->app->register (ConsoleServiceProvider::class);
         $this->app->register (GoodcatchServiceProvider::class);
