@@ -58,7 +58,7 @@
                 ".git",
                 ".DS_Store",
                 ".idea/",
-                "vendor/"
+                "/vendor"
             ]
         }
     },
