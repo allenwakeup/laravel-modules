@@ -91,7 +91,7 @@ class PermissionManager implements ModulePermission
             $alias,
             function ($app) use ($alias) {
                 $class = 'Goodcatch\\Modules\\' . Str::ucfirst ($alias) . '\\Contracts\\Permission\\PermissionProvider';
-                new $class ($app);
+                new $class ($app, $alias);
             }
         );
         return $this->providerCreators [$alias];
@@ -120,4 +120,5 @@ class PermissionManager implements ModulePermission
     {
         return $this->getProvider ($method);
     }
+
 }

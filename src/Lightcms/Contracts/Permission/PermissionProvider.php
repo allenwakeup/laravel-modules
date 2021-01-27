@@ -12,6 +12,33 @@ class PermissionProvider implements Permission
 {
 
     /**
+     * The application instance.
+     *
+     * @var \Illuminate\Contracts\Foundation\Application
+     */
+    protected $app;
+
+    /**
+     * The provider driver name.
+     *
+     * @var string
+     */
+    protected $driver;
+
+    /**
+     * Create a new Auth manager instance.
+     *
+     * @param  \Illuminate\Contracts\Foundation\Application  $app
+     * @param  string $driver
+     * @return void
+     */
+    public function __construct ($app, $driver)
+    {
+        $this->app = $app;
+        $this->driver = $driver;
+    }
+
+    /**
      * @inheritDoc
      */
     public function query ()
@@ -42,4 +69,13 @@ class PermissionProvider implements Permission
     {
         return MenuRepository::root (Arr::get ($condition, 'route'), Arr::get ($condition, 'tree'));
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getDriver ()
+    {
+        return $this->driver;
+    }
+
 }

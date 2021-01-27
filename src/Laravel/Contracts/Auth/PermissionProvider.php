@@ -4,6 +4,14 @@ namespace Goodcatch\Modules\Laravel\Contracts\Auth;
 
 interface PermissionProvider
 {
+
+    /**
+     * Get the name of driver
+     *
+     * @return string
+     */
+    public function getDriver ();
+
     /**
      * Get a new query builder.
      *
