@@ -1,10 +1,13 @@
 .layui-theme-goodcatch {
-    font-family: "iconfont" !important;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 .layui-theme-goodcatch input[required].layui-input, .layui-theme-goodcatch textarea[required].layui-textarea {
     box-shadow: 3px 0px 0px #ef5753 inset;
+}
+
+.layui-icon.layui-icon-goodcatch {
+    font-family: "iconfont" !important;
 }
 
 

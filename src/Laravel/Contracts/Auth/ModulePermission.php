@@ -14,7 +14,6 @@ interface ModulePermission
      *
      * @param  string  unique name
      * @param  closure  callback that initiat provider
-     * @return \Illuminate\Database\Eloquent\Builder
      */
     public function permission ($alias, Closure $callback);
 

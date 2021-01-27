@@ -49,9 +49,9 @@ class PermissionManager implements ModulePermission
      */
     public function permission ($alias, Closure $callback)
     {
-        if (isset ($this->providerCreators [$alias ?? null])) {
-            return call_user_func (
-                $this->providerCreators [$alias], $this->app
+        if (! isset ($this->providerCreators [$alias ?? null])) {
+            $this->providerCreators [$alias] = call_user_func (
+                $callback, $this->app
             );
         }
     }
@@ -62,7 +62,7 @@ class PermissionManager implements ModulePermission
     public function getProvider ($alias)
     {
         if (isset ($this->providerCreators [$alias ?? null])) {
-
+            return $this->providerCreators [$alias];
         }
         return $this->getDefaultProvider ();
     }
@@ -91,7 +91,7 @@ class PermissionManager implements ModulePermission
             $alias,
             function ($app) use ($alias) {
                 $class = 'Goodcatch\\Modules\\' . Str::ucfirst ($alias) . '\\Contracts\\Permission\\PermissionProvider';
-                new $class ($app, $alias);
+                return new $class ($app, $alias);
             }
         );
         return $this->providerCreators [$alias];
@@ -114,9 +114,10 @@ class PermissionManager implements ModulePermission
      * Dynamically call the default provider instance.
      *
      * @param  string  $method
+     * @param  array  $parameters
      * @return mixed
      */
-    public function __call ($method)
+    public function __call ($method, $parameters)
     {
         return $this->getProvider ($method);
     }
