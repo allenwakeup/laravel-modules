@@ -272,7 +272,7 @@ return [
             'providers' => [
                 'default' => env ('MODULE_SERVICE_PERMISSION_DEFAULT_PROVIDER', 'lightcms')
             ]
-        ],
+        ]
     ],
 
     /*

@@ -1,23 +1,23 @@
 <?php
 
-namespace Goodcatch\Modules\Laravel\Auth;
+namespace Goodcatch\Modules\Laravel\Database;
 
-use Goodcatch\Modules\Laravel\Contracts\Auth\ModulePermissionService;
+use Goodcatch\Modules\Laravel\Contracts\Database\ModuleDBConnectionService;
 use Goodcatch\Modules\Laravel\Modules\AbsServiceManager;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
-class PermissionManager extends AbsServiceManager implements ModulePermissionService
+class DBConnectionManager extends AbsServiceManager implements ModuleDBConnectionService
 {
 
     /**
      * @inheritDoc
      */
-    public function createPermissionService ($alias)
+    public function createDBConnectionService ($alias)
     {
         $class = $this->getConfig (
             'class',
-            'Goodcatch\\Modules\\' . Str::ucfirst ($alias) . '\\Contracts\\Permission\\PermissionProvider'
+            'Goodcatch\\Modules\\' . Str::ucfirst ($alias) . '\\Contracts\\Database\\DBConnectionProvider'
         );
         return new $class ($this->app, $alias);
     }
@@ -30,7 +30,7 @@ class PermissionManager extends AbsServiceManager implements ModulePermissionSer
      */
     public function getConfig ($name, $default = null)
     {
-        return Arr::get ($this->config, "modules.service.permission.{$name}", $default);
+        return Arr::get ($this->config, "modules.service.connection.{$name}", $default);
     }
 
 }

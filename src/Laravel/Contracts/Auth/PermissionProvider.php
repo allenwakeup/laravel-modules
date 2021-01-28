@@ -5,6 +5,7 @@ namespace Goodcatch\Modules\Laravel\Contracts\Auth;
 interface PermissionProvider
 {
 
+
     /**
      * Get the name of driver
      *

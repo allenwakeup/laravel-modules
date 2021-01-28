@@ -1,13 +1,14 @@
 <?php
 
 
-namespace Goodcatch\Modules\Laravel\Contracts\Auth;
+namespace Goodcatch\Modules\Laravel\Contracts;
 
 
 use Closure;
 
-interface ModulePermission
+interface ModuleService
 {
+
 
     /**
      * Register a provider creator Closure.
@@ -15,7 +16,7 @@ interface ModulePermission
      * @param  string  unique name
      * @param  closure  callback that initiat provider
      */
-    public function permission ($alias, Closure $callback);
+    public function register ($alias, Closure $callback);
 
     /**
      * @param $alias

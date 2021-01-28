@@ -6,7 +6,9 @@
 namespace Goodcatch\Modules;
 
 use Goodcatch\Modules\Laravel\Auth\PermissionManager;
-use Goodcatch\Modules\Laravel\Contracts\Auth\ModulePermission;
+use Goodcatch\Modules\Laravel\Contracts\Auth\ModulePermissionService;
+use Goodcatch\Modules\Laravel\Contracts\Database\ModuleDbConnectionService;
+use Goodcatch\Modules\Laravel\Database\DBConnectionManager;
 use Goodcatch\Modules\Laravel\LaravelFileRepository;
 use Goodcatch\Modules\Providers\ConsoleServiceProvider;
 use Goodcatch\Modules\Providers\LightcmsServiceProvider;
@@ -35,6 +37,8 @@ class LaravelModulesServiceProvider extends ModulesServiceProvider
         parent::register ();
 
         $this->app->bind (RepositoryInterface::class, LaravelFileRepository::class);
+
+        $this->registerModulesService ();
     }
 
 
@@ -56,8 +60,6 @@ class LaravelModulesServiceProvider extends ModulesServiceProvider
     protected function registerProviders ()
     {
         parent::registerProviders ();
-
-        $this->registerModulesService ();
 
         $this->app->register (RouteServiceProvider::class);
         $this->app->register (ConsoleServiceProvider::class);
@@ -96,7 +98,6 @@ class LaravelModulesServiceProvider extends ModulesServiceProvider
         $langPath = goodcatch_resource_path ('/lang');
 
         $this->loadTranslationsFrom ($langPath, 'goodcatch');
-
     }
 
     /**
@@ -104,10 +105,10 @@ class LaravelModulesServiceProvider extends ModulesServiceProvider
      */
     protected function registerModulesService ()
     {
-        $this->app->singleton (ModulePermission::class, function ($app) {
-            return new PermissionManager ($app);
+        $this->app->singleton (ModulePermissionService::class, function ($app) {
+            return new PermissionManager ($app, $app ['config']);
         });
 
-        $this->app->alias(ModulePermission::class, 'service.permission');
+        $this->app->alias (ModulePermissionService::class, 'modules.service.permission');
     }
 }
