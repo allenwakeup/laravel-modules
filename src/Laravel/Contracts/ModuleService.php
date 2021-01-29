@@ -19,8 +19,10 @@ interface ModuleService
     public function register ($alias, Closure $callback);
 
     /**
-     * @param $alias
-     * @return \Goodcatch\Modules\Laravel\Contracts\Auth\PermissionProvider
+     * get a service
+     *
+     * @param  $alias  provider alias
+     * @return  mixed|null
      */
     public function getProvider ($alias);
 }

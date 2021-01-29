@@ -1,13 +1,13 @@
 <?php
 
 
-namespace Goodcatch\Modules\Laravel\Modules;
+namespace Goodcatch\Modules\Laravel;
 
 use Closure;
 use Goodcatch\Modules\Laravel\Contracts\ModuleService;
 use Illuminate\Support\Str;
 
-abstract class AbsServiceManager implements ModuleService
+abstract class ServiceManager implements ModuleService
 {
     /**
      * The application instance.
@@ -72,9 +72,14 @@ abstract class AbsServiceManager implements ModuleService
      * @param  string  $name
      * @return array
      */
-    abstract function getConfig ($name, $default = null);
+    abstract public function getConfig ($name, $default = null);
 
 
+    /**
+     * @param $alias
+     * @return mixed
+     */
+    abstract public function createService ($alias);
 
     /**
      * Initiate default PermissionProvider
@@ -87,7 +92,7 @@ abstract class AbsServiceManager implements ModuleService
         $this->register (
             $alias,
             function ($app) use ($alias) {
-                return $this->createPermissionService ($alias);
+                return $this->createService ($alias);
             }
         );
         return $this->providerCreators [$alias];

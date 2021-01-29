@@ -3,11 +3,11 @@
 namespace Goodcatch\Modules\Laravel\Database;
 
 use Goodcatch\Modules\Laravel\Contracts\Database\ModuleDBConnectionService;
-use Goodcatch\Modules\Laravel\Modules\AbsServiceManager;
+use Goodcatch\Modules\Laravel\ServiceManager;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
-class DBConnectionManager extends AbsServiceManager implements ModuleDBConnectionService
+class DBConnectionManager extends ServiceManager implements ModuleDBConnectionService
 {
 
     /**
@@ -33,4 +33,11 @@ class DBConnectionManager extends AbsServiceManager implements ModuleDBConnectio
         return Arr::get ($this->config, "modules.service.connection.{$name}", $default);
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function createService ($alias)
+    {
+        return $this->createDBConnectionService ($alias);
+    }
 }

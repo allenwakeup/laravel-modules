@@ -3,11 +3,11 @@
 namespace Goodcatch\Modules\Laravel\Auth;
 
 use Goodcatch\Modules\Laravel\Contracts\Auth\ModulePermissionService;
-use Goodcatch\Modules\Laravel\Modules\AbsServiceManager;
+use Goodcatch\Modules\Laravel\ServiceManager;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 
-class PermissionManager extends AbsServiceManager implements ModulePermissionService
+class PermissionManager extends ServiceManager implements ModulePermissionService
 {
 
     /**
@@ -33,4 +33,11 @@ class PermissionManager extends AbsServiceManager implements ModulePermissionSer
         return Arr::get ($this->config, "modules.service.permission.{$name}", $default);
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function createService ($alias)
+    {
+        return $this->createPermissionService ($alias);
+    }
 }
