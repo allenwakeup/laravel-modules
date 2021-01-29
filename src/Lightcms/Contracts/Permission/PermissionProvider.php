@@ -6,6 +6,7 @@ namespace Goodcatch\Modules\Lightcms\Contracts\Permission;
 use App\Model\Admin\Menu;
 use App\Repository\Admin\MenuRepository;
 use Goodcatch\Modules\Laravel\Contracts\Auth\PermissionProvider as Permission;
+use Goodcatch\Modules\Lightcms\Jobs\FlushMenu;
 use Illuminate\Support\Arr;
 
 class PermissionProvider implements Permission
@@ -78,4 +79,11 @@ class PermissionProvider implements Permission
         return $this->driver;
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function flush ()
+    {
+        dispatch (new FlushMenu ());
+    }
 }

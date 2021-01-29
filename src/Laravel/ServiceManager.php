@@ -5,10 +5,15 @@ namespace Goodcatch\Modules\Laravel;
 
 use Closure;
 use Goodcatch\Modules\Laravel\Contracts\ModuleService;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use Illuminate\Support\Traits\ForwardsCalls;
 
 abstract class ServiceManager implements ModuleService
 {
+
+    use ForwardsCalls;
+
     /**
      * The application instance.
      *
@@ -60,7 +65,7 @@ abstract class ServiceManager implements ModuleService
      */
     public function getProvider ($alias)
     {
-        if (isset ($this->providerCreators [$alias ?? null])) {
+        if (isset ($alias) && isset ($this->providerCreators [$alias])) {
             return $this->providerCreators [$alias];
         }
         return $this->getDefaultProvider ();
@@ -76,6 +81,8 @@ abstract class ServiceManager implements ModuleService
 
 
     /**
+     * Create a default service
+     *
      * @param $alias
      * @return mixed
      */
@@ -120,8 +127,11 @@ abstract class ServiceManager implements ModuleService
      */
     public function __call ($method, $parameters)
     {
-        return $this->getProvider ($method);
+        $provider = $this->getProvider ($method);
+        if (! Arr::has ($this->providerCreators, $method)){
+            return $this->forwardCallTo ($provider, $method, $parameters);
+        }
+        return $provider;
     }
-
 
 }

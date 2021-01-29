@@ -45,4 +45,9 @@ interface PermissionProvider
      */
     public function retrieve ($condition);
 
+    /**
+     * flush permission if required
+     */
+    public function flush ();
+
 }
