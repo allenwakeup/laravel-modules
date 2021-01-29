@@ -20,7 +20,7 @@
     <ul class="layui-nav layui-layout-right">
         <li class="layui-nav-item">
             <a href="javascript:;">
-                <i class="layui-icon layui-icon-goodcatch-language" style="font-size: 20px; color: #009688;"></i>
+                <i class="layui-icon layui-icon-goodcatch layui-icon-goodcatch-language" style="font-size: 20px; color: #009688;"></i>
                 @lang('goodcatch::pages.laravel_modules.lang')
             </a>
             <dl class="layui-nav-child">

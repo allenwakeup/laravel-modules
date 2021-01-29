@@ -39,7 +39,7 @@
             </li>
             <li class="layui-nav-item">
                 <a href="javascript:;">
-                    <i class="layui-icon layui-icon-goodcatch-language" style="font-size: 20px; color: #009688;"></i>
+                    <i class="layui-icon layui-icon-goodcatch layui-icon-goodcatch-language" style="font-size: 20px; color: #009688;"></i>
                     @lang('goodcatch::pages.laravel_modules.lang')
                 </a>
                 <dl class="layui-nav-child">
@@ -78,7 +78,7 @@
                             <li class="layui-nav-item @if(collect($menu)->filter(function ($item, $key) use ($light_cur_route) {return $item ['route'] == $light_cur_route;})->count()>0) layui-nav-itemed @endif" ><!-- layui-nav-itemed 自动展开 -->
                                 @foreach($menu as $sidx => $sub)
                                     @if(intval($sub['status']) === App\Model\Admin\Menu::STATUS_ENABLE && ($isSuperAdmin || $user->can($sub['name'])))
-                                        <a class="" href="javascript:;"><i class="layui-icon layui-icon-goodcatch-menu-g{{ $sidx }}"></i>{{ $k }}</a>
+                                        <a class="" href="javascript:;"><i class="layui-icon layui-icon-goodcatch layui-icon-goodcatch-menu-g{{ $sidx }}"></i>{{ $k }}</a>
                                         @break
                                     @endif
                                 @endforeach
