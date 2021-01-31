@@ -80,7 +80,7 @@
         <div class="layui-card-body">
 
 
-            <table class="layui-table" lay-data="{url:'{{ route ('admin::' . module_route_prefix ('.goodcatch.') . 'module.list') }}?{{ request ()->getQueryString () }}', page:true, limit:50, id:'table', toolbar:'<div><a href=\'{{ route ('admin::' . module_route_prefix ('.goodcatch.') . 'module.create') }}\'><i class=\'layui-icon layui-icon-add-1\'></i>@lang('goodcatch::pages.laravel_modules.module.form.btn.create')</a>&nbsp;&nbsp;&nbsp;&nbsp;@foreach($modules as $module)<span class=\'layui-text\' >{{ $module->getName () }}</span>@endforeach</div>'}" lay-filter="table">
+            <table class="layui-table" lay-data="{url:'{{ route ('admin::' . module_route_prefix ('.goodcatch.') . 'module.list') }}?{{ request ()->getQueryString () }}', page:true, limit:50, id:'table', toolbar:'<div><a href=\'{{ route ('admin::' . module_route_prefix ('.goodcatch.') . 'module.create') }}\'><i class=\'layui-icon layui-icon-add-1\'></i>@lang('goodcatch::pages.laravel_modules.module.form.btn.create')</a></div>'}" lay-filter="table">
                 <thead>
                 <tr>
                     <th lay-data="{field:'id', width:80, sort: true, style:'cursor: pointer;', templet:'#id'}">ID</th>

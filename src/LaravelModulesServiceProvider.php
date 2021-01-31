@@ -7,8 +7,6 @@ namespace Goodcatch\Modules;
 
 use Goodcatch\Modules\Laravel\Auth\PermissionManager;
 use Goodcatch\Modules\Laravel\Contracts\Auth\ModulePermissionService;
-use Goodcatch\Modules\Laravel\Contracts\Database\ModuleDbConnectionService;
-use Goodcatch\Modules\Laravel\Database\DBConnectionManager;
 use Goodcatch\Modules\Laravel\LaravelFileRepository;
 use Goodcatch\Modules\Providers\ConsoleServiceProvider;
 use Goodcatch\Modules\Providers\LightcmsServiceProvider;
