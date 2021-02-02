@@ -270,7 +270,7 @@ return [
         'permission' => [
             'driver' => 'default',
             'providers' => [
-                'default' => env ('MODULE_SERVICE_PERMISSION_DEFAULT_PROVIDER', 'lightcms')
+                'default' => env ('MODULE_INTEGRATE', 'lightcms')
             ]
         ]
     ],

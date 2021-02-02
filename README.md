@@ -221,9 +221,9 @@ MODULE_INSTALL_PATH=storage/app/modules
 # default to: https://laravel-modules.goodcatch.cn/dl?p=%s&n=%s&v=%s&s=%s
 MODULE_INSTALL_REPO_URL=https://laravel-modules.goodcatch.cn/dl?p=%s&n=%s&v=%s&s=%s
 
-# optional that change permission provider driver name
-# this provider shows how permission interact with basic project permissions.
-MODULE_SERVICE_PERMISSION_DEFAULT_PROVIDER=lightcms
+# optional that indicate base project that laravel-modules is going to work with
+# optional values are 'lightcms', default to 'lightcms
+MODULE_INTEGRATE=lightcms
 
 
 ```

@@ -3,7 +3,7 @@
 namespace Goodcatch\Modules\Providers;
 
 
-use Goodcatch\Modules\Lightcms\Providers\JobsServiceProvider;
+use Goodcatch\Modules\Lightcms\Providers\AuthServiceProvider;
 use Goodcatch\Modules\Lightcms\Providers\ResourcesServiceProvider;
 use Illuminate\Support\ServiceProvider;
 
@@ -27,6 +27,7 @@ class LightcmsServiceProvider extends ServiceProvider
     public function register ()
     {
 
+        $this->app->register (AuthServiceProvider::class);
         $this->app->register (ResourcesServiceProvider::class);
     }
 
