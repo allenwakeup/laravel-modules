@@ -9,9 +9,9 @@ use Goodcatch\Modules\Laravel\Auth\PermissionManager;
 use Goodcatch\Modules\Laravel\Contracts\Auth\ModulePermissionService;
 use Goodcatch\Modules\Laravel\LaravelFileRepository;
 use Goodcatch\Modules\Providers\ConsoleServiceProvider;
-use Goodcatch\Modules\Providers\LightcmsServiceProvider;
 use Goodcatch\Modules\Providers\GoodcatchServiceProvider;
 use Goodcatch\Modules\Providers\RouteServiceProvider;
+use Illuminate\Support\Str;
 use Nwidart\Modules\LaravelModulesServiceProvider as ModulesServiceProvider;
 use Nwidart\Modules\Contracts\RepositoryInterface;
 
@@ -62,7 +62,8 @@ class LaravelModulesServiceProvider extends ModulesServiceProvider
         $this->app->register (RouteServiceProvider::class);
         $this->app->register (ConsoleServiceProvider::class);
         $this->app->register (GoodcatchServiceProvider::class);
-        $this->app->register (LightcmsServiceProvider::class);
+        $integration = Str::ucfirst (Str::lower ($this->app ['config']->get ('modules.integration', 'lightcms')));
+        $this->app->register ("Goodcatch\\Modules\\Providers\\{$integration}ServiceProvider");
     }
 
     /**

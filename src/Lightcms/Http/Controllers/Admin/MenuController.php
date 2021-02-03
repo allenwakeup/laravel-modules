@@ -45,7 +45,7 @@ class MenuController extends Controller
             }
         });
 
-        $modules = \collect (app ('modules') ? app ('modules')->all () : [])
+        $modules = \collect (app ()->has ('modules') ? app ('modules')->all () : [])
             ->values ()
             ->reduce (function ($arr, $item) use ($m_route_pfx) {
                 $route_pfx = $m_route_pfx . $item->getLowerName ();

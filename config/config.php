@@ -231,6 +231,16 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Integration
+    |--------------------------------------------------------------------------
+    |
+    | the basic project that laravel-modules is about to integrate
+    |
+    */
+    'integration' => env ('MODULE_INTEGRATE', 'lightcms'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Route for modules
     |--------------------------------------------------------------------------
     |
@@ -239,22 +249,17 @@ return [
     */
     'route' => [
         'path' => goodcatch_laravel_modules_path ('/routes'),
+
         'prefix' => env ('MODULE_ROUTE_PREFIX', 'm'),
-        'entry' => [
-            // backend for admin pages
-            'admin' => 'web',
-            // frontend for member pages
-            'member' => 'web',
-            // common for web pages
-            '' => 'web',
-            // api for restful API
-            'api' => 'api'
-        ],
+
         'frontend' => [
             'namespace' => 'Http\\Controllers\\Front'
         ],
         'backend' => [
             'namespace' => 'Http\\Controllers\\Admin'
+        ],
+        'api' => [
+            'namespace' => 'Http\\Controllers\\Api'
         ]
     ],
 
