@@ -1,6 +1,6 @@
 <?php
 
-namespace Goodcatch\Modules\Lightcms\Providers;
+namespace Goodcatch\Modules\Laravel\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -32,11 +32,8 @@ class ResourcesServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole ()) {
             $this->publishes ([
-                goodcatch_laravel_modules_path ('/resources/assets/lightcms/public-vendor') => $this->app->publicPath () . '/public/vendor',
-                goodcatch_laravel_modules_path ('/resources/assets/lightcms/admin')         => $this->app->publicPath () . '/public/admin',
-                goodcatch_laravel_modules_path ('/resources/views/lightcms/admin')          => $this->app->resourcePath ('views/admin'),
-
-            ], 'goodcatch-modules-lightcms');
+                goodcatch_laravel_modules_path ('/resources/views/laravel/admin') => $this->app->resourcePath ('views/admin'),
+            ], 'goodcatch-modules');
         }
     }
 

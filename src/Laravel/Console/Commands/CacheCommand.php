@@ -3,8 +3,6 @@
 namespace Goodcatch\Modules\Laravel\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Str;
 
 class CacheCommand extends Command
 {
@@ -59,8 +57,8 @@ class CacheCommand extends Command
 
                 $this->info ("no cache key presents, checkout configuration key: modules.cache.key");
 
-
             } else {
+
                 $cache->forget ($module_cache_key);
 
                 $modules = $this->laravel ['modules'];

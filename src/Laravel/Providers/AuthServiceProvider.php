@@ -1,86 +1,34 @@
 <?php
 
+
 namespace Goodcatch\Modules\Laravel\Providers;
 
+use Goodcatch\Modules\Laravel\Model\Admin\User;
 use Illuminate\Support\Arr;
-use Illuminate\Support\ServiceProvider;
 
-abstract class AuthServiceProvider extends ServiceProvider
+class AuthServiceProvider extends AbsAuthServiceProvider
 {
 
-
     /**
-     * Boot the application events.
-     *
-     * @return void
+     * @inheritDoc
      */
-    public function boot ()
+    function loadAuthConfig ()
     {
-        $this->loadAuthConfig ();
-    }
+        $guard_name = 'admin';
 
-    /**
-     * Register the service provider.
-     *
-     * @return void
-     */
-    public function register ()
-    {
+        $config = $this->readConfig ('guards');
 
-    }
+        if (Arr::get ($config, $guard_name . '.provider', 'admin_users') === 'admin_users') {
+            $provider = 'laravel-modules';
 
-    /**
-     * get app config
-     *
-     * @return \Illuminate\Config\Repository
-     */
-    protected function getConfig ()
-    {
-        return $this->app ['config'];
-    }
+            Arr::set ($config, $guard_name . '.provider', $provider);
 
-    /**
-     * get the app config for auth
-     *
-     * @param $name
-     * @return array|mixed
-     */
-    protected function readConfig ($name)
-    {
-        return $this->getConfig ()->get ('auth.' . $name);
-    }
+            $this->writeConfig ('guards', $config);
 
-    /**
-     * update the app config for auth
-     *
-     * @param $name
-     * @param $values
-     */
-    protected function writeConfig ($name, $values)
-    {
-        $this->getConfig ()->set ('auth.' . $name, $values);
-    }
-
-    /**
-     * checkout config if doesn't exist and then set default value
-     *
-     * @param $name  string  config key name
-     * @param $check  string  config key name to be checked
-     * @param $values  mixed  config values to be set
-     */
-    protected function checkAuthConfig ($name, $check, $values) {
-        $config = $this->readConfig ($name);
-
-        if (! Arr::has ($config, $check))
-        {
-            Arr::set ($config, $check, $values);
-
-            $this->writeConfig ($name, $config);
+            $this->checkAuthConfig ('providers', $provider, [
+                'driver' => 'eloquent',
+                'model'  => User::class
+            ]);
         }
     }
-
-    /**
-     * make sure required configuration has been set
-     */
-    abstract function loadAuthConfig ();
 }

@@ -13,6 +13,8 @@
     ],
 
     "require": {
+        "php": ">=7.2.5",
+        "ext-json": "*",
         "nwidart/laravel-modules": "^7.1",
         "mcamara/laravel-localization": "^1.6"
     },

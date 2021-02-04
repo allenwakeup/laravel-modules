@@ -3,18 +3,18 @@
 namespace Goodcatch\Modules\Providers;
 
 
-use Goodcatch\Modules\Lightcms\Providers\AuthServiceProvider;
-use Goodcatch\Modules\Lightcms\Providers\ResourcesServiceProvider;
+use Goodcatch\Modules\Laravel\Providers\AuthServiceProvider;
+use Goodcatch\Modules\Laravel\Providers\ResourcesServiceProvider;
 use Illuminate\Support\ServiceProvider;
 
 /**
- * Class LightcmsServiceProvider
+ * Class LaravelServiceProvider
  *
  * the main service provider that configured, so that laravel-modules requires.
  *
  * @package Goodcatch\Modules\Providers
  */
-class LightcmsServiceProvider extends ServiceProvider
+class LaravelServiceProvider extends ServiceProvider
 {
 
     /**
