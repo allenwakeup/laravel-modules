@@ -60,7 +60,12 @@ class PermissionProvider implements Permission
      */
     public function find ($condition)
     {
-        return Menu::where ($condition)->first ();
+        if (is_array ($condition))
+        {
+            return Menu::where ($condition)->first ();
+        } else {
+            return Menu::where ('route', $condition)->first ();
+        }
     }
 
     /**
