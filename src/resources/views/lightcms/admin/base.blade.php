@@ -23,7 +23,7 @@
         <ul class="layui-nav layui-layout-left">
             @foreach(App\Repository\Admin\MenuRepository::allRoot() as $v)
                 @if($isSuperAdmin || $user->can($v->name))
-                    <li class="layui-nav-item @if(!empty($light_menu) && $v->id == $light_menu['id']) layui-this @endif"><a href="{{  \LaravelLocalization::localizeURL( $v->url ) }}">{{ _trans ('pages.app.menu.' . \Illuminate\Support\Str::replaceFirst('::', '.', $v->route), $v->name) }}</a></li>
+                    <li class="layui-nav-item @if(!empty($light_menu) && $v->id === $light_menu['id']) layui-this @endif"><a href="{{  \LaravelLocalization::localizeURL( $v->url ) }}">{{ _trans ((empty ($v->remark) ?  '' : ($v->remark . '::')) . 'pages.app.menu.' . \Illuminate\Support\Str::replaceFirst('::', '.', $v->route), $v->name) }}</a></li>
                 @endif
             @endforeach
         </ul>
