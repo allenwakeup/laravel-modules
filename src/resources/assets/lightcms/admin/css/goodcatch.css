@@ -6,6 +6,10 @@
     box-shadow: 3px 0px 0px #ef5753 inset;
 }
 
+.layui-theme-goodcatch div.xm-required >xm-select {
+    box-shadow: 3px 0px 0px #ef5753 inset;
+}
+
 .layui-icon.layui-icon-goodcatch {
     font-family: "iconfont" !important;
 }
