@@ -46,6 +46,13 @@ $('.kit-side-fold').click(function(){
     }
 });
 
+window.layuiHandler = function (handler)
+{
+    if (typeof handler === 'function')
+    {
+        setTimeout(handler, 100);
+    }
+};
 
 function showDetail (url, title, width = '90%', height = '90%')
 {
