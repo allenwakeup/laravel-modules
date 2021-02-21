@@ -32,7 +32,7 @@ class ResourcesServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole ()) {
             $this->publishes ([
-                goodcatch_laravel_modules_path ('/resources/assets/lightcms/public-vendor') => $this->app->publicPath () . '/public/vendor',
+                goodcatch_laravel_modules_path ('/resources/assets/lightcms/library') => $this->app->publicPath () . '/public/vendor',
                 goodcatch_laravel_modules_path ('/resources/assets/lightcms/admin')         => $this->app->publicPath () . '/public/admin',
                 goodcatch_laravel_modules_path ('/resources/views/lightcms/admin')          => $this->app->resourcePath ('views/admin'),
 
