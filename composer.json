@@ -15,8 +15,7 @@
     "require": {
         "php": ">=7.2.5",
         "ext-json": "*",
-        "nwidart/laravel-modules": "^7.1",
-        "mcamara/laravel-localization": "^1.6"
+        "nwidart/laravel-modules": "^7.1"
     },
     "require-dev": {
         "illuminate/support": "^6.0",
@@ -32,8 +31,7 @@
 
         },
         "files": [
-            "src/helpers.php",
-            "src/lightcms.php"
+            "src/helpers.php"
         ]
     },
     "extra": {

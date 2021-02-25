@@ -63,7 +63,7 @@ class LaravelModulesServiceProvider extends ModulesServiceProvider
         $this->app->register (ConsoleServiceProvider::class);
         $this->app->register (GoodcatchServiceProvider::class);
         $integration = Str::ucfirst (Str::lower ($this->app ['config']->get ('modules.integration', 'lightcms')));
-        $this->app->register ("Goodcatch\\Modules\\Providers\\{$integration}ServiceProvider");
+        $this->app->register ("Goodcatch\\Modules\\{$integration}\\Providers\\{$integration}ServiceProvider");
     }
 
     /**

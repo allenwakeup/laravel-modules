@@ -5,37 +5,10 @@
 
 namespace Goodcatch\Modules\Laravel\Repository;
 
-
-use Goodcatch\Modules\Lightcms\Repositories\Concerns\Searchable;
-
 use Goodcatch\Modules\Laravel\Model\Module;
 
 class ModuleRepository
 {
-    use Searchable;
-
-    public static function list ($perPage, $condition = [])
-    {
-
-        $data = Module::query ()
-            ->where (function ($query) use ($condition) {
-                Searchable::buildQuery ($query, $condition);
-            })
-            ->orderBy ('id', 'desc')
-            ->paginate ($perPage);
-        $data->transform (function ($item) {
-            $item->editUrl = route ('admin::' . module_route_prefix ('.goodcatch.') . 'module.edit', ['id' => $item->id]);
-            $item->deleteUrl = route ('admin::' . module_route_prefix ('.goodcatch.') . 'module.delete', ['id' => $item->id]);
-            return $item;
-        });
-
-        return [
-            'code' => 0,
-            'msg' => '',
-            'count' => $data->total (),
-            'data' => $data->items (),
-        ];
-    }
 
     public static function all ()
     {
