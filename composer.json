@@ -40,7 +40,8 @@
                 "Goodcatch\\Modules\\LaravelModulesServiceProvider"
             ],
             "aliases": {
-                "GoodcatchModule": "Goodcatch\\Modules\\Facades\\Module"
+                "GoodcatchModule": "Goodcatch\\Modules\\Facades\\Module",
+                "modules.service.permission": "Goodcatch\\Modules\\Laravel\\Contracts\\Auth\\ModulePermissionService"
             },
             "dont-discover": [
                 "nwidart/laravel-modules"

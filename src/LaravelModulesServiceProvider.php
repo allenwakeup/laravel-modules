@@ -59,11 +59,15 @@ class LaravelModulesServiceProvider extends ModulesServiceProvider
     {
         parent::registerProviders ();
 
-        $this->app->register (RouteServiceProvider::class);
+        // $this->app->register (RouteServiceProvider::class);
         $this->app->register (ConsoleServiceProvider::class);
         $this->app->register (GoodcatchServiceProvider::class);
-        $integration = Str::ucfirst (Str::lower ($this->app ['config']->get ('modules.integration', 'lightcms')));
-        $this->app->register ("Goodcatch\\Modules\\{$integration}\\Providers\\{$integration}ServiceProvider");
+        $integration = $this->app ['config']->get ('modules.integration', '');
+        if (! empty ($integration))
+        {
+            $integration = Str::ucfirst (Str::lower ($integration));
+            $this->app->register ("Goodcatch\\Modules\\{$integration}\\Providers\\{$integration}ServiceProvider");
+        }
     }
 
     /**
@@ -107,7 +111,5 @@ class LaravelModulesServiceProvider extends ModulesServiceProvider
         $this->app->singleton (ModulePermissionService::class, function ($app) {
             return new PermissionManager ($app, $app ['config']);
         });
-
-        $this->app->alias (ModulePermissionService::class, 'modules.service.permission');
     }
 }

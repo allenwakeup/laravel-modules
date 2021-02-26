@@ -237,7 +237,7 @@ return [
     | the basic project that laravel-modules is about to integrate
     |
     */
-    'integration' => env ('MODULE_INTEGRATE', 'lightcms'),
+    'integration' => env ('MODULE_INTEGRATE', ''),
 
     /*
     |--------------------------------------------------------------------------
@@ -275,7 +275,7 @@ return [
         'permission' => [
             'driver' => 'default',
             'providers' => [
-                'default' => env ('MODULE_INTEGRATE', 'lightcms')
+                'default' => env ('MODULE_INTEGRATE', '')
             ]
         ]
     ],

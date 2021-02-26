@@ -20,8 +20,6 @@ There might be a little bit more complicated things to do.
     * initialize application
     * add first goodcatch laravel-module 'Core'
     * getting started development
-    * LightCMS: how to
-
 
 ### install library
 
@@ -191,21 +189,6 @@ php artisan module:make core
 
 ```
 
-### has already created module
-
-For example, module name is core
-    
-Now, create module model against [LightCMS](https://github.com/eddy8/LightCMS) model
-
-**php artisan goodcatch:module <model name> <name> <module name>**
-
-```shell script
-
-php artisan goodcatch:module article Article core
-
-
-```
-
 ### Environments
 
 ```ini
@@ -222,14 +205,10 @@ MODULE_INSTALL_PATH=storage/app/modules
 MODULE_INSTALL_REPO_URL=https://laravel-modules.goodcatch.cn/dl?p=%s&n=%s&v=%s&s=%s
 
 # optional that indicate base project that laravel-modules is going to work with
-# optional values are 'lightcms', default to 'lightcms
-MODULE_INTEGRATE=lightcms
+MODULE_INTEGRATE=
 
 
 ```
-
-### Lightcms part
-
 
 Licensed under [The MIT License (MIT)](LICENSE).
 
