@@ -68,7 +68,7 @@ return [
                 'PROVIDER_NAMESPACE',
             ],
         ],
-        'gitkeep' => true,
+        'gitkeep' => false,
     ],
     'paths' => [
         /*
@@ -81,7 +81,7 @@ return [
         |
         */
 
-        'modules' => base_path (env ('MODULE_INSTALL_PATH', 'app/Modules')),
+        'modules' => base_path (env ('MODULE_INSTALL_PATH', 'storage/app/modules')),
         /*
         |--------------------------------------------------------------------------
         | Modules assets path
@@ -111,23 +111,23 @@ return [
         | Set the generate key to false to not generate that folder
         */
         'generator' => [
-            'config' => ['path' => 'Config', 'generate' => true],
-            'command' => ['path' => 'Console', 'generate' => true],
-            'migration' => ['path' => 'Database/Migrations', 'generate' => true],
-            'seeder' => ['path' => 'Database/Seeders', 'generate' => true],
-            'factory' => ['path' => 'Database/factories', 'generate' => true],
-            'model' => ['path' => 'Model', 'generate' => true],
-            'routes' => ['path' => 'Routes', 'generate' => true],
-            'controller' => ['path' => 'Http/Controllers', 'generate' => true],
-            'filter' => ['path' => 'Http/Middleware', 'generate' => true],
-            'request' => ['path' => 'Http/Requests', 'generate' => true],
-            'provider' => ['path' => 'Providers', 'generate' => true],
-            'assets' => ['path' => 'Resources/assets', 'generate' => true],
-            'lang' => ['path' => 'Resources/lang', 'generate' => true],
-            'views' => ['path' => 'Resources/views', 'generate' => true],
-            'test' => ['path' => 'Tests/Unit', 'generate' => true],
-            'test-feature' => ['path' => 'Tests/Feature', 'generate' => true],
-            'repository' => ['path' => 'Repositories', 'generate' => true],
+            'config' => ['path' => 'config', 'generate' => true],
+            'command' => ['path' => 'app/Console', 'generate' => true],
+            'migration' => ['path' => 'app/Database/Migrations', 'generate' => true],
+            'seeder' => ['path' => 'app/Database/Seeders', 'generate' => true],
+            'factory' => ['path' => 'app/Database/factories', 'generate' => true],
+            'model' => ['path' => 'app/Model', 'generate' => true],
+            'routes' => ['path' => 'app/Routes', 'generate' => true],
+            'controller' => ['path' => 'app/Http/Controllers', 'generate' => true],
+            'filter' => ['path' => 'app/Http/Middleware', 'generate' => true],
+            'request' => ['path' => 'app/Http/Requests', 'generate' => true],
+            'provider' => ['path' => 'app/Providers', 'generate' => true],
+            'assets' => ['path' => 'resources/assets', 'generate' => true],
+            'lang' => ['path' => 'resources/lang', 'generate' => true],
+            'views' => ['path' => 'resources/views', 'generate' => true],
+            'test' => ['path' => 'app/tests/Unit', 'generate' => true],
+            'test-feature' => ['path' => 'app/tests/Feature', 'generate' => true],
+            'repository' => ['path' => 'Repositories', 'generate' => false],
             'event' => ['path' => 'Events', 'generate' => false],
             'listener' => ['path' => 'Listeners', 'generate' => false],
             'policies' => ['path' => 'Policies', 'generate' => false],
@@ -135,7 +135,7 @@ return [
             'jobs' => ['path' => 'Jobs', 'generate' => false],
             'emails' => ['path' => 'Emails', 'generate' => false],
             'notifications' => ['path' => 'Notifications', 'generate' => false],
-            'resource' => ['path' => 'Http/Resources', 'generate' => true],
+            'resource' => ['path' => 'app/Http/Resources', 'generate' => true],
         ],
     ],
     /*

@@ -62,12 +62,6 @@ class LaravelModulesServiceProvider extends ModulesServiceProvider
         // $this->app->register (RouteServiceProvider::class);
         $this->app->register (ConsoleServiceProvider::class);
         $this->app->register (GoodcatchServiceProvider::class);
-        $integration = $this->app ['config']->get ('modules.integration', '');
-        if (! empty ($integration))
-        {
-            $integration = Str::ucfirst (Str::lower ($integration));
-            $this->app->register ("Goodcatch\\Modules\\{$integration}\\Providers\\{$integration}ServiceProvider");
-        }
     }
 
     /**
