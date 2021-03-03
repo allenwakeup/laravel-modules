@@ -113,9 +113,9 @@ return [
         'generator' => [
             'config' => ['path' => 'config', 'generate' => true],
             'command' => ['path' => 'app/Console', 'generate' => true],
-            'migration' => ['path' => 'app/Database/Migrations', 'generate' => true],
-            'seeder' => ['path' => 'app/Database/Seeders', 'generate' => true],
-            'factory' => ['path' => 'app/Database/factories', 'generate' => true],
+            'migration' => ['path' => 'database/migrations', 'generate' => true],
+            'seeder' => ['path' => 'database/seeds', 'generate' => true, 'namespace' => 'Database\\Seeders'],
+            'factory' => ['path' => 'database/factories', 'generate' => true],
             'model' => ['path' => 'app/Model', 'generate' => true],
             'routes' => ['path' => 'app/Routes', 'generate' => true],
             'controller' => ['path' => 'app/Http/Controllers', 'generate' => true],
@@ -138,6 +138,8 @@ return [
             'resource' => ['path' => 'app/Http/Resources', 'generate' => true],
         ],
     ],
+
+
     /*
     |--------------------------------------------------------------------------
     | Scan Path
@@ -155,6 +157,8 @@ return [
             storage_path ('app/modules'),
         ],
     ],
+
+
     /*
     |--------------------------------------------------------------------------
     | Composer File Template
@@ -171,6 +175,8 @@ return [
             'email' => 'ali@goodcatch.cn',
         ],
     ],
+
+
     /*
     |--------------------------------------------------------------------------
     | Caching

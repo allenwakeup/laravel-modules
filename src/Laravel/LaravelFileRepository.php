@@ -8,7 +8,6 @@ namespace Goodcatch\Modules\Laravel;
 use Illuminate\Support\Facades\Schema;
 use Nwidart\Modules\FileRepository;
 use Nwidart\Modules\Json;
-use Nwidart\Modules\Laravel\Module;
 use Nwidart\Modules\Process\Updater;
 use Goodcatch\Modules\Process\Installer;
 

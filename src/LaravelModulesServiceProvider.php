@@ -10,8 +10,6 @@ use Goodcatch\Modules\Laravel\Contracts\Auth\ModulePermissionService;
 use Goodcatch\Modules\Laravel\LaravelFileRepository;
 use Goodcatch\Modules\Providers\ConsoleServiceProvider;
 use Goodcatch\Modules\Providers\GoodcatchServiceProvider;
-use Goodcatch\Modules\Providers\RouteServiceProvider;
-use Illuminate\Support\Str;
 use Nwidart\Modules\LaravelModulesServiceProvider as ModulesServiceProvider;
 use Nwidart\Modules\Contracts\RepositoryInterface;
 
