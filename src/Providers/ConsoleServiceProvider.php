@@ -6,6 +6,7 @@
 namespace Goodcatch\Modules\Providers;
 
 
+use Goodcatch\Modules\Commands\SeedCommand;
 use Goodcatch\Modules\Laravel\Console\Commands\CacheCommand;
 use Goodcatch\Modules\Laravel\Console\Commands\CreateModuleRelatedFiles;
 use Goodcatch\Modules\Laravel\Console\Commands\TableCommand;
@@ -22,6 +23,7 @@ class ConsoleServiceProvider extends ServiceProvider
         CreateModuleRelatedFiles::class,
         TableCommand::class,
         CacheCommand::class,
+        SeedCommand::class
     ];
 
     /**
