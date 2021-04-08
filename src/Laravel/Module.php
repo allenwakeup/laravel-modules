@@ -45,7 +45,7 @@ class Module extends BaseModule
     {
         $lowerName = $this->getLowerName();
 
-        $langPath = $this->getExtraPath('app/resources/lang');
+        $langPath = $this->getExtraPath('resources/lang');
 
         if (is_dir($langPath)) {
             $this->translator->addNamespace($lowerName, $langPath);
