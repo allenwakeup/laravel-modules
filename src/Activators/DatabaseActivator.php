@@ -186,8 +186,12 @@ class DatabaseActivator implements ActivatorInterface
                 {
                     if ($module instanceof Module)
                     {
-                        $module = $module->json ()->getAttributes ();
-                        $module ['path'] = $module->getPath ();
+                        $module = array_merge(
+                            $module->json ()->getAttributes (),
+                            ['version' => $module->get ('version')],
+                            ['type' => $module->get ('type')],
+                            ['path' => $module->getPath ()]
+                        );
                     }
                     $this->connection
                         ->table ($this->getTableName ())
@@ -197,7 +201,9 @@ class DatabaseActivator implements ActivatorInterface
                                 'alias' => Arr::get ($module, 'alias', ''),
                                 'description' => Arr::get ($module, 'description', ''),
                                 'path' => Arr::get ($module, 'path', ''),
-                                'sort' => Arr::get ($module, 'order', ''),
+                                'version' => Arr::get ($module, 'version', 'dev'),
+                                'type' => Arr::get ($module, 'type', '1'),
+                                'sort' => Arr::get ($module, 'order', '0'),
                                 'status' => 1
                             ]
                         );

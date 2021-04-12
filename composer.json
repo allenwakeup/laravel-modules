@@ -1,13 +1,13 @@
 {
     "name": "goodcatch/laravel-modules",
-    "description": "Laravel Module management extensions",
+    "description": "Laravel Modules development",
     "type": "library",
     "license": "MIT",
     "authors": [
         {
             "name": "allen",
             "email": "ali@goodcatch.cn",
-            "homepage": "https://www.goodcatch.cn/laravel-modules",
+            "homepage": "http://note.goodcatch.cn/it/dev-laravel/laravel-modules/laravel-modules",
             "role": "Developer"
         }
     ],
@@ -54,8 +54,6 @@
             "ignore": [
                 "test.php",
                 "auth.json",
-                "composer.lock",
-                ".gitignore",
                 ".git",
                 ".DS_Store",
                 ".idea/",
@@ -63,15 +61,6 @@
             ]
         }
     },
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://repos.goodcatch.cn/repository/goodcatch-composer-group/"
-        },
-        {
-            "packagist.org": false
-        }
-    ],
     "minimum-stability": "dev",
     "prefer-stable": true
 }
