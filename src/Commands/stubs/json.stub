@@ -1,0 +1,17 @@
+{
+    "name": "$STUDLY_NAME$",
+    "alias": "$LOWER_NAME$",
+    "description": "Goodcatch Laravel Module build external",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "$MODULE_NAMESPACE$\\$STUDLY_NAME$\\$PROVIDER_NAMESPACE$\\$STUDLY_NAME$ServiceProvider"
+    ],
+    "aliases": {},
+    "files": [
+        "src/helpers.php"
+    ],
+    "requires": [],
+    "version": "dev-master",
+    "type": 1
+}

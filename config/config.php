@@ -36,8 +36,9 @@ return [
     */
 
     'stubs' => [
-        'enabled' => false,
-        'path' => base_path () . '/vendor/nwidart/laravel-modules/src/Commands/stubs',
+        'enabled' => true,
+        // 'path' => base_path () . '/vendor/nwidart/laravel-modules/src/Commands/stubs',
+        'path' => goodcatch_laravel_modules_path ('/Commands/stubs'),
         'files' => [
             'routes/web' => 'routes/web.php',
             'routes/api' => 'routes/api.php',
@@ -49,6 +50,8 @@ return [
             'assets/sass/app' => 'resources/assets/sass/app.scss',
             'webpack' => 'webpack.mix.js',
             'package' => 'package.json',
+            'phpunit' => 'phpunit.xml',
+            'helpers' => 'src/helpers.php'
         ],
         'replacements' => [
             'routes/web' => ['LOWER_NAME', 'STUDLY_NAME'],
@@ -118,15 +121,15 @@ return [
             'factory' => ['path' => 'database/factories', 'generate' => true],
             'model' => ['path' => 'src/Models', 'generate' => true],
             'routes' => ['path' => 'src/Routes', 'generate' => true],
-            'controller' => ['path' => 'src/Http/Controllers', 'generate' => true],
+            'controller' => ['path' => 'src/Http/Controllers', 'generate' => true, 'namespace' => 'Http\\Controllers'],
             'filter' => ['path' => 'src/Http/Middleware', 'generate' => true],
             'request' => ['path' => 'src/Http/Requests', 'generate' => true],
-            'provider' => ['path' => 'src/Providers', 'generate' => true],
+            'provider' => ['path' => 'src/Providers', 'generate' => true, 'namespace' => 'Providers'],
             'assets' => ['path' => 'resources/assets', 'generate' => true],
             'lang' => ['path' => 'resources/lang', 'generate' => true],
             'views' => ['path' => 'resources/views', 'generate' => true],
-            'test' => ['path' => 'src/tests/Unit', 'generate' => true],
-            'test-feature' => ['path' => 'src/tests/Feature', 'generate' => true],
+            'test' => ['path' => 'tests/Unit', 'generate' => true],
+            'test-feature' => ['path' => 'tests/Feature', 'generate' => true],
             'repository' => ['path' => 'Repositories', 'generate' => false],
             'event' => ['path' => 'Events', 'generate' => false],
             'listener' => ['path' => 'Listeners', 'generate' => false],
@@ -135,7 +138,7 @@ return [
             'jobs' => ['path' => 'Jobs', 'generate' => false],
             'emails' => ['path' => 'Emails', 'generate' => false],
             'notifications' => ['path' => 'Notifications', 'generate' => false],
-            'resource' => ['path' => 'src/Http/Resources', 'generate' => true],
+            'resource' => ['path' => 'src/Http/Resources', 'generate' => true]
         ],
     ],
 
