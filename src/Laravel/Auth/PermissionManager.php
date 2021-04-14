@@ -15,17 +15,19 @@ class PermissionManager extends ServiceManager implements ModulePermissionServic
      */
     public function createPermissionService ($alias)
     {
-        $class = $this->getConfig (
+        return with($this->getConfig (
             'class',
             'Goodcatch\\Modules\\' . Str::ucfirst ($alias) . '\\Contracts\\Permission\\PermissionProvider'
-        );
-        return new $class ($this->app, $alias);
+        ), function ($class) use ($alias) {
+            return new $class ($this->app, $alias);
+        });
     }
 
     /**
      * Get the guard configuration.
      *
      * @param  string  $name
+     * @param  string  $default
      * @return array
      */
     public function getConfig ($name, $default = null)
