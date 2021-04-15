@@ -6,11 +6,11 @@ interface ModulePermissionService
 {
 
     /**
-     * Create a provider.
+     * Create a provider by service driver name.
      *
-     * @param  string  unique name
-     * @return \Goodcatch\Modules\Laravel\Contracts\Auth\PermissionProvider|mixed
+     * @param  string $driver service driver
+     * @return PermissionProvider|mixed
      */
-    public function createPermissionService ($alias);
+    public function createPermissionService ($driver);
 
 }

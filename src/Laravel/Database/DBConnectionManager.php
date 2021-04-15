@@ -13,19 +13,20 @@ class DBConnectionManager extends ServiceManager implements ModuleDBConnectionSe
     /**
      * @inheritDoc
      */
-    public function createDBConnectionService ($alias)
+    public function createDBConnectionService ($driver)
     {
         $class = $this->getConfig (
             'class',
-            'Goodcatch\\Modules\\' . Str::ucfirst ($alias) . '\\Contracts\\Database\\DBConnectionProvider'
+            'Goodcatch\\Modules\\' . Str::ucfirst ($driver) . '\\Contracts\\Database\\DBConnectionProvider'
         );
-        return new $class ($this->app, $alias);
+        return new $class ($this->app, $driver);
     }
 
     /**
      * Get the guard configuration.
      *
      * @param  string  $name
+     * @param  string  $default
      * @return array
      */
     public function getConfig ($name, $default = null)
@@ -36,8 +37,8 @@ class DBConnectionManager extends ServiceManager implements ModuleDBConnectionSe
     /**
      * @inheritDoc
      */
-    public function createService ($alias)
+    public function createService ($driver)
     {
-        return $this->createDBConnectionService ($alias);
+        return $this->createDBConnectionService ($driver);
     }
 }

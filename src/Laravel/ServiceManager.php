@@ -8,7 +8,6 @@ use Goodcatch\Modules\Laravel\Contracts\Auth\PermissionProvider;
 use Goodcatch\Modules\Laravel\Contracts\ModuleService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
 use Illuminate\Support\Traits\ForwardsCalls;
 
 abstract class ServiceManager implements ModuleService
@@ -42,7 +41,7 @@ abstract class ServiceManager implements ModuleService
      * Create a new Auth manager instance.
      *
      * @param  Application  $app
-     * @return void
+     * @param  array $config
      */
     public function __construct ($app, $config)
     {
@@ -53,10 +52,10 @@ abstract class ServiceManager implements ModuleService
     /**
      * @inheritDoc
      */
-    public function register ($alias, Closure $callback)
+    public function register ($driver, Closure $callback)
     {
-        if (! isset ($this->providerCreators [$alias ?? null])) {
-            $this->providerCreators [$alias] = call_user_func (
+        if (! isset ($this->providerCreators [$driver ?? null])) {
+            $this->providerCreators [$driver] = call_user_func (
                 $callback, $this->app
             );
         }
@@ -65,10 +64,10 @@ abstract class ServiceManager implements ModuleService
     /**
      * @inheritDoc
      */
-    public function getProvider ($alias)
+    public function getProvider ($driver)
     {
-        if (isset ($alias) && isset ($this->providerCreators [$alias])) {
-            return $this->providerCreators [$alias];
+        if (isset ($driver) && isset ($this->providerCreators [$driver])) {
+            return $this->providerCreators [$driver];
         }
         return $this->getDefaultProvider ();
     }
@@ -77,7 +76,8 @@ abstract class ServiceManager implements ModuleService
      * Get the guard configuration.
      *
      * @param  string  $name
-     * @return array
+     * @param  string  $default
+     * @return string|mixed
      */
     abstract public function getConfig ($name, $default = null);
 
@@ -85,10 +85,10 @@ abstract class ServiceManager implements ModuleService
     /**
      * Create a default service
      *
-     * @param $alias
+     * @param $driver
      * @return mixed
      */
-    abstract public function createService ($alias);
+    abstract public function createService ($driver);
 
     /**
      * Initiate default PermissionProvider
@@ -97,25 +97,24 @@ abstract class ServiceManager implements ModuleService
      */
     protected function getDefaultProvider ()
     {
-        $alias = $this->getProviderAlias ();
+        $driver = $this->getProviderDriver ();
         $this->register (
-            $alias,
-            function ($app) use ($alias) {
-                return $this->createService ($alias);
+            $driver,
+            function () use ($driver) {
+                return $this->createService ($driver);
             }
         );
-        return $this->providerCreators [$alias];
+        return $this->providerCreators [$driver];
     }
 
     /**
-     * Get configuration name of PermissionProvider
+     * Get configuration name of Service driver
      *
-     * @return PermissionProvider
+     * @return string|mixed
      */
-    protected function getProviderAlias ()
+    protected function getProviderDriver ()
     {
-        $driver_name = $this->getConfig ('driver');
-        return $alias = Str::lower ($this->getConfig ("providers.{$driver_name}"));
+        return $this->getConfig ('driver');
     }
 
 

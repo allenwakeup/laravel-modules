@@ -6,11 +6,11 @@ interface ModuleDBConnectionService
 {
 
     /**
-     * Create a provider.
+     * Create a provider by service driver.
      *
-     * @param  string  unique name
-     * @return \Goodcatch\Modules\Laravel\Contracts\Database\DBConnectionProvider|mixed
+     * @param  string $driver service driver
+     * @return DBConnectionProvider|mixed
      */
-    public function createDBConnectionService ($alias);
+    public function createDBConnectionService ($driver);
 
 }

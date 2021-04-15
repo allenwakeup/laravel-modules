@@ -13,13 +13,13 @@ class PermissionManager extends ServiceManager implements ModulePermissionServic
     /**
      * @inheritDoc
      */
-    public function createPermissionService ($alias)
+    public function createPermissionService ($driver)
     {
         return with($this->getConfig (
             'class',
-            'Goodcatch\\Modules\\' . Str::ucfirst ($alias) . '\\Contracts\\Permission\\PermissionProvider'
-        ), function ($class) use ($alias) {
-            return new $class ($this->app, $alias);
+            'Goodcatch\\Modules\\' . Str::ucfirst ($driver) . '\\Contracts\\Permission\\PermissionProvider'
+        ), function ($class) use ($driver) {
+            return new $class ($this->app, $driver);
         });
     }
 
@@ -38,8 +38,8 @@ class PermissionManager extends ServiceManager implements ModulePermissionServic
     /**
      * @inheritDoc
      */
-    public function createService ($alias)
+    public function createService ($driver)
     {
-        return $this->createPermissionService ($alias);
+        return $this->createPermissionService ($driver);
     }
 }

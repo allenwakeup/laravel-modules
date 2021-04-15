@@ -13,16 +13,16 @@ interface ModuleService
     /**
      * Register a provider creator Closure.
      *
-     * @param  string  unique name
-     * @param  closure  callback that initiat provider
+     * @param $driver string  unique name
+     * @param $callback Closure register new service
      */
-    public function register ($alias, Closure $callback);
+    public function register ($driver, Closure $callback);
 
     /**
      * get a service
      *
-     * @param  $alias  provider alias
+     * @param  $driver string service driver
      * @return  mixed|null
      */
-    public function getProvider ($alias);
+    public function getProvider ($driver);
 }
