@@ -16,7 +16,7 @@ class DBConnectionManager extends ServiceManager implements ModuleDBConnectionSe
     public function createDBConnectionService ($driver)
     {
         $class = $this->getConfig (
-            'class',
+            "providers.$driver",
             'Goodcatch\\Modules\\' . Str::ucfirst ($driver) . '\\Contracts\\Database\\DBConnectionProvider'
         );
         return new $class ($this->app, $driver);

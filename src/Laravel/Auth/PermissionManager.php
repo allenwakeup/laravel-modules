@@ -16,7 +16,7 @@ class PermissionManager extends ServiceManager implements ModulePermissionServic
     public function createPermissionService ($driver)
     {
         return with($this->getConfig (
-            'class',
+            "providers.$driver",
             'Goodcatch\\Modules\\' . Str::ucfirst ($driver) . '\\Contracts\\Permission\\PermissionProvider'
         ), function ($class) use ($driver) {
             return new $class ($this->app, $driver);

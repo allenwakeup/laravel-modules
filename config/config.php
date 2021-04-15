@@ -282,9 +282,9 @@ return [
     */
     'service' => [
         'permission' => [
-            'driver' => 'default',
+            'driver' => env ('MODULE_INTEGRATE', 'lightcms'),
             'providers' => [
-                'default' => env ('MODULE_INTEGRATE', '')
+                'lightcms' => 'Goodcatch\\Modules\\Lightcms\\Contracts\\Permission\\PermissionProvider'
             ]
         ]
     ],
