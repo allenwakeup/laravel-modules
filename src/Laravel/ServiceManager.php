@@ -4,7 +4,9 @@
 namespace Goodcatch\Modules\Laravel;
 
 use Closure;
+use Goodcatch\Modules\Laravel\Contracts\Auth\PermissionProvider;
 use Goodcatch\Modules\Laravel\Contracts\ModuleService;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Support\Traits\ForwardsCalls;
@@ -17,7 +19,7 @@ abstract class ServiceManager implements ModuleService
     /**
      * The application instance.
      *
-     * @var \Illuminate\Contracts\Foundation\Application
+     * @var Application
      */
     protected $app;
 
@@ -39,7 +41,7 @@ abstract class ServiceManager implements ModuleService
     /**
      * Create a new Auth manager instance.
      *
-     * @param  \Illuminate\Contracts\Foundation\Application  $app
+     * @param  Application  $app
      * @return void
      */
     public function __construct ($app, $config)
@@ -91,7 +93,7 @@ abstract class ServiceManager implements ModuleService
     /**
      * Initiate default PermissionProvider
      *
-     * @return \Goodcatch\Modules\Laravel\Contracts\Auth\PermissionProvider
+     * @return PermissionProvider
      */
     protected function getDefaultProvider ()
     {
@@ -108,8 +110,7 @@ abstract class ServiceManager implements ModuleService
     /**
      * Get configuration name of PermissionProvider
      *
-     * @param string $name
-     * @return \Goodcatch\Modules\Laravel\Contracts\Auth\PermissionProvider
+     * @return PermissionProvider
      */
     protected function getProviderAlias ()
     {
