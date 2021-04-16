@@ -100,6 +100,9 @@ class LaravelModulesServiceProvider extends ModulesServiceProvider
      */
     protected function registerModulesService ()
     {
+        $this->app->singleton('modules.internal', function ($app) {
+            return $app ('modules')->find(module_integration());
+        });
         $this->app->singleton (ModulePermissionService::class, function ($app) {
             return new PermissionManager ($app, $app ['config']);
         });

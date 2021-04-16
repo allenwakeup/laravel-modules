@@ -27,6 +27,20 @@ class Module extends BaseModule
     }
 
     /**
+     * Get namespace.
+     *
+     * @return string
+     */
+    public function getNamespace(): string
+    {
+        $namespace = $this->get('namespace');
+        if(! isset($namespace)){
+            return $namespace;
+        }
+        return $this->getName();
+    }
+
+    /**
      * Bootstrap the application events.
      */
     public function boot(): void
