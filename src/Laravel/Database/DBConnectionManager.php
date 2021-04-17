@@ -5,21 +5,23 @@ namespace Goodcatch\Modules\Laravel\Database;
 use Goodcatch\Modules\Laravel\Contracts\Database\ModuleDBConnectionService;
 use Goodcatch\Modules\Laravel\ServiceManager;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
+use Illuminate\Contracts\Container\BindingResolutionException;
 
 class DBConnectionManager extends ServiceManager implements ModuleDBConnectionService
 {
 
     /**
      * @inheritDoc
+     * @throws BindingResolutionException
      */
     public function createDBConnectionService ($driver)
     {
-        $class = $this->getConfig (
+        return with($this->getConfig (
             "providers.$driver",
-            'Goodcatch\\Modules\\' . Str::ucfirst ($driver) . '\\Contracts\\Database\\DBConnectionProvider'
-        );
-        return new $class ($this->app, $driver);
+            $this->getProviderClass($driver, 'Contracts\\Permission\\PermissionProvider')
+        ), function ($class) use ($driver) {
+            return new $class ($this->app, $driver);
+        });
     }
 
     /**
@@ -36,6 +38,7 @@ class DBConnectionManager extends ServiceManager implements ModuleDBConnectionSe
 
     /**
      * @inheritDoc
+     * @throws BindingResolutionException
      */
     public function createService ($driver)
     {

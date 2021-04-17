@@ -9,6 +9,7 @@ use Goodcatch\Modules\Laravel\Contracts\ModuleService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Traits\ForwardsCalls;
+use Illuminate\Contracts\Container\BindingResolutionException;
 
 abstract class ServiceManager implements ModuleService
 {
@@ -115,6 +116,20 @@ abstract class ServiceManager implements ModuleService
     protected function getProviderDriver ()
     {
         return $this->getConfig ('driver');
+    }
+
+    /**
+     * get default provider class path
+     *
+     * @param $driver string Service driver
+     * @param $suffix string class path
+     * @return string
+     * @throws BindingResolutionException
+     */
+    protected function getProviderClass ($driver, $suffix){
+        return rtrim(config('modules.namespace'), '\\')
+            . '\\' . $this->app->make('modules')->find($driver)->getNamespace()
+            . '\\' . $suffix;
     }
 
 

@@ -5,19 +5,20 @@ namespace Goodcatch\Modules\Laravel\Auth;
 use Goodcatch\Modules\Laravel\Contracts\Auth\ModulePermissionService;
 use Goodcatch\Modules\Laravel\ServiceManager;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
+use Illuminate\Contracts\Container\BindingResolutionException;
 
 class PermissionManager extends ServiceManager implements ModulePermissionService
 {
 
     /**
      * @inheritDoc
+     * @throws BindingResolutionException
      */
     public function createPermissionService ($driver)
     {
         return with($this->getConfig (
             "providers.$driver",
-            'Goodcatch\\Modules\\' . Str::ucfirst ($driver) . '\\Contracts\\Permission\\PermissionProvider'
+            $this->getProviderClass($driver, 'Contracts\\Permission\\PermissionProvider')
         ), function ($class) use ($driver) {
             return new $class ($this->app, $driver);
         });
@@ -37,6 +38,7 @@ class PermissionManager extends ServiceManager implements ModulePermissionServic
 
     /**
      * @inheritDoc
+     * @throws BindingResolutionException
      */
     public function createService ($driver)
     {

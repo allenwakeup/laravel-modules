@@ -284,7 +284,7 @@ return [
         'permission' => [
             'driver' => env ('MODULE_INTEGRATE', 'lightcms'),
             'providers' => [
-                'lightcms' => 'Goodcatch\\Modules\\Lightcms\\Contracts\\Permission\\PermissionProvider'
+                'lightcms' => 'Goodcatch\\Modules\\LightCMS\\Contracts\\Permission\\PermissionProvider'
             ]
         ]
     ],
