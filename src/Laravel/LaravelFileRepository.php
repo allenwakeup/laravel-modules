@@ -5,21 +5,34 @@
 
 namespace Goodcatch\Modules\Laravel;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Schema;
 use Nwidart\Modules\FileRepository;
 use Nwidart\Modules\Json;
 use Nwidart\Modules\Process\Updater;
 use Goodcatch\Modules\Process\Installer;
+use Symfony\Component\Process\Process;
 
 class LaravelFileRepository extends FileRepository
 {
+
+    /**
+     * @var $modules array cache
+     */
+    protected $modules_cache = [];
 
     /**
      * {@inheritdoc}
      */
     protected function createModule (...$args)
     {
-        return new Module (...$args);
+        $key = md5(implode('-', \collect($args)->filter(function($arg) {
+            return 'string' === gettype($arg);
+        })->values()->all()));
+        if(! Arr::has($this->modules_cache, $key)){
+            Arr::set($this->modules_cache, $key, new Module (...$args));
+        }
+        return Arr::get($this->modules_cache, $key);
     }
 
     /**
@@ -40,7 +53,7 @@ class LaravelFileRepository extends FileRepository
      * @param string $type
      * @param bool   $subtree
      *
-     * @return \Symfony\Component\Process\Process
+     * @return Process
      */
     public function install ($name, $version = 'dev-master', $type = 'composer', $subtree = false)
     {
@@ -63,18 +76,20 @@ class LaravelFileRepository extends FileRepository
             {
                 $repo_modules = \Goodcatch\Modules\Laravel\Model\Module::ofEnabled ()->get ();
 
-                foreach ($repo_modules as $manifest) {
-                    if (! empty($manifest->path) && file_exists ($manifest->path))
-                    {
-                        $modules [$manifest->name] = $this->createModule ($this->app, $manifest->name, $manifest->path);
-                    }
+                foreach (Arr::except($modules, $repo_modules->keys()->all()) as $name => $module) {
+                    $module->enable();
                 }
 
+                foreach (Arr::except($repo_modules, \collect($modules)->keys()->all()) as $name => $module) {
+                    if (! empty($module->path) && file_exists ($module->path)){
+                        $modules [$module->name] = $this->createModule($this->app, $module->name, $module->path);
+                    }
+
+                }
             }
         }
         return $modules;
     }
-
 
     /**
      * Get & scan all modules.
