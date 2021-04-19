@@ -46,6 +46,7 @@ if (! function_exists ('goodcatch_vendor_path')) {
     /**
      * Get project vendor path
      *
+     * @param string $append
      * @return string
      */
     function goodcatch_vendor_path ($append = '')
@@ -76,7 +77,7 @@ if (! function_exists ('goodcatch_resource_path')) {
      */
     function goodcatch_resource_path ($append = '')
     {
-        return goodcatch_laravel_modules_path ('/resources') . $append;
+        return goodcatch_vendor_path ('/laravel-modules/resources') . $append;
     }
 }
 
