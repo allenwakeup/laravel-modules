@@ -3,7 +3,6 @@
 namespace Goodcatch\Modules\Commands;
 
 use Nwidart\Modules\Commands\MigrateRefreshCommand as Command;
-use Nwidart\Modules\Traits\ModuleCommandTrait;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 

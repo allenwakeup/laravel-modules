@@ -1,6 +1,7 @@
 {
     "name": "goodcatch/laravel-modules",
     "description": "Laravel Modules development",
+    "version": "0.1.0",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -13,17 +14,15 @@
     ],
 
     "require": {
-        "php": ">=7.2.5",
+        "php": ">=7.3",
         "ext-json": "*",
-        "nwidart/laravel-modules": "^7.1"
+        "nwidart/laravel-modules": "^8.0"
     },
     "require-dev": {
-        "illuminate/support": "^6.0",
-        "laravel/framework": "^6.0",
-        "elendev/nexus-composer-push": "^0.2.2",
-        "laravel/helpers": "^1.1",
-        "laravel/laravel": "^6.0",
-        "mcamara/laravel-localization": "^1.5"
+        "illuminate/support": "^8.0",
+        "laravel/framework": "^8.0",
+        "elendev/nexus-composer-push": "^0.4.0",
+        "laravel/helpers": "^1.1"
     },
     "autoload": {
         "psr-4": {
@@ -40,8 +39,7 @@
                 "Goodcatch\\Modules\\LaravelModulesServiceProvider"
             ],
             "aliases": {
-                "GoodcatchModule": "Goodcatch\\Modules\\Facades\\Module",
-                "modules.service.permission": "Goodcatch\\Modules\\Laravel\\Contracts\\Auth\\ModulePermissionService"
+                "GoodcatchModule": "Goodcatch\\Modules\\Facades\\Module"
             },
             "dont-discover": [
                 "nwidart/laravel-modules"
@@ -61,6 +59,15 @@
             ]
         }
     },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://repos.goodcatch.cn/repository/goodcatch-composer-group/"
+        },
+        {
+            "packagist.org": false
+        }
+    ],
     "minimum-stability": "dev",
     "prefer-stable": true
 }

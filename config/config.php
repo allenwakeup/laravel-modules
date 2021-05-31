@@ -240,57 +240,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Integration
-    |--------------------------------------------------------------------------
-    |
-    | the basic project that laravel-modules is about to integrate
-    |
-    */
-    'integration' => env ('MODULE_INTEGRATE', ''),
-
-    /*
-    |--------------------------------------------------------------------------
-    | Route for modules
-    |--------------------------------------------------------------------------
-    |
-    | You can define prefix of route name here, default to m.
-    | The request url to modules follow this prefix
-    */
-    'route' => [
-        'path' => goodcatch_laravel_modules_path ('/routes'),
-
-        'prefix' => env ('MODULE_ROUTE_PREFIX', 'm'),
-
-        'frontend' => [
-            'namespace' => 'Http\\Controllers\\Front'
-        ],
-        'backend' => [
-            'namespace' => 'Http\\Controllers\\Admin'
-        ],
-        'api' => [
-            'namespace' => 'Http\\Controllers\\Api'
-        ]
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Defined module services
-    |--------------------------------------------------------------------------
-    |
-    | You can define module service for different provider in environment file.
-    |
-    */
-    'service' => [
-        'permission' => [
-            'driver' => env ('MODULE_INTEGRATE', 'lightcms'),
-            'providers' => [
-                'lightcms' => 'Goodcatch\\Modules\\LightCMS\\Contracts\\Permission\\PermissionProvider'
-            ]
-        ]
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
     | Install module from http url
     |--------------------------------------------------------------------------
     |

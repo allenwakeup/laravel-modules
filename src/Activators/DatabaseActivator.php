@@ -8,6 +8,7 @@ use Illuminate\Container\Container;
 use Illuminate\Log\LogManager;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Contracts\Foundation\Application;
 use Nwidart\Modules\Contracts\ActivatorInterface;
 use Nwidart\Modules\Module;
 
@@ -17,7 +18,7 @@ class DatabaseActivator implements ActivatorInterface
     /**
      * Application instance.
      *
-     * @var \Illuminate\Contracts\Foundation\Application
+     * @var Application
      */
     protected $app;
 
@@ -189,7 +190,7 @@ class DatabaseActivator implements ActivatorInterface
                         $module = array_merge(
                             $module->json ()->getAttributes (),
                             ['version' => $module->get ('version')],
-                            ['type' => $module->get ('type')],
+                            ['type' => $module->get ('type', 1)],
                             ['path' => $module->getPath ()]
                         );
                     }

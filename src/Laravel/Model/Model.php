@@ -17,6 +17,7 @@ abstract class Model extends BaseModel
 
     /**
      * @var string module table with prefix
+     * @return string prefix of table name
      */
     protected function getModuleTablePrefix () {
         return 'gc_';

@@ -74,13 +74,22 @@ class LaravelFileRepository extends FileRepository
         {
             if (Schema::hasTable ($this->config ('activators.database.table', 'gc_modules')))
             {
-                $repo_modules = \Goodcatch\Modules\Laravel\Model\Module::ofEnabled ()->get ();
+                $repo_modules = \Goodcatch\Modules\Laravel\Model\Module::get ();
 
-                foreach (Arr::except($modules, $repo_modules->keys()->all()) as $name => $module) {
+                $repo_modules = $repo_modules->except($repo_modules
+                    ->reduce(function ($arr, $module) {
+                        if(!file_exists($module->path)){
+                            $module->delete();
+                            $arr [] = $module->name;
+                        }
+                        return $arr;
+                    }, []));
+
+                foreach (Arr::except($modules, $repo_modules->pluck('name')->values()->all()) as $name => $module) {
                     $module->enable();
                 }
 
-                foreach (Arr::except($repo_modules, \collect($modules)->keys()->all()) as $name => $module) {
+                foreach (Arr::except($repo_modules->toArray(), \collect($modules)->keys()->all()) as $name => $module) {
                     if (! empty($module->path) && file_exists ($module->path)){
                         $modules [$module->name] = $this->createModule($this->app, $module->name, $module->path);
                     }

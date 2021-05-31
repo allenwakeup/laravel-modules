@@ -5,8 +5,7 @@
 
 namespace Goodcatch\Modules;
 
-use Goodcatch\Modules\Laravel\Auth\PermissionManager;
-use Goodcatch\Modules\Laravel\Contracts\Auth\ModulePermissionService;
+
 use Goodcatch\Modules\Laravel\LaravelFileRepository;
 use Goodcatch\Modules\Providers\ConsoleServiceProvider;
 use Goodcatch\Modules\Providers\GoodcatchServiceProvider;
@@ -102,9 +101,6 @@ class LaravelModulesServiceProvider extends ModulesServiceProvider
     {
         $this->app->singleton('modules.internal', function ($app) {
             return $app['modules']->find(module_integration());
-        });
-        $this->app->singleton (ModulePermissionService::class, function ($app) {
-            return new PermissionManager ($app, $app ['config']);
         });
     }
 }

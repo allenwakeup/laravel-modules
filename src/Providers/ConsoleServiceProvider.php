@@ -10,7 +10,6 @@ use Goodcatch\Modules\Commands\MigrateCommand;
 use Goodcatch\Modules\Commands\MigrateRefreshCommand;
 use Goodcatch\Modules\Commands\SeedCommand;
 use Goodcatch\Modules\Laravel\Console\Commands\CacheCommand;
-use Goodcatch\Modules\Laravel\Console\Commands\CreateModuleRelatedFiles;
 use Goodcatch\Modules\Laravel\Console\Commands\TableCommand;
 use Illuminate\Support\ServiceProvider;
 
@@ -22,7 +21,6 @@ class ConsoleServiceProvider extends ServiceProvider
      * @var array
      */
     protected $commands = [
-        CreateModuleRelatedFiles::class,
         TableCommand::class,
         CacheCommand::class,
         SeedCommand::class,
