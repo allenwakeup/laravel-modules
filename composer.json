@@ -16,13 +16,13 @@
     "require": {
         "php": ">=7.3",
         "ext-json": "*",
-        "nwidart/laravel-modules": "^8.0"
+        "nwidart/laravel-modules": "^8.0",
+        "laravel/helpers": "^1.1"
     },
     "require-dev": {
         "illuminate/support": "^8.0",
         "laravel/framework": "^8.0",
-        "elendev/nexus-composer-push": "^0.4.0",
-        "laravel/helpers": "^1.1"
+        "elendev/nexus-composer-push": "^0.4.0"
     },
     "autoload": {
         "psr-4": {

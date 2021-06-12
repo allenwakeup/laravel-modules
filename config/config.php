@@ -240,6 +240,20 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Route for modules
+    |--------------------------------------------------------------------------
+    |
+    | You can define prefix of route name here, default to m.
+    | The request url to modules follow this prefix
+    */
+    'route' => [
+
+        'prefix' => env ('MODULE_ROUTE_PREFIX', 'm')
+
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Install module from http url
     |--------------------------------------------------------------------------
     |
