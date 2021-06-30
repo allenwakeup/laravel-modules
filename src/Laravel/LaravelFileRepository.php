@@ -76,20 +76,25 @@ class LaravelFileRepository extends FileRepository
             {
                 $repo_modules = \Goodcatch\Modules\Laravel\Model\Module::get ();
 
-                $repo_modules = $repo_modules->except($repo_modules
+                $repo_modules = $repo_modules
                     ->reduce(function ($arr, $module) {
                         if(!file_exists($module->path)){
                             $module->delete();
-                            $arr [] = $module->name;
                         }
+                        $arr->push($module);
                         return $arr;
-                    }, []));
+                    },  \collect([]));
 
                 foreach (Arr::except($modules, $repo_modules->pluck('name')->values()->all()) as $name => $module) {
                     $module->enable();
                 }
 
-                foreach (Arr::except($repo_modules->toArray(), \collect($modules)->keys()->all()) as $name => $module) {
+                foreach (Arr::except($repo_modules
+                    ->reduce(
+                        function($arr, $item) {
+                            $arr [$item->name] = $item;
+                            return $arr;
+                        }, []), \collect($modules)->keys()->all()) as $name => $module) {
                     if (! empty($module->path) && file_exists ($module->path)){
                         $modules [$module->name] = $this->createModule($this->app, $module->name, $module->path);
                     }

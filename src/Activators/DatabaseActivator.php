@@ -204,6 +204,7 @@ class DatabaseActivator implements ActivatorInterface
                                 'path' => Arr::get ($module, 'path', ''),
                                 'version' => Arr::get ($module, 'version', 'dev'),
                                 'type' => Arr::get ($module, 'type', '1'),
+                                'priority' => Arr::get ($module, 'priority', '1024'),
                                 'sort' => Arr::get ($module, 'order', '0'),
                                 'status' => 1
                             ]
