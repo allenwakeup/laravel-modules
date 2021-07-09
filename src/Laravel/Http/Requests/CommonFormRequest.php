@@ -42,6 +42,10 @@ class CommonFormRequest extends FormRequest
     protected function uniqueOrExists ($clazz, $column, $param = 'id')
     {
         $id = request ()->route ()->parameter ($param);
+        if (!isset ($id))
+        {
+            $id = request ()->post ($param);
+        }
         if (isset ($id))
         {
             if (! array_has ($this->uniqueOrExists, $clazz))
