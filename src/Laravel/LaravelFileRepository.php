@@ -6,6 +6,8 @@
 namespace Goodcatch\Modules\Laravel;
 
 use Illuminate\Support\Arr;
+use Illuminate\Container\Container;
+use Illuminate\Contracts\Config\Repository as ConfigRepository;
 use Illuminate\Support\Facades\Schema;
 use Nwidart\Modules\FileRepository;
 use Nwidart\Modules\Json;
@@ -17,9 +19,47 @@ class LaravelFileRepository extends FileRepository
 {
 
     /**
+     * @var ConfigRepository
+     */
+    private $config;
+
+    /**
      * @var $modules array cache
      */
     protected $modules_cache = [];
+
+    /**
+     * The constructor.
+     * @param Container $app
+     * @param string|null $path
+     */
+    public function __construct(Container $app, $path = null)
+    {
+        parent::__construct($app, $path);
+
+        $this->config = $app ['config'];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function boot(): void
+    {
+        if(!empty($this->config->get('app.key'))){
+            parent::boot();
+        }
+    }
+
+    /**
+     * @inheritDoc
+     *
+     */
+    public function register(): void
+    {
+        if(!empty($this->config->get('app.key'))){
+            parent::register();
+        }
+    }
 
     /**
      * {@inheritdoc}
