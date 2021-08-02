@@ -45,29 +45,8 @@
                 "nwidart/laravel-modules"
             ]
 
-        },
-        "nexus-push": {
-            "url": "https://repos.goodcatch.cn/repository/composer",
-            "ignore-by-git-attributes": true,
-            "ignore": [
-                "test.php",
-                "auth.json",
-                ".git",
-                ".DS_Store",
-                ".idea/",
-                "/vendor"
-            ]
         }
     },
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://repos.goodcatch.cn/repository/goodcatch-composer-group/"
-        },
-        {
-            "packagist.org": false
-        }
-    ],
     "minimum-stability": "dev",
     "prefer-stable": true
 }
