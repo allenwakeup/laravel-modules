@@ -157,18 +157,6 @@ if (! function_exists ('module_tap')) {
     }
 }
 
-if (! function_exists ('module_integration')) {
-    /**
-     * module integration name
-     *
-     * @return string
-     */
-    function module_integration()
-    {
-        return module_config('integration', '');
-    }
-}
-
 if (! function_exists ('collection2TreeData')) {
     /**
      *

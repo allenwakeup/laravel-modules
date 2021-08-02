@@ -32,8 +32,6 @@ class LaravelModulesServiceProvider extends ModulesServiceProvider
         parent::register ();
 
         $this->app->bind (RepositoryInterface::class, LaravelFileRepository::class);
-
-        $this->registerModulesService ();
     }
 
 
@@ -92,15 +90,5 @@ class LaravelModulesServiceProvider extends ModulesServiceProvider
         $langPath = goodcatch_resource_path ('/lang');
 
         $this->loadTranslationsFrom ($langPath, 'goodcatch');
-    }
-
-    /**
-     * Register managements for service that reference among different modules
-     */
-    protected function registerModulesService ()
-    {
-        $this->app->singleton('modules.internal', function ($app) {
-            return $app['modules']->find(module_integration());
-        });
     }
 }
