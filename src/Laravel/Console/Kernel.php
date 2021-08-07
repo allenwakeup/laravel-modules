@@ -20,7 +20,9 @@ class Kernel extends ConsoleKernel
     {
         parent::schedule ($schedule);
 
-        $this->modulesSchedule ($schedule);
+        if(!empty($this->app['config']->get('app.key'))){
+            $this->modulesSchedule ($schedule);
+        }
     }
 
     /**
@@ -35,10 +37,20 @@ class Kernel extends ConsoleKernel
         {
             if ($this->app->bound ('console.' . $module->getLowerName ())) {
                 try {
-                    $this->app->make('console.' . $module->getLowerName(), compact('schedule'))->schedule();
+                    $module_kernel_extend = $this->app->make('console.' . $module->getLowerName(), [
+                        $this,
+                        $schedule,
+                        $this->events
+                    ]);
+                    $module_kernel_extend->schedule();
                 } catch (BindingResolutionException $e) {
                     throw new RuntimeException(
                         'Unable to resolve the dispatcher from the service container. Please bind it or install illuminate/bus.',
+                        $e->getCode(), $e
+                    );
+                } catch (\Exception $e) {
+                    throw new RuntimeException(
+                        'Unknown exception',
                         $e->getCode(), $e
                     );
                 }
@@ -58,13 +70,14 @@ class Kernel extends ConsoleKernel
 
         $this->load (__DIR__.'/Commands');
 
-        // 搜寻模块下的命令
-        $modules = app ('modules') ? app('modules')->all () : [];
-        foreach ($modules as $module_name => $module) {
-            if ($module->isEnabled ()) {
-                $this->load (module_generated_path($module->getLowerName (), 'command'));
+        if(!empty($this->app['config']->get('app.key'))){
+            // 搜寻模块下的命令
+            $modules = app ('modules') ? app('modules')->all () : [];
+            foreach ($modules as $module_name => $module) {
+                if ($module->isEnabled ()) {
+                    $this->load (module_generated_path($module->getLowerName (), 'command'));
+                }
             }
         }
-
     }
 }
