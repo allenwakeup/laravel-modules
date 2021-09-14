@@ -1,6 +1,7 @@
 {
     "name": "goodcatch/laravel-modules",
     "description": "Laravel Modules development",
+    "version": "0.1.0",
     "type": "library",
     "license": "MIT",
     "authors": [
