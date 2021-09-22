@@ -21,7 +21,7 @@
     "require-dev": {
         "illuminate/support": "^8.0",
         "laravel/framework": "^8.0",
-        "laravel/helpers": "^8.0"
+        "laravel/helpers": "^1.4.1"
     },
     "autoload": {
         "psr-4": {
