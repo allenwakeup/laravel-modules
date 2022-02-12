@@ -29,7 +29,9 @@ class LaravelModulesServiceProvider extends ModulesServiceProvider
 
     public function register ()
     {
-        parent::register ();
+        $this->registerServices();
+        $this->setupStubPath();
+        $this->registerProviders();
 
         $this->app->bind (RepositoryInterface::class, LaravelFileRepository::class);
     }
